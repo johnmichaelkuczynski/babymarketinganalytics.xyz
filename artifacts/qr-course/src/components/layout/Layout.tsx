@@ -154,7 +154,7 @@ function TopBar() {
         disabled={resetting}
         className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium border border-border hover:bg-secondary disabled:opacity-50"
         data-testid="button-reset"
-        title="Wipe all student progress (keeps lectures and assignments)"
+        title="Wipe all student progress — practice, assignments, and diagnostic reasoning tests (keeps lectures and assignments)"
       >
         <RotateCcw className={`w-4 h-4 ${resetting ? "animate-spin" : ""}`} />
         {resetting ? "Resetting…" : "Reset course"}
