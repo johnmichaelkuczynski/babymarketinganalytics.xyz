@@ -5,6 +5,7 @@ import {
   useGetWeek,
   useRewriteLecture,
   useClearLectureRewrite,
+  useGenerateLectureExamples,
   useAskTutor,
   useStartPracticeSession,
   useNextPracticeProblem,
@@ -73,6 +74,62 @@ export default function LectureView() {
   const qc = useQueryClient();
   const [generating, setGenerating] = useState<"medium" | "long" | null>(null);
   const [genError, setGenError] = useState<string | null>(null);
+
+  // "Rewrite with lots of examples" — a per-length toggle. When on, the body for
+  // the current base length is shown augmented with at least one vivid example
+  // per point. Cached per length on the server so toggling is instant.
+  const generateExamples = useGenerateLectureExamples();
+  // Per-length on/off state, so each length remembers its own examples toggle.
+  const [examplesOnByLevel, setExamplesOnByLevel] = useState<{
+    short: boolean;
+    medium: boolean;
+    long: boolean;
+  }>({ short: false, medium: false, long: false });
+  const [examplesError, setExamplesError] = useState<string | null>(null);
+  // The base length the examples toggle applies to (custom has no examples mode).
+  const examplesLevel: "short" | "medium" | "long" | null =
+    level === "custom" ? null : level;
+  const examplesField =
+    examplesLevel === "long"
+      ? "bodyLongExamples"
+      : examplesLevel === "medium"
+        ? "bodyMediumExamples"
+        : examplesLevel === "short"
+          ? "bodyShortExamples"
+          : null;
+  const examplesReady = !!(examplesField && lecture?.[examplesField]);
+  const examplesOn = examplesLevel ? examplesOnByLevel[examplesLevel] : false;
+
+  function setExamplesForLevel(lvl: "short" | "medium" | "long", on: boolean) {
+    setExamplesOnByLevel((prev) => ({ ...prev, [lvl]: on }));
+  }
+
+  async function toggleExamples() {
+    if (!lecture || !examplesLevel) return;
+    // Turning off is always instant.
+    if (examplesOn) {
+      setExamplesForLevel(examplesLevel, false);
+      return;
+    }
+    setExamplesError(null);
+    // Already cached for this length — show immediately.
+    if (examplesReady) {
+      setExamplesForLevel(examplesLevel, true);
+      return;
+    }
+    try {
+      await generateExamples.mutateAsync({
+        lectureId: lecture.id,
+        data: { level: examplesLevel },
+      });
+      await qc.invalidateQueries();
+      setExamplesForLevel(examplesLevel, true);
+    } catch (e) {
+      setExamplesError(
+        `Could not add examples to the ${examplesLevel} version: ${(e as Error).message}. Please try again.`,
+      );
+    }
+  }
 
   // Reader-directed rewrite ("rewrite this lecture to …")
   const rewrite = useRewriteLecture();
@@ -161,7 +218,13 @@ export default function LectureView() {
     }
   }
 
-  const activeBody =
+  // Each length keeps its own examples toggle; switching length just clears any
+  // stale error banner (the per-length on/off state persists in state).
+  useEffect(() => {
+    setExamplesError(null);
+  }, [level]);
+
+  const baseBody =
     level === "custom" && lecture?.bodyCustom
       ? lecture.bodyCustom
       : level === "long" && lecture?.bodyLong
@@ -169,6 +232,11 @@ export default function LectureView() {
         : level === "medium" && lecture?.bodyMedium
           ? lecture.bodyMedium
           : (lecture?.body ?? "");
+
+  const activeBody =
+    examplesOn && examplesField && lecture?.[examplesField]
+      ? (lecture[examplesField] as string)
+      : baseBody;
 
   return (
     <Layout>
@@ -262,6 +330,33 @@ export default function LectureView() {
                         );
                       })}
                     </div>
+                    {examplesLevel && (
+                      <Button
+                        size="sm"
+                        variant={examplesOn ? "default" : "outline"}
+                        className="h-8 text-xs"
+                        onClick={toggleExamples}
+                        disabled={generateExamples.isPending}
+                        title={
+                          examplesOn
+                            ? "Show the plain version without the extra examples"
+                            : `Rewrite the ${examplesLevel} version with lots of vivid examples`
+                        }
+                        data-testid="button-examples-toggle"
+                      >
+                        {generateExamples.isPending ? (
+                          <span className="inline-flex items-center gap-1.5">
+                            <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                            Adding examples…
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1.5">
+                            <Sparkles className="w-3.5 h-3.5" />
+                            {examplesOn ? "Examples on" : "Add examples"}
+                          </span>
+                        )}
+                      </Button>
+                    )}
                     <Button
                       size="sm"
                       variant={rewriteOpen ? "secondary" : "outline"}
@@ -386,6 +481,38 @@ export default function LectureView() {
               {genError && (
                 <div className="mb-3 rounded-md border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-800">
                   {genError}
+                </div>
+              )}
+              {examplesError && (
+                <div className="mb-3 rounded-md border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-800">
+                  {examplesError}
+                </div>
+              )}
+              {generateExamples.isPending && (
+                <div className="mb-3 rounded-md border border-chart-2/40 bg-chart-2/5 px-3 py-2 text-sm text-foreground inline-flex items-center gap-2">
+                  <RefreshCw className="w-4 h-4 animate-spin" />
+                  Adding vivid examples to the {examplesLevel} version — about 30
+                  seconds. It keeps everything you're reading and just adds
+                  illustrations.
+                </div>
+              )}
+              {examplesOn && !generateExamples.isPending && (
+                <div className="mb-3 rounded-md border border-primary/30 bg-primary/5 px-3 py-2 text-xs text-foreground flex items-center gap-2">
+                  <Sparkles className="w-3.5 h-3.5 text-primary shrink-0" />
+                  <span className="flex-1">
+                    Showing the{" "}
+                    <span className="font-medium uppercase">{examplesLevel}</span>{" "}
+                    version with extra examples added to every point.
+                  </span>
+                  <button
+                    onClick={() =>
+                      examplesLevel && setExamplesForLevel(examplesLevel, false)
+                    }
+                    className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
+                    data-testid="button-examples-off"
+                  >
+                    <X className="w-3 h-3" /> plain
+                  </button>
                 </div>
               )}
               {generating && (

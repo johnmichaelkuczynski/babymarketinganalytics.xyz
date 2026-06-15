@@ -45,6 +45,21 @@ export interface Lecture {
      * @nullable
      */
   customInstruction?: string | null;
+  /**
+     * The short version augmented with at least one vivid illustration per point. Null until the reader toggles examples on for the short length.
+     * @nullable
+     */
+  bodyShortExamples?: string | null;
+  /**
+     * The medium version augmented with at least one vivid illustration per point. Null until the reader toggles examples on for the medium length.
+     * @nullable
+     */
+  bodyMediumExamples?: string | null;
+  /**
+     * The long version augmented with at least one vivid illustration per point. Null until the reader toggles examples on for the long length.
+     * @nullable
+     */
+  bodyLongExamples?: string | null;
 }
 
 export interface LectureRef {
@@ -677,6 +692,23 @@ export interface RewriteLectureInput {
   instruction: string;
   /** Which version of the lecture to rewrite from. Defaults to "short". Use "custom" to refine an existing rewrite further. */
   baseLevel?: RewriteLectureInputBaseLevel;
+}
+
+/**
+ * Which base length to produce the "with lots of examples" variant for.
+ */
+export type GenerateLectureExamplesInputLevel = typeof GenerateLectureExamplesInputLevel[keyof typeof GenerateLectureExamplesInputLevel];
+
+
+export const GenerateLectureExamplesInputLevel = {
+  short: 'short',
+  medium: 'medium',
+  long: 'long',
+} as const;
+
+export interface GenerateLectureExamplesInput {
+  /** Which base length to produce the "with lots of examples" variant for. */
+  level: GenerateLectureExamplesInputLevel;
 }
 
 /**

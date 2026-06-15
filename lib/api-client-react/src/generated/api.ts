@@ -32,6 +32,7 @@ import type {
   CourseOverview,
   DetectionResult,
   DetectionScanInput,
+  GenerateLectureExamplesInput,
   Gradebook,
   GraderLabInput,
   GraderLabResult,
@@ -522,6 +523,79 @@ export const useClearLectureRewrite = <TError = ErrorType<unknown>,
         TContext
       > => {
       return useMutation(getClearLectureRewriteMutationOptions(options));
+    }
+
+export const getGenerateLectureExamplesUrl = (lectureId: number,) => {
+
+
+
+
+  return `/api/course/lectures/${lectureId}/examples`
+}
+
+/**
+ * Rewrites the chosen base length (short/medium/long) to keep the same content and structure but add at least one vivid illustration to every point. Caches the result on the matching bodyExamples column and returns the updated lecture. If the variant already exists it is returned as-is.
+ * @summary Generate the "with lots of examples" variant for a given length
+ */
+export const generateLectureExamples = async (lectureId: number,
+    generateLectureExamplesInput: GenerateLectureExamplesInput, options?: RequestInit): Promise<Lecture> => {
+
+  return customFetch<Lecture>(getGenerateLectureExamplesUrl(lectureId),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      generateLectureExamplesInput,)
+  }
+);}
+
+
+
+
+export const getGenerateLectureExamplesMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof generateLectureExamples>>, TError,{lectureId: number;data: BodyType<GenerateLectureExamplesInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof generateLectureExamples>>, TError,{lectureId: number;data: BodyType<GenerateLectureExamplesInput>}, TContext> => {
+
+const mutationKey = ['generateLectureExamples'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof generateLectureExamples>>, {lectureId: number;data: BodyType<GenerateLectureExamplesInput>}> = (props) => {
+          const {lectureId,data} = props ?? {};
+
+          return  generateLectureExamples(lectureId,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type GenerateLectureExamplesMutationResult = NonNullable<Awaited<ReturnType<typeof generateLectureExamples>>>
+    export type GenerateLectureExamplesMutationBody = BodyType<GenerateLectureExamplesInput>
+    export type GenerateLectureExamplesMutationError = ErrorType<unknown>
+
+    /**
+ * @summary Generate the "with lots of examples" variant for a given length
+ */
+export const useGenerateLectureExamples = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof generateLectureExamples>>, TError,{lectureId: number;data: BodyType<GenerateLectureExamplesInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof generateLectureExamples>>,
+        TError,
+        {lectureId: number;data: BodyType<GenerateLectureExamplesInput>},
+        TContext
+      > => {
+      return useMutation(getGenerateLectureExamplesMutationOptions(options));
     }
 
 export const getListTopicsUrl = () => {

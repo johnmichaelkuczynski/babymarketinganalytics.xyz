@@ -13,6 +13,7 @@ import {
   GetLectureResponse,
   ListTopicsResponse,
   RewriteLectureBody,
+  GenerateLectureExamplesBody,
 } from "@workspace/api-zod";
 import { chatText } from "../lib/ai";
 
@@ -260,6 +261,94 @@ router.delete(
       res.status(404).json({ error: "lecture not found" });
       return;
     }
+    res.json(GetLectureResponse.parse(updated));
+  },
+);
+
+// Generate (and cache) the "with lots of examples" variant for a given base
+// length. Keeps the same content and structure as that length, but adds at
+// least one vivid illustration to every point.
+router.post(
+  "/course/lectures/:lectureId/examples",
+  async (req, res): Promise<void> => {
+    const lectureId = parseLectureId(req);
+    if (lectureId === null) {
+      res.status(400).json({ error: "invalid lectureId" });
+      return;
+    }
+    const parsed = GenerateLectureExamplesBody.safeParse(req.body);
+    if (!parsed.success) {
+      res.status(400).json({ error: parsed.error.message });
+      return;
+    }
+    const level = parsed.data.level;
+
+    const [lecture] = await db
+      .select()
+      .from(lecturesTable)
+      .where(eq(lecturesTable.id, lectureId));
+    if (!lecture) {
+      res.status(404).json({ error: "lecture not found" });
+      return;
+    }
+
+    const examplesColumn =
+      level === "long"
+        ? "bodyLongExamples"
+        : level === "medium"
+          ? "bodyMediumExamples"
+          : "bodyShortExamples";
+
+    // Already generated for this length — return as-is so toggling is instant.
+    if (lecture[examplesColumn] && lecture[examplesColumn]!.trim().length > 0) {
+      res.json(GetLectureResponse.parse(lecture));
+      return;
+    }
+
+    const base =
+      level === "long"
+        ? lecture.bodyLong
+        : level === "medium"
+          ? lecture.bodyMedium
+          : lecture.body;
+    const sourceBody = (base && base.trim().length > 0 ? base : lecture.body).trim();
+
+    const sys =
+      "You are an introductory criminal psychology lecturer adding illustrations to your own lecture. " +
+      "You are given the CURRENT lecture. Return the SAME lecture, unchanged in what it teaches, but with vivid illustrations added. ABSOLUTE RULES, no exceptions:\n" +
+      "1. KEEP every concept, claim, heading, section, and learning objective exactly as they are, in the same order. Do not remove, reorder, or rewrite the existing explanation — only ADD to it.\n" +
+      "2. For EVERY distinct point the lecture makes, add AT LEAST ONE concrete, vivid illustration that makes the point easy to picture: a short scenario, a real-to-life case sketch, an everyday analogy, or a worked example. Keep illustrations tasteful and age-appropriate — never graphic or sensational.\n" +
+      "3. Set off each illustration so it reads as an example (e.g. a short *Example:* sentence or a brief italicized vignette) rather than blending into the original text.\n" +
+      "4. Stay accurate to the source material and to criminal psychology as a discipline. Do not invent fake facts, statistics, citations, or quotations; keep examples plausibly illustrative, not presented as documented cases.\n" +
+      "5. Use clear Markdown. Use $...$ for any inline math.\n" +
+      "6. Return ONLY the augmented Markdown lecture body — no preface, no commentary, no surrounding code fences.";
+    const user =
+      `LECTURE TITLE: ${lecture.title}\n\n` +
+      `CURRENT LECTURE:\n"""\n${sourceBody}\n"""`;
+
+    let augmented = "";
+    try {
+      augmented = (await chatText(sys, user)).trim();
+    } catch {
+      res.status(502).json({
+        error: "The example service is unavailable right now. Please try again in a moment.",
+      });
+      return;
+    }
+    // Guard against an empty / truncated response. The augmented version should
+    // be at least as long as the source it expands on.
+    if (augmented.length < Math.max(200, sourceBody.length * 0.9)) {
+      res.status(502).json({
+        error: "The model returned an unusable result — please try again in a moment.",
+      });
+      return;
+    }
+
+    const [updated] = await db
+      .update(lecturesTable)
+      .set({ [examplesColumn]: augmented })
+      .where(eq(lecturesTable.id, lectureId))
+      .returning();
     res.json(GetLectureResponse.parse(updated));
   },
 );

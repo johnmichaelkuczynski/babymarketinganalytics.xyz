@@ -131,6 +131,34 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Lecture"
+  /course/lectures/{lectureId}/examples:
+    post:
+      operationId: generateLectureExamples
+      tags: [course]
+      summary: Generate the "with lots of examples" variant for a given length
+      description: >-
+        Rewrites the chosen base length (short/medium/long) to keep the same
+        content and structure but add at least one vivid illustration to every
+        point. Caches the result on the matching bodyExamples column and returns
+        the updated lecture. If the variant already exists it is returned as-is.
+      parameters:
+        - name: lectureId
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenerateLectureExamplesInput"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Lecture"
 
   /course/topics:
     get:
@@ -621,6 +649,15 @@ components:
         customInstruction:
           type: ["string", "null"]
           description: The most recent instruction the student gave to produce bodyCustom. Null when there is no custom rewrite.
+        bodyShortExamples:
+          type: ["string", "null"]
+          description: The short version augmented with at least one vivid illustration per point. Null until the reader toggles examples on for the short length.
+        bodyMediumExamples:
+          type: ["string", "null"]
+          description: The medium version augmented with at least one vivid illustration per point. Null until the reader toggles examples on for the medium length.
+        bodyLongExamples:
+          type: ["string", "null"]
+          description: The long version augmented with at least one vivid illustration per point. Null until the reader toggles examples on for the long length.
 
     Week:
       type: object
@@ -1177,6 +1214,15 @@ components:
           type: string
           enum: [short, medium, long, custom]
           description: Which version of the lecture to rewrite from. Defaults to "short". Use "custom" to refine an existing rewrite further.
+
+    GenerateLectureExamplesInput:
+      type: object
+      required: [level]
+      properties:
+        level:
+          type: string
+          enum: [short, medium, long]
+          description: Which base length to produce the "with lots of examples" variant for.
 
     StartReasoningBody:
       type: object

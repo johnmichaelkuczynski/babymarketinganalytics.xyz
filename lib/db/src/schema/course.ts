@@ -40,6 +40,12 @@ export const lecturesTable = pgTable("lectures", {
   bodyLong: text("body_long"),
   bodyCustom: text("body_custom"),
   customInstruction: text("custom_instruction"),
+  // Cached "with lots of examples" variants — one per base length. Each keeps
+  // the same content/structure of its length but adds at least one vivid
+  // illustration per point. Null until the reader toggles examples on.
+  bodyShortExamples: text("body_short_examples"),
+  bodyMediumExamples: text("body_medium_examples"),
+  bodyLongExamples: text("body_long_examples"),
 });
 
 export const assignmentsTable = pgTable("assignments", {
@@ -151,15 +157,16 @@ export const practiceAttemptsTable = pgTable("practice_attempts", {
 
 // ---------------------------------------------------------------------------
 // Diagnostic reasoning assessments (embedded program-level instruments).
-// Two original instruments — Ethical Reasoning (DIT-style) and Critical
-// Reasoning (CCTST-style) — each administered 5 times (baseline + after each
-// of the 4 units) with mutually unique items. Pass/Fail: submitting = pass.
+// Two instruments — `subject` (Criminal Psychology subject reasoning) and
+// `general` (general reasoning) — each offered at four phases (before, third,
+// twothirds, after) in three formats, with freshly generated, never-repeating
+// items every attempt. Ungraded: takeable anytime, never affects the grade.
 // ---------------------------------------------------------------------------
 
 export const diagnosticAssessmentsTable = pgTable("diagnostic_assessments", {
   id: serial("id").primaryKey(),
-  instrument: text("instrument").notNull(), // ethical | critical
-  phase: text("phase").notNull(), // baseline | unit1 | unit2 | unit3 | unit4
+  instrument: text("instrument").notNull(), // subject | general
+  phase: text("phase").notNull(), // before | third | twothirds | after
   // Answer format of this version of the test: mcq (options only), hybrid
   // (options + a short written justification), or written (short written
   // justification, no options). Each (instrument, phase) is offered in all

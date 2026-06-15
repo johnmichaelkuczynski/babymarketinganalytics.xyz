@@ -102,7 +102,10 @@ export const GetLectureResponse = zod.object({
   "bodyMedium": zod.string().nullish().describe('Medium-length version with more explanation and more examples. Null if not yet generated.'),
   "bodyLong": zod.string().nullish().describe('Long version with the most explanation and the most examples. Null if not yet generated.'),
   "bodyCustom": zod.string().nullish().describe('A reader-directed rewrite of the lecture produced from the student\'s own instruction (e.g. add more examples, illustrate a principle, shorter sentences). Null until the student requests a rewrite.'),
-  "customInstruction": zod.string().nullish().describe('The most recent instruction the student gave to produce bodyCustom. Null when there is no custom rewrite.')
+  "customInstruction": zod.string().nullish().describe('The most recent instruction the student gave to produce bodyCustom. Null when there is no custom rewrite.'),
+  "bodyShortExamples": zod.string().nullish().describe('The short version augmented with at least one vivid illustration per point. Null until the reader toggles examples on for the short length.'),
+  "bodyMediumExamples": zod.string().nullish().describe('The medium version augmented with at least one vivid illustration per point. Null until the reader toggles examples on for the medium length.'),
+  "bodyLongExamples": zod.string().nullish().describe('The long version augmented with at least one vivid illustration per point. Null until the reader toggles examples on for the long length.')
 })
 
 
@@ -132,7 +135,10 @@ export const RewriteLectureResponse = zod.object({
   "bodyMedium": zod.string().nullish().describe('Medium-length version with more explanation and more examples. Null if not yet generated.'),
   "bodyLong": zod.string().nullish().describe('Long version with the most explanation and the most examples. Null if not yet generated.'),
   "bodyCustom": zod.string().nullish().describe('A reader-directed rewrite of the lecture produced from the student\'s own instruction (e.g. add more examples, illustrate a principle, shorter sentences). Null until the student requests a rewrite.'),
-  "customInstruction": zod.string().nullish().describe('The most recent instruction the student gave to produce bodyCustom. Null when there is no custom rewrite.')
+  "customInstruction": zod.string().nullish().describe('The most recent instruction the student gave to produce bodyCustom. Null when there is no custom rewrite.'),
+  "bodyShortExamples": zod.string().nullish().describe('The short version augmented with at least one vivid illustration per point. Null until the reader toggles examples on for the short length.'),
+  "bodyMediumExamples": zod.string().nullish().describe('The medium version augmented with at least one vivid illustration per point. Null until the reader toggles examples on for the medium length.'),
+  "bodyLongExamples": zod.string().nullish().describe('The long version augmented with at least one vivid illustration per point. Null until the reader toggles examples on for the long length.')
 })
 
 
@@ -152,7 +158,38 @@ export const ClearLectureRewriteResponse = zod.object({
   "bodyMedium": zod.string().nullish().describe('Medium-length version with more explanation and more examples. Null if not yet generated.'),
   "bodyLong": zod.string().nullish().describe('Long version with the most explanation and the most examples. Null if not yet generated.'),
   "bodyCustom": zod.string().nullish().describe('A reader-directed rewrite of the lecture produced from the student\'s own instruction (e.g. add more examples, illustrate a principle, shorter sentences). Null until the student requests a rewrite.'),
-  "customInstruction": zod.string().nullish().describe('The most recent instruction the student gave to produce bodyCustom. Null when there is no custom rewrite.')
+  "customInstruction": zod.string().nullish().describe('The most recent instruction the student gave to produce bodyCustom. Null when there is no custom rewrite.'),
+  "bodyShortExamples": zod.string().nullish().describe('The short version augmented with at least one vivid illustration per point. Null until the reader toggles examples on for the short length.'),
+  "bodyMediumExamples": zod.string().nullish().describe('The medium version augmented with at least one vivid illustration per point. Null until the reader toggles examples on for the medium length.'),
+  "bodyLongExamples": zod.string().nullish().describe('The long version augmented with at least one vivid illustration per point. Null until the reader toggles examples on for the long length.')
+})
+
+
+/**
+ * Rewrites the chosen base length (short/medium/long) to keep the same content and structure but add at least one vivid illustration to every point. Caches the result on the matching bodyExamples column and returns the updated lecture. If the variant already exists it is returned as-is.
+ * @summary Generate the "with lots of examples" variant for a given length
+ */
+export const GenerateLectureExamplesParams = zod.object({
+  "lectureId": zod.coerce.number()
+})
+
+export const GenerateLectureExamplesBody = zod.object({
+  "level": zod.enum(['short', 'medium', 'long']).describe('Which base length to produce the \"with lots of examples\" variant for.')
+})
+
+export const GenerateLectureExamplesResponse = zod.object({
+  "id": zod.number(),
+  "topicId": zod.number(),
+  "title": zod.string(),
+  "weekNumber": zod.number(),
+  "body": zod.string().describe('Short Markdown lecture text (the baseline \/ minimum-detail version). The frontend lets users select passages and send them to the tutor.'),
+  "bodyMedium": zod.string().nullish().describe('Medium-length version with more explanation and more examples. Null if not yet generated.'),
+  "bodyLong": zod.string().nullish().describe('Long version with the most explanation and the most examples. Null if not yet generated.'),
+  "bodyCustom": zod.string().nullish().describe('A reader-directed rewrite of the lecture produced from the student\'s own instruction (e.g. add more examples, illustrate a principle, shorter sentences). Null until the student requests a rewrite.'),
+  "customInstruction": zod.string().nullish().describe('The most recent instruction the student gave to produce bodyCustom. Null when there is no custom rewrite.'),
+  "bodyShortExamples": zod.string().nullish().describe('The short version augmented with at least one vivid illustration per point. Null until the reader toggles examples on for the short length.'),
+  "bodyMediumExamples": zod.string().nullish().describe('The medium version augmented with at least one vivid illustration per point. Null until the reader toggles examples on for the medium length.'),
+  "bodyLongExamples": zod.string().nullish().describe('The long version augmented with at least one vivid illustration per point. Null until the reader toggles examples on for the long length.')
 })
 
 

@@ -24,6 +24,8 @@ export * from './courseOverview';
 export * from './courseOverviewTotals';
 export * from './detectionResult';
 export * from './detectionScanInput';
+export * from './generateLectureExamplesInput';
+export * from './generateLectureExamplesInputLevel';
 export * from './gradebook';
 export * from './gradebookCourseworkItem';
 export * from './gradebookCourseworkItemKind';
