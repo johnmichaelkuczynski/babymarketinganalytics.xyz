@@ -6,90 +6,78 @@ export function Scene3() {
 
   useEffect(() => {
     const timers = [
-      setTimeout(() => setPhase(1), 500),   // Tutor appears
-      setTimeout(() => setPhase(2), 4000),  // 3 lengths feature
-      setTimeout(() => setPhase(3), 7000),  // adaptive practice
+      setTimeout(() => setPhase(1), 500),
+      setTimeout(() => setPhase(2), 2000), // Show toggle
+      setTimeout(() => setPhase(3), 3500), // Toggle to Medium
     ];
     return () => timers.forEach(t => clearTimeout(t));
   }, []);
 
   return (
     <motion.div 
-      className="absolute inset-0 flex items-center justify-center bg-bg-muted"
-      initial={{ opacity: 0, scale: 1.2 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.8, filter: 'blur(10px)' }}
-      transition={{ duration: 0.8, ease: "circOut" }}
+      className="absolute inset-0 flex bg-slate-100"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
-      
-      {/* P1: AI Tutor */}
       <motion.div 
-        className="absolute flex items-center gap-8"
-        initial={{ x: 0, opacity: 0 }}
-        animate={
-          phase === 1 ? { x: 0, opacity: 1, scale: 1 } : 
-          phase > 1 ? { x: '-30vw', opacity: 0.2, scale: 0.6 } : 
-          { x: 0, opacity: 0 }
-        }
-        transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+        className="w-[85vw] h-[80vh] m-auto bg-white rounded-xl shadow-soft flex overflow-hidden border border-slate-200"
       >
-        <img 
-          src={`${import.meta.env.BASE_URL}images/ai-tutor.png`} 
-          alt="AI Tutor" 
-          className="w-[20vw] h-[20vw] object-contain drop-shadow-2xl rounded-full bg-white p-4"
-        />
-        <div className="bg-white p-8 rounded-3xl rounded-tl-none shadow-xl border-2 border-primary/20">
-          <p className="text-[3vw] font-bold text-text-primary">Meet your AI Tutor.</p>
-          <p className="text-[2vw] text-text-secondary mt-2">Always ready to help.</p>
+        {/* Sidebar - static */}
+        <div className="w-[30vw] bg-slate-50 border-r border-slate-200 p-8 flex flex-col opacity-50">
+          <div className="w-12 h-12 bg-blue-600 rounded-lg mb-8" />
+          <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Unit 1</h3>
+          <div className="text-sm font-medium text-slate-400 mb-4">1.1 What financial & managerial analytics is</div>
+          <div className="text-sm font-medium text-slate-400 mb-4">1.2 Reading the score</div>
+          <div className="text-sm font-medium text-slate-400 mb-4">1.3 Cost behavior</div>
+          <div className="text-sm font-medium text-blue-600 bg-blue-50 p-2 rounded -ml-2 mb-4">1.4 Break-even</div>
         </div>
-      </motion.div>
 
-      {/* P2: Flexible reading */}
-      <motion.div 
-        className="absolute right-[10vw] flex flex-col gap-6 w-[40vw]"
-        initial={{ x: '20vw', opacity: 0 }}
-        animate={
-          phase === 2 ? { x: 0, opacity: 1 } : 
-          phase > 2 ? { y: '-20vh', opacity: 0 } : 
-          { x: '20vw', opacity: 0 }
-        }
-        transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-      >
-        <h2 className="text-[4vw] font-black text-text-primary leading-tight">Read it your way.</h2>
-        <div className="flex gap-4 items-end h-[20vh]">
-          <motion.div className="w-1/3 bg-secondary rounded-t-xl pb-4 flex items-end justify-center font-bold text-white text-[1.5vw]" 
-            initial={{ height: 0 }} animate={phase >= 2 ? { height: '40%' } : { height: 0 }} transition={{ delay: 0.1 }}>Short</motion.div>
-          <motion.div className="w-1/3 bg-primary rounded-t-xl pb-4 flex items-end justify-center font-bold text-white text-[1.5vw]" 
-            initial={{ height: 0 }} animate={phase >= 2 ? { height: '70%' } : { height: 0 }} transition={{ delay: 0.2 }}>Medium</motion.div>
-          <motion.div className="w-1/3 bg-accent rounded-t-xl pb-4 flex items-end justify-center font-bold text-white text-[1.5vw]" 
-            initial={{ height: 0 }} animate={phase >= 2 ? { height: '100%' } : { height: 0 }} transition={{ delay: 0.3 }}>Long</motion.div>
-        </div>
-      </motion.div>
-
-      {/* P3: Adaptive Practice */}
-      <motion.div 
-        className="absolute inset-0 flex flex-col items-center justify-center bg-bg-light z-20"
-        initial={{ clipPath: 'circle(0% at 50% 50%)' }}
-        animate={phase >= 3 ? { clipPath: 'circle(150% at 50% 50%)' } : { clipPath: 'circle(0% at 50% 50%)' }}
-        transition={{ duration: 1, ease: "easeInOut" }}
-      >
-        <h2 className="text-[5vw] font-black text-primary drop-shadow-md">Practice that adapts.</h2>
-        <p className="text-[2.5vw] text-text-secondary mt-4 font-bold">Gets harder when you're hot.</p>
-        <p className="text-[2.5vw] text-text-secondary mt-2 font-bold">Helps out when you're stuck.</p>
-        
-        <div className="flex gap-6 mt-10">
-          {[1,2,3,4,5].map((i) => (
+        {/* Content Pane */}
+        <div className="flex-1 p-16 relative">
+          
+          <motion.div
+            className="absolute top-8 right-16 flex bg-slate-100 rounded-full p-1"
+            initial={{ opacity: 0, y: -20 }}
+            animate={phase >= 2 ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+          >
+            <div className="px-4 py-1 text-sm font-medium text-slate-500 rounded-full">Short</div>
             <motion.div 
-              key={i}
-              className="w-12 h-12 bg-accent rounded-lg"
-              initial={{ scale: 0, rotate: 0 }}
-              animate={phase >= 3 ? { scale: [0, 1.2, 1], rotate: [0, 90, 180] } : {}}
-              transition={{ delay: 0.5 + (i * 0.1), duration: 0.5 }}
-            />
-          ))}
+              className="px-4 py-1 text-sm font-medium text-blue-600 bg-white shadow-sm rounded-full"
+              initial={{ x: -60, opacity: 0 }}
+              animate={phase >= 3 ? { x: 0, opacity: 1 } : { x: -60, opacity: 0 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+            >
+              Medium
+            </motion.div>
+            <div className="px-4 py-1 text-sm font-medium text-slate-500 rounded-full">Long</div>
+          </motion.div>
+
+          <motion.div
+            className="mt-16 max-w-2xl"
+            initial={{ opacity: 0 }}
+            animate={phase >= 1 ? { opacity: 1 } : { opacity: 0 }}
+          >
+            <h1 className="text-4xl font-bold text-slate-900 mb-8">Break-even</h1>
+            
+            <p className="text-xl leading-relaxed text-slate-700 mb-6">
+              The break-even point is the amount of sales where total money in exactly equals total money out — no profit, no loss.
+            </p>
+            
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={phase >= 3 ? { height: 'auto', opacity: 1 } : { height: 0, opacity: 0 }}
+              className="overflow-hidden"
+            >
+              <p className="text-xl leading-relaxed text-slate-700 bg-blue-50/50 p-4 rounded-lg border border-blue-100">
+                It quietly answers the most important question before you start: how much do we need to sell just to survive?
+              </p>
+            </motion.div>
+          </motion.div>
+
         </div>
       </motion.div>
-
     </motion.div>
   );
 }

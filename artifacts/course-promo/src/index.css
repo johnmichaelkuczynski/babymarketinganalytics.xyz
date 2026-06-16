@@ -1,25 +1,25 @@
 @import "tailwindcss";
 
 :root {
-  --color-primary: #F59E0B; /* Amber 500 */
-  --color-secondary: #3B82F6; /* Blue 500 */
-  --color-accent: #EC4899; /* Pink 500 */
+  --color-primary: #2563eb;
+  --color-secondary: #1e293b;
+  --color-accent: #10b981;
 
-  --color-bg-light: #FFFBEB; /* Amber 50 */
-  --color-bg-dark: #1E1B4B; /* Indigo 950 */
-  --color-bg-muted: #FEF3C7; /* Amber 100 */
+  --color-bg-light: #f8fafc;
+  --color-bg-dark: #0f172a;
+  --color-bg-muted: #e2e8f0;
 
-  --color-text-primary: #1E1B4B;
-  --color-text-secondary: #4338CA;
-  --color-text-muted: #6366F1;
-  --color-text-inverse: #FFFFFF;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-inverse: #ffffff;
 
-  --color-success: #10B981;
-  --color-warning: #F59E0B;
-  --color-error: #EF4444;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
 
-  --font-display: 'Nunito', sans-serif;
-  --font-body: 'Nunito', sans-serif;
+  --font-display: 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-serif: 'Playfair Display', serif;
 }
 
 @theme inline {
@@ -31,11 +31,7 @@
   --color-bg-muted: var(--color-bg-muted);
   --color-text-primary: var(--color-text-primary);
   --color-text-secondary: var(--color-text-secondary);
-  --color-text-muted: var(--color-text-muted);
   --color-text-inverse: var(--color-text-inverse);
-  --color-success: var(--color-success);
-  --color-warning: var(--color-warning);
-  --color-error: var(--color-error);
   --font-display: var(--font-display);
   --font-body: var(--font-body);
 }
@@ -47,4 +43,8 @@ body {
   background-color: var(--color-bg-light);
   color: var(--color-text-primary);
   overflow: hidden;
+}
+
+.shadow-soft {
+  box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08), 0 0 10px rgba(0,0,0,0.02);
 }

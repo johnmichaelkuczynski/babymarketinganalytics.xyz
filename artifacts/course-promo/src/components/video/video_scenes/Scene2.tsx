@@ -6,74 +6,77 @@ export function Scene2() {
 
   useEffect(() => {
     const timers = [
-      setTimeout(() => setPhase(1), 500),   // "It's asking questions."
-      setTimeout(() => setPhase(2), 3000),  // "Noticing patterns."
-      setTimeout(() => setPhase(3), 5500),  // "Telling a story."
-      setTimeout(() => setPhase(4), 7800),  // exit
+      setTimeout(() => setPhase(1), 500),
+      setTimeout(() => setPhase(2), 2000), // Sidebar slide in
+      setTimeout(() => setPhase(3), 3500), // List items stagger
     ];
     return () => timers.forEach(t => clearTimeout(t));
   }, []);
 
+  const topics = [
+    "1.1 What financial & managerial analytics is",
+    "1.2 Reading the score — the three financial statements",
+    "1.3 Where the money goes — fixed, variable & cost behavior",
+    "1.4 Break-even — the single most useful number in business",
+    "1.5 Budgets and variance — plan vs. reality",
+    "1.6 Unit economics — does each sale actually make money?",
+    "1.7 Forecasting and KPIs — steering by the right dials",
+    "1.8 From numbers to decisions"
+  ];
+
   return (
     <motion.div 
-      className="absolute inset-0 flex flex-col items-center justify-center bg-bg-light"
-      initial={{ opacity: 0, x: '100%' }}
-      animate={{ opacity: 1, x: '0%' }}
-      exit={{ opacity: 0, x: '-50%', filter: 'blur(10px)' }}
-      transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+      className="absolute inset-0 flex bg-slate-100"
+      initial={{ opacity: 0, x: '10vw' }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: '-10vw' }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/40 via-bg-light to-bg-light" />
+      <div className="absolute inset-0 bg-slate-50 opacity-50 pointer-events-none" />
 
-      <div className="relative z-10 w-full max-w-[80vw] h-[50vh]">
-        {/* Phase 1: Asking */}
-        <motion.div 
-          className="absolute top-0 left-0 bg-white p-8 rounded-3xl shadow-2xl border-4 border-secondary"
-          initial={{ scale: 0, opacity: 0, x: '-20vw', y: '10vh' }}
-          animate={
-            phase === 1 ? { scale: 1, opacity: 1, x: '10vw', y: '10vh', rotate: -5 } :
-            phase > 1 ? { scale: 0.8, opacity: 0.5, x: '5vw', y: '5vh', rotate: -10 } :
-            { scale: 0, opacity: 0, x: '-20vw', y: '10vh' }
-          }
-          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-        >
-          <h2 className="text-[4vw] font-black text-secondary">Profit, cash & the bottom line.</h2>
-        </motion.div>
-
-        {/* Phase 2: Noticing */}
-        <motion.div 
-          className="absolute top-0 right-0 bg-white p-8 rounded-3xl shadow-2xl border-4 border-primary"
-          initial={{ scale: 0, opacity: 0, x: '20vw', y: '20vh' }}
-          animate={
-            phase === 2 ? { scale: 1, opacity: 1, x: '-10vw', y: '20vh', rotate: 5 } :
-            phase > 2 ? { scale: 0.8, opacity: 0.5, x: '-5vw', y: '15vh', rotate: 10 } :
-            { scale: 0, opacity: 0, x: '20vw', y: '20vh' }
-          }
-          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-        >
-          <h2 className="text-[4vw] font-black text-primary">Break-even & the cost behind each sale.</h2>
-          <div className="flex gap-2 mt-4">
-            {[1, 2, 3].map(i => (
-              <motion.div key={i} className="w-6 h-6 rounded-full bg-primary" 
-                animate={{ y: [0, -10, 0] }} 
-                transition={{ duration: 1, delay: i * 0.2, repeat: Infinity }}
-              />
+      {/* Main product mockup container */}
+      <motion.div 
+        className="w-[85vw] h-[80vh] m-auto bg-white rounded-xl shadow-soft flex overflow-hidden border border-slate-200"
+        initial={{ y: '10vh', opacity: 0 }}
+        animate={phase >= 1 ? { y: 0, opacity: 1 } : { y: '10vh', opacity: 0 }}
+        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+      >
+        {/* Sidebar */}
+        <div className="w-[30vw] bg-slate-50 border-r border-slate-200 p-8 flex flex-col">
+          <div className="w-12 h-12 bg-blue-600 rounded-lg mb-8" />
+          <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Unit 1</h3>
+          
+          <div className="flex flex-col gap-4">
+            {topics.map((topic, i) => (
+              <motion.div 
+                key={i}
+                className={`text-sm font-medium ${i === 0 ? 'text-blue-600' : 'text-slate-600'}`}
+                initial={{ opacity: 0, x: -20 }}
+                animate={phase >= 3 ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                transition={{ duration: 0.5, delay: phase >= 3 ? i * 0.1 : 0 }}
+              >
+                {topic}
+              </motion.div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
-        {/* Phase 3: Telling */}
-        <motion.div 
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 bg-white p-8 rounded-3xl shadow-2xl border-4 border-accent"
-          initial={{ scale: 0, opacity: 0, y: '20vh' }}
-          animate={
-            phase === 3 ? { scale: 1.2, opacity: 1, y: '0vh', rotate: 0 } :
-            { scale: 0, opacity: 0, y: '20vh' }
-          }
-          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-        >
-          <h2 className="text-[4vw] font-black text-accent text-center">Budgets, forecasts,<br/>and smart decisions.</h2>
-        </motion.div>
-      </div>
+        {/* Content Pane */}
+        <div className="flex-1 p-16 flex flex-col justify-center">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={phase >= 2 ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-[3vw] font-bold text-slate-900 leading-tight mb-4">
+              Real concepts.<br />No jargon.
+            </h2>
+            <p className="text-xl text-slate-500 max-w-lg">
+              The curriculum covers exactly what you need to know about how businesses make money, told in plain language.
+            </p>
+          </motion.div>
+        </div>
+      </motion.div>
     </motion.div>
   );
 }

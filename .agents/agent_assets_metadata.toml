@@ -1,18 +1,6 @@
 uploads = []
 
 [[generated]]
-id = "uM7_r5QfH4ARQSMJWuxk5"
-uri = "file://artifacts/diagnostics-demo/public/images/bg-navy-abstract.png"
-type = "image"
-title = "Navy blue abstract academic background"
-
-[[generated]]
-id = "7dGARkwxh8SWkd6ZAqyUT"
-uri = "file://artifacts/diagnostics-demo/public/images/bg-balance-scale.png"
-type = "image"
-title = "Ethical balance scale abstract"
-
-[[generated]]
 id = "LlWeR1g6eMzYo8DqLObvT"
 uri = "file://attached_assets/generated_images/abstract_cinematic_dark_navy_2c15.png"
 type = "image"
@@ -31,28 +19,16 @@ type = "image"
 title = "Fun geometric data shapes"
 
 [[outputs]]
-id = "k9ub7M-_NtEMTP4gQFmL8"
-uri = "file://artifacts/qr-course-demo/public/audio/bg_music.mp3"
-type = "audio"
-title = "background music"
-
-[[outputs]]
 id = "zpoa4kJaFwLQ67_UaLoks"
 uri = "file://BLUEPRINT.md"
 type = "text"
-title = "QuantReason — App Blueprint"
+title = "Financial & Managerial Analytics for Children — App Blueprint"
 
 [[outputs]]
 id = "gBlmXbiu3K5FNCNv2fX9f"
 uri = "file://README.md"
 type = "text"
 title = "README — Financial & Managerial Analytics for Children"
-
-[[outputs]]
-id = "FqMnfCzm6r7Jw0r0ejNvV"
-uri = "file://artifacts/diagnostics-demo/public/audio/bg_music.mp3"
-type = "audio"
-title = "background music"
 
 [[outputs]]
 id = "7Gk126T-Bb4dRx8JdJ-dH"
@@ -64,7 +40,7 @@ title = "background music"
 id = "xwqMN58ueq6FTNmUIZXDo"
 uri = "file://artifacts/course-promo/YOUTUBE_DESCRIPTION.md"
 type = "text"
-title = "YouTube Description — Evolutionary Psychology for Children"
+title = "YouTube Description — Financial & Managerial Analytics for Children"
 
 [[outputs]]
 id = "3RXl-9vmMHle9TS64poys"

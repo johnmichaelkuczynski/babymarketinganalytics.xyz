@@ -19,14 +19,13 @@ The 8 topics (Unit 1):
 7. 1.7 Forecasting and KPIs — Steering by the Right Dials
 8. 1.8 From Numbers to Decisions (Capstone)
 
-The product surface is four deployable artifacts in one pnpm monorepo:
+The product surface is three deployable artifacts in one pnpm monorepo:
 
 | Artifact | Slug | Role |
 | --- | --- | --- |
 | `@workspace/api-server` | `api-server` | Express 5 API mounted at `/api`. Owns the DB, OpenAI calls, AI detection, grading, diagnostics. |
 | `@workspace/qr-course` | `qr-course` | Student-facing React + Vite app. The actual course. |
-| `@workspace/qr-course-demo` | `qr-course-demo` | A screencast-style product demo video, exported as MP4 from the preview pane. |
-| `@workspace/course-promo` & `@workspace/diagnostics-demo` | `course-promo`, `diagnostics-demo` | Short promo / diagnostics screencast videos, exported as MP4 from the preview pane. |
+| `@workspace/course-promo` | `course-promo` | The single product walkthrough video that shows the real course (curriculum, lesson depths, AI tutor, adaptive practice, AI grading + detection), exported as MP4 from the preview pane. |
 
 Shared contracts live in `lib/`:
 
@@ -256,48 +255,38 @@ The trace is included in the answer `PUT` body and on `POST submit`, then stored
 
 ---
 
-## 8. Demo video — `@workspace/qr-course-demo`
+## 8. Product video — `@workspace/course-promo`
 
-A **screencast-style** product walkthrough, **not** a marketing reel. Built per the `video-js` skill: React + framer-motion, exported to MP4 from the preview pane via the browser recorder.
+The **single** product walkthrough video. It is a **show-don't-tell** explainer: every scene depicts a real product surface with the real course content, so a viewer learns what the course actually is by seeing it — not abstract motion graphics. Built per the `video-js` skill: React + framer-motion, exported to MP4 from the preview pane via the browser recorder.
 
 ### 8.1 Structure
 
 ```
-artifacts/qr-course-demo/src/components/video/
-├── VideoTemplate.tsx        scene router + persistent sidebar + persistent cursor + background audio
-├── VideoWithControls.tsx    iframe-only wrapper: scene jump, scene-lock, mute toggle
-├── useSceneControls.ts      hook hiding jump/lock workarounds for the read-only useVideoPlayer
-├── CursorPointer.tsx        animated SVG arrow that drives the "user is clicking" feel
-├── TypewriterText.tsx       char-by-char typing into inputs
-├── StreamingText.tsx        word-by-word AI-response streaming
-├── TypingIndicator.tsx      three pulsing dots
+artifacts/course-promo/src/components/video/
+├── VideoTemplate.tsx        scene router (SCENE_DURATIONS + AnimatePresence)
 └── video_scenes/
-    ├── Scene1.tsx           Dashboard → Week 1 (8s)
-    ├── Scene2.tsx           Lecture: Short/Long toggle + Practice/Tutor tabs (8s)
-    ├── Scene3.tsx           Tutor Q&A with streaming response (12s)
-    ├── Scene4.tsx           Analytics with counting KPIs + topic mastery click (10s)
-    ├── Scene5.tsx           Topic Practice: wrong → adjust ↓ → right → adjust ↑ (14s)
-    └── Scene6.tsx           Assignments review with AI grade + AI-detection chip (10s)
+    ├── Scene1.tsx  (s1_intro, 4.5s)      Title + honest one-line pitch
+    ├── Scene2.tsx  (s2_curriculum, 6s)   The real 8-topic Unit 1 curriculum list
+    ├── Scene3.tsx  (s3_depths, 6s)       A real lesson (1.4 Break-even) with the Short / Medium / Long depth toggle
+    ├── Scene4.tsx  (s4_tutor, 9s)        Section-scoped AI tutor answering a concrete break-even case, streaming in
+    ├── Scene5.tsx  (s5_practice, 7s)     Adaptive practice: correct answer → difficulty ticks up
+    ├── Scene6.tsx  (s6_grading, 6.5s)    AI grading: score badge + written per-problem feedback
+    ├── Scene7.tsx  (s7_detection, 8s)    Two-layer AI-authorship detection (GPTZero text scan + keystroke pattern) → "Authentic"
+    └── Scene8.tsx  (s8_outro, 7s)        Payoff line + course title
 ```
 
-`SCENE_DURATIONS` sums to **62 seconds**, looped.
+`SCENE_DURATIONS` sums to **54 seconds**, looped.
 
-### 8.2 Key architectural rules
+### 8.2 Key rules
 
-- **Sidebar persistence.** The Dashboard / Assignments / Analytics sidebar lives in `VideoTemplate.tsx` outside `<AnimatePresence>`. Only the right-pane scene swaps. Active highlight is derived from `sceneIndex`.
-- **Cursor persistence.** `CursorPointer` lives outside `<AnimatePresence>` and is driven by `setCursorPos / setIsClicking` passed into every scene.
-- **The UI is rebuilt, not screenshotted.** Scenes use the real fonts and colors but every pixel is JSX. `attached_assets/qr-screens/*.jpg` were reference-only.
-- **`AnimatePresence` key = `currentSceneKey`** (NOT `baseSceneKey`). When scene-lock toggles `_r1` / `_r2` on the durations object, both iterations must remount and re-animate.
-- **Audio.** One bg music file at `public/audio/bg_music.mp3` (62s, instrumental piano + strings, generated). Scene-synced via `SCENE_START_SEC` — on every scene change the audio seeks to that scene's canonical start offset (epsilon 0.18s).
-- **Mute wiring.** Iframe preview defaults to muted; control bar exposes `Volume2` / `VolumeX`. Export path renders `<VideoTemplate />` with no props → unmuted, no controls. The mute toggle is **declarative JSX (`<audio muted={muted}>`) only** — it must not also re-seek `audio.currentTime`, or unmute restarts the scene's audio.
+- **Show real content, not placeholders.** On-screen copy is grounded in the real curriculum (`artifacts/api-server/src/lib/seed.ts`): the 8 topic titles, real break-even lesson text, a real graded-homework rationale, and the real two-layer detection verdicts. Do not swap in generic/abstract filler.
+- **The UI is rebuilt in JSX**, using the app's real fonts and colors — every pixel is JSX, not a screenshot.
+- Auto-plays and loops; no interactivity (it is recorded from the browser tab).
+- Do not modify `src/lib/video/hooks.ts`. After changing scenes, run `bash scripts/validate-recording.sh` and keep `index.html` `<title>` + OG/Twitter meta in sync with the course.
 
-### 8.3 Scene controls
+### 8.3 Export
 
-`useSceneControls` exposes `jumpTo(index)`, `toggleLock()`, `activeIndex`, `locked`, `durations`, `mountKey`, `tick`. It rotates the durations object on jump and replaces it with `{ key_r1, key_r2 }` on lock to force `useVideoPlayer` to loop a single scene. `VideoWithControls` reads `window.self !== window.top` and renders the control bar only inside the iframe so MP4 exports stay clean.
-
-### 8.4 Export
-
-Recording fires `window.startRecording()` on first scene mount and `window.stopRecording()` after the last scene. Audio is part of the recorded tab capture — so the exported MP4 contains the music.
+Recording fires `window.startRecording()` on first scene mount and `window.stopRecording()` after the last scene; the exported MP4 is captured from the preview tab.
 
 ---
 
