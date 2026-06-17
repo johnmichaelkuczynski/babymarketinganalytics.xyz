@@ -14,14 +14,14 @@ export function Scene2() {
   }, []);
 
   const topics = [
-    "1.1 What financial & managerial analytics is",
-    "1.2 Reading the score — the three financial statements",
-    "1.3 Where the money goes — fixed, variable & cost behavior",
-    "1.4 Break-even — the single most useful number in business",
-    "1.5 Budgets and variance — plan vs. reality",
-    "1.6 Unit economics — does each sale actually make money?",
-    "1.7 Forecasting and KPIs — steering by the right dials",
-    "1.8 From numbers to decisions"
+    "1.1 What predictive analytics is",
+    "1.2 The shape of data over time — trend, seasonality & noise",
+    "1.3 Regression — the workhorse of prediction",
+    "1.4 Correlation vs. causation — the trap that fools everyone",
+    "1.5 Forecasting methods — from moving averages to machine learning",
+    "1.6 How good is the forecast? — measuring error and accuracy",
+    "1.7 Why forecasts fail — uncertainty, black swans & overfitting",
+    "1.8 From prediction to decision"
   ];
 
   return (
@@ -72,7 +72,7 @@ export function Scene2() {
               Real concepts.<br />No jargon.
             </h2>
             <p className="text-xl text-slate-500 max-w-lg">
-              The curriculum covers exactly what you need to know about how businesses make money, told in plain language.
+              The curriculum covers exactly what you need to know about how we use the past to predict the future, told in plain language.
             </p>
           </motion.div>
         </div>

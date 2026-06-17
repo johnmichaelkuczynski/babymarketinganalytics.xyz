@@ -13,8 +13,8 @@ export function Scene4() {
     return () => timers.forEach(t => clearTimeout(t));
   }, []);
 
-  const question = "A food truck pays $1,200 a month in rent and makes $4 from each bowl after ingredients. How many bowls until it stops losing money?";
-  const answer = "Each bowl chips in $4 toward the $1,200 of fixed rent, so it takes 1,200 ÷ 4 = 300 bowls a month to break even — and every bowl after that is profit.";
+  const question = "Ice cream sales and pool drownings both climb every summer. Does that mean buying ice cream makes people drown?";
+  const answer = "No — hot weather is the hidden third factor that pushes both up at the same time, so the two only move together by coincidence, not because one actually causes the other.";
 
   return (
     <motion.div 
@@ -29,9 +29,9 @@ export function Scene4() {
       >
         <div className="flex-1 p-12 bg-slate-50 border-r border-slate-200 relative overflow-hidden">
           <div className="max-w-2xl blur-sm opacity-30 pointer-events-none">
-            <h1 className="text-4xl font-bold text-slate-900 mb-8">Break-even</h1>
+            <h1 className="text-4xl font-bold text-slate-900 mb-8">Correlation vs. causation</h1>
             <p className="text-xl leading-relaxed text-slate-700 mb-6">
-              The break-even point is the amount of sales where total money in exactly equals total money out — no profit, no loss.
+              Correlation means two things tend to move together — but moving together does not prove that one of them actually causes the other.
             </p>
           </div>
         </div>

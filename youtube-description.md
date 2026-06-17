@@ -1,28 +1,28 @@
-# YouTube — Financial & Managerial Analytics for Children
+# YouTube — Predictive Analytics for Children
 
 ## 🎬 Title options (pick one)
 
-1. Financial & Managerial Analytics for Children — an AI course that teaches, tutors & grades itself
-2. I built an AI Financial Analytics course (it even catches AI cheating)
-3. What Makes a Business Really Work — a friendly AI course for curious students & adults
+1. Predictive Analytics for Children — an AI course that teaches, tutors & grades itself
+2. I built an AI Predictive Analytics course (it even catches AI cheating)
+3. Using the Past to See the Future — a friendly AI course for curious students & adults
 
 ---
 
 ## ✏️ Short description (~150 chars, for the box preview)
 
-A friendly, one-unit intro to financial & managerial analytics — taught, tutored, drilled, and graded by AI. No math, no coding. For curious students and grown-ups alike.
+A friendly, one-unit intro to predictive analytics — taught, tutored, drilled, and graded by AI. No math, no coding. For curious students and grown-ups alike.
 
 ---
 
 ## 📝 Full description (paste into YouTube)
 
-What actually makes a business work?
+How do we use the past to predict the future?
 
-Meet **Financial & Managerial Analytics for Children** — a friendly, one-unit intro to financial and managerial analytics that teaches, tutors, drills, and grades itself, entirely with AI. No math, no coding, no jargon. Just plain-language lessons about how a business really makes money — profit vs. cash, the three financial statements, cost behavior, break-even, budgets, and unit economics — kept friendly and age-appropriate from start to finish.
+Meet **Predictive Analytics for Children** — a friendly, one-unit intro to predictive analytics that teaches, tutors, drills, and grades itself, entirely with AI. No math, no coding, no jargon. Just plain-language lessons about how we turn patterns in past data into estimates of what's likely to happen next — trend, seasonality, and noise, regression, correlation vs. causation, forecasting methods, measuring error, and why forecasts fail — kept friendly and age-appropriate from start to finish.
 
 In this video you'll see the whole course in action:
 
-🔎 Eight plain-language topics — from "what financial & managerial analytics really is" all the way to "turning numbers into decisions"
+🔎 Eight plain-language topics — from "what predictive analytics really is" all the way to "turning a prediction into a decision"
 📖 Three-depth lessons — read any topic Short, Medium, or Long, same ideas at your pace
 ✨ Examples on demand — turn any lesson into a version packed with vivid, real-to-life illustrations for every point
 💬 A section-scoped AI tutor that answers questions about the exact paragraph you're reading, streaming in real time
@@ -35,27 +35,27 @@ It's a self-paced course students can actually trust to be fair — and instruct
 👉 Try it / learn more: [add your link here]
 
 ⏱️ Chapters
-0:00 What makes a business work
-0:08 What you'll learn
-0:20 The AI tutor, lessons & adaptive practice
-0:35 Financial & Managerial Analytics for Children
+0:00 Using the past to see the future
+0:10 Lessons & the AI tutor
+0:25 Adaptive practice & AI grading
+0:39 AI-cheating detection & wrap-up
 
 🧠 Topics covered
-1.1 What financial & managerial analytics is
-1.2 Reading the score: the three financial statements
-1.3 Where the money goes: fixed, variable, and cost behavior
-1.4 Break-even: the single most useful number in business
-1.5 Budgets and variance: plan vs. reality
-1.6 Unit economics: does each sale actually make money?
-1.7 Forecasting and KPIs: steering by the right dials
-1.8 From numbers to decisions
+1.1 What predictive analytics is (using the past to see the future)
+1.2 The shape of data over time (trend, seasonality, and noise)
+1.3 Regression (the workhorse of prediction)
+1.4 Correlation vs. causation (the trap that fools everyone)
+1.5 Forecasting methods (from moving averages to machine learning)
+1.6 How good is the forecast? (measuring error and accuracy)
+1.7 Why forecasts fail (uncertainty, black swans, and overfitting)
+1.8 From prediction to decision
 
 Perfect for middle schoolers, curious adults wanting a quick but meaningful intro, instructors exploring AI-taught coursework, and academic-integrity researchers.
 
-#FinancialAnalytics #ManagerialAccounting #AIeducation #EdTech #OnlineLearning #DataLiteracy #StudyTok #LearnSomethingNew
+#PredictiveAnalytics #Forecasting #AIeducation #EdTech #OnlineLearning #DataLiteracy #StudyTok #LearnSomethingNew
 
 ---
 
 ## 🏷️ Tags (comma-separated, for the Tags field)
 
-financial analytics, managerial accounting, business analytics, data literacy, AI tutor, AI education, edtech, online learning, adaptive learning, analytics for beginners, financial statements, break-even, cost behavior, unit economics, budgeting, self-paced course, AI grading, academic integrity
+predictive analytics, forecasting, data analytics, data literacy, AI tutor, AI education, edtech, online learning, adaptive learning, analytics for beginners, trend and seasonality, regression, correlation vs causation, overfitting, forecast accuracy, self-paced course, AI grading, academic integrity

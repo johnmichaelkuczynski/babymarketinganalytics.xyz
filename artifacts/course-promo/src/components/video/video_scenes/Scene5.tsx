@@ -53,12 +53,12 @@ export function Scene5() {
 
           <div className="w-full max-w-3xl bg-white p-10 rounded-2xl shadow-sm border border-slate-200">
             <h3 className="text-2xl font-semibold text-slate-800 mb-8 leading-snug">
-              Someone asks, 'What does it cost us to make one of these mugs?' and expects one fixed number. Name two things that question gets wrong.
+              A store has one unusually great sales week and the manager wants to call it a brand-new upward trend. Name two things that conclusion gets wrong.
             </h3>
 
             <div className="space-y-4">
               <div className="p-4 border border-slate-200 rounded-xl text-slate-500 bg-slate-50 opacity-50">
-                It assumes all mugs cost the same.
+                It assumes every week will be exactly the same from now on.
               </div>
               <motion.div 
                 className="p-4 border-2 rounded-xl text-slate-800 relative overflow-hidden"
@@ -69,7 +69,7 @@ export function Scene5() {
                 }
               >
                 <div className="font-medium">
-                  It ignores that fixed costs are spread over volume, and that marginal cost is different from average cost.
+                  It mistakes random noise for a real signal, and it calls a single point a trend when a trend needs a pattern over many points.
                 </div>
                 
                 <motion.div 
@@ -78,7 +78,7 @@ export function Scene5() {
                   animate={phase >= 3 ? { height: 'auto', opacity: 1, marginTop: '1rem' } : { height: 0, opacity: 0, marginTop: 0 }}
                 >
                   <div className="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs">✓</div>
-                  Correct. Volume changes the average, and the next unit costs less.
+                  Correct. One week is noise, and a trend takes many points, not one.
                 </motion.div>
               </motion.div>
             </div>

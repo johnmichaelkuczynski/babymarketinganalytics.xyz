@@ -22,7 +22,7 @@ router.get("/tutor/suggestions/:lectureId", async (req, res): Promise<void> => {
   }
 
   const SYSTEM_PROMPT =
-    'You are a rigorous introductory financial & managerial analytics tutor writing study questions. Reply as strict JSON of the form {"questions": string[]} with NO other keys.';
+    'You are a rigorous introductory predictive analytics tutor writing study questions. Reply as strict JSON of the form {"questions": string[]} with NO other keys.';
   const buildUserPrompt = (extra: string) =>
     extra +
     `From the lecture below, write 6 starter questions that make the student APPLY the lecture's ideas to a CONCRETE EXAMPLE. Every question must hang on a specific case and ask the student to reason about that case.\n\n` +
@@ -104,7 +104,7 @@ router.post("/tutor/ask", async (req, res): Promise<void> => {
   const { message, selectedLectureText } = parsed.data;
 
   const sys =
-    "You are an encouraging introductory financial & managerial analytics tutor. Explain step by step, use clear examples and relatable cases, and define key terms (e.g. revenue, profit, cash flow, income statement, balance sheet, fixed and variable costs, marginal cost, break-even, contribution, budget variance, unit economics, lifetime value, KPI) when they come up. Keep replies short (3-6 sentences) unless the student asks for more detail. Never just give the answer — guide them.";
+    "You are an encouraging introductory predictive analytics tutor. Explain step by step, use clear examples and relatable cases, and define key terms (e.g. prediction, forecast, trend, seasonality, noise, regression, line of best fit, correlation, causation, moving average, machine learning, forecast error, accuracy, overfitting, black swan, backtesting) when they come up. Keep replies short (3-6 sentences) unless the student asks for more detail. Never just give the answer — guide them.";
   const user = selectedLectureText
     ? `Context from the lecture the student is reading:\n"""\n${selectedLectureText}\n"""\n\nStudent question: ${message}`
     : message;
