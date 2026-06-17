@@ -7,77 +7,97 @@ export function Scene3() {
   useEffect(() => {
     const timers = [
       setTimeout(() => setPhase(1), 500),
-      setTimeout(() => setPhase(2), 2000), // Show toggle
-      setTimeout(() => setPhase(3), 3500), // Toggle to Medium
+      setTimeout(() => setPhase(2), 1500), // Question
+      setTimeout(() => setPhase(3), 2800), // Answer streams
     ];
     return () => timers.forEach(t => clearTimeout(t));
   }, []);
 
+  const question = "Does LTV mean we should ignore small purchases?";
+  const answer = "No! A customer making small, frequent purchases might have a higher LTV than someone who makes one large purchase and never returns. It's about the total relationship over time.";
+
   return (
     <motion.div 
-      className="absolute inset-0 flex bg-slate-100"
+      className="absolute inset-0 flex bg-slate-50 overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.8 }}
     >
       <motion.div 
-        className="w-[85vw] h-[80vh] m-auto bg-white rounded-xl shadow-soft flex overflow-hidden border border-slate-200"
+        className="w-[90vw] h-[85vh] m-auto bg-white rounded-2xl shadow-2xl flex overflow-hidden border border-slate-200"
       >
-        {/* Sidebar - static */}
-        <div className="w-[30vw] bg-slate-50 border-r border-slate-200 p-8 flex flex-col opacity-50">
-          <div className="w-12 h-12 bg-blue-600 rounded-lg mb-8" />
-          <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Unit 1</h3>
-          <div className="text-sm font-medium text-slate-400 mb-4">1.1 What marketing analytics is</div>
-          <div className="text-sm font-medium text-slate-400 mb-4">1.2 Why 'the average customer' doesn't exist</div>
-          <div className="text-sm font-medium text-slate-400 mb-4">1.3 The funnel</div>
-          <div className="text-sm font-medium text-blue-600 bg-blue-50 p-2 rounded -ml-2 mb-4">1.4 Customer lifetime value</div>
+        {/* Left Lesson Context (Blurred) */}
+        <div className="flex-1 p-12 bg-slate-50 border-r border-slate-200 relative">
+          <div className="max-w-2xl opacity-40 blur-sm pointer-events-none">
+            <h1 className="text-4xl font-bold text-slate-900 mb-6">1.4 Customer Lifetime Value</h1>
+            <p className="text-lg text-slate-600 mb-6">A customer is worth their whole relationship — not just a single sale.</p>
+            <div className="h-32 bg-slate-200 rounded-lg w-full mb-4"></div>
+            <div className="h-4 bg-slate-200 rounded w-3/4 mb-2"></div>
+            <div className="h-4 bg-slate-200 rounded w-5/6"></div>
+          </div>
         </div>
 
-        {/* Content Pane */}
-        <div className="flex-1 p-16 relative">
+        {/* AI Tutor Panel */}
+        <motion.div 
+          className="w-[45vw] bg-white flex flex-col shadow-[-20px_0_40px_rgba(0,0,0,0.05)] z-10 relative"
+          initial={{ x: '100%' }}
+          animate={phase >= 1 ? { x: 0 } : { x: '100%' }}
+          transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+        >
+          <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-white z-20">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 text-lg shadow-sm">✨</div>
+              <div>
+                <div className="font-bold text-slate-900">AI Tutor</div>
+                <div className="text-xs text-slate-500">Grounded in Section 1.4</div>
+              </div>
+            </div>
+          </div>
           
-          <motion.div
-            className="absolute top-8 right-16 flex bg-slate-100 rounded-full p-1"
-            initial={{ opacity: 0, y: -20 }}
-            animate={phase >= 2 ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-          >
-            <div className="px-4 py-1 text-sm font-medium text-slate-500 rounded-full">Short</div>
-            <motion.div 
-              className="px-4 py-1 text-sm font-medium text-blue-600 bg-white shadow-sm rounded-full"
-              initial={{ x: -60, opacity: 0 }}
-              animate={phase >= 3 ? { x: 0, opacity: 1 } : { x: -60, opacity: 0 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            >
-              Medium
-            </motion.div>
-            <div className="px-4 py-1 text-sm font-medium text-slate-500 rounded-full">Long</div>
-          </motion.div>
+          <div className="flex-1 p-6 flex flex-col gap-6 overflow-hidden bg-slate-50/50">
+            {phase >= 2 && (
+              <motion.div 
+                className="self-end bg-slate-800 text-white rounded-2xl rounded-tr-sm p-4 max-w-[85%] shadow-sm"
+                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+              >
+                {question}
+              </motion.div>
+            )}
 
-          <motion.div
-            className="mt-16 max-w-2xl"
-            initial={{ opacity: 0 }}
-            animate={phase >= 1 ? { opacity: 1 } : { opacity: 0 }}
-          >
-            <h1 className="text-4xl font-bold text-slate-900 mb-8">Customer lifetime value</h1>
-            
-            <p className="text-xl leading-relaxed text-slate-700 mb-6">
-              A customer is worth their whole relationship — not a single sale — so lifetime value is the total they bring over all the times they come back.
-            </p>
-            
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={phase >= 3 ? { height: 'auto', opacity: 1 } : { height: 0, opacity: 0 }}
-              className="overflow-hidden"
-            >
-              <p className="text-xl leading-relaxed text-slate-700 bg-blue-50/50 p-4 rounded-lg border border-blue-100">
-                It answers the question every budget depends on: how much can we afford to spend to win — and keep — a customer like this?
-              </p>
-            </motion.div>
-          </motion.div>
+            {phase >= 3 && (
+              <div className="self-start bg-white border border-slate-200 text-slate-800 rounded-2xl rounded-tl-sm p-5 max-w-[90%] shadow-sm flex items-start gap-4">
+                <div className="text-emerald-500 mt-1">✨</div>
+                <div className="text-[15px] leading-relaxed font-medium">
+                  <TypewriterText text={answer} />
+                </div>
+              </div>
+            )}
+          </div>
+        </motion.div>
 
-        </div>
       </motion.div>
     </motion.div>
   );
+}
+
+function TypewriterText({ text }: { text: string }) {
+  const [displayedText, setDisplayedText] = useState("");
+  
+  useEffect(() => {
+    let currentIndex = 0;
+    const interval = setInterval(() => {
+      if (currentIndex <= text.length) {
+        setDisplayedText(text.slice(0, currentIndex));
+        currentIndex += 2;
+      } else {
+        clearInterval(interval);
+      }
+    }, 15);
+    return () => clearInterval(interval);
+  }, [text]);
+
+  return <span>{displayedText}</span>;
 }

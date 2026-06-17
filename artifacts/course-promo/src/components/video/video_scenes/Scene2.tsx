@@ -6,54 +6,62 @@ export function Scene2() {
 
   useEffect(() => {
     const timers = [
-      setTimeout(() => setPhase(1), 500),
-      setTimeout(() => setPhase(2), 2000), // Sidebar slide in
-      setTimeout(() => setPhase(3), 3500), // List items stagger
+      setTimeout(() => setPhase(1), 300), // App slides in
+      setTimeout(() => setPhase(2), 1200), // Sidebar items stagger
+      setTimeout(() => setPhase(3), 2500), // Lesson depth toggle
+      setTimeout(() => setPhase(4), 4000), // Content update
     ];
     return () => timers.forEach(t => clearTimeout(t));
   }, []);
 
   const topics = [
     "1.1 What marketing analytics is",
-    "1.2 Why 'the average customer' doesn't exist",
-    "1.3 The funnel — from stranger to buyer",
-    "1.4 Customer lifetime value — what a customer is worth",
-    "1.5 Churn — spotting who's about to leave",
-    "1.6 A/B testing — letting data settle the argument",
-    "1.7 Attribution & personalization — credit and targeting",
-    "1.8 From insight to campaign"
+    "1.2 Why 'average' doesn't exist",
+    "1.3 The funnel",
+    "1.4 Customer lifetime value",
+    "1.5 Churn",
+    "1.6 A/B testing",
+    "1.7 Attribution & personalization",
+    "1.8 Insight to campaign"
   ];
 
   return (
     <motion.div 
-      className="absolute inset-0 flex bg-slate-100"
-      initial={{ opacity: 0, x: '10vw' }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: '-10vw' }}
+      className="absolute inset-0 flex bg-slate-50 overflow-hidden"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, y: -50 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className="absolute inset-0 bg-slate-50 opacity-50 pointer-events-none" />
-
-      {/* Main product mockup container */}
+      {/* Background shape */}
       <motion.div 
-        className="w-[85vw] h-[80vh] m-auto bg-white rounded-xl shadow-soft flex overflow-hidden border border-slate-200"
-        initial={{ y: '10vh', opacity: 0 }}
-        animate={phase >= 1 ? { y: 0, opacity: 1 } : { y: '10vh', opacity: 0 }}
-        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute top-0 right-0 w-[50vw] h-[100vh] bg-blue-50/50 rounded-l-[100px] pointer-events-none"
+        initial={{ x: '100%' }}
+        animate={{ x: 0 }}
+        transition={{ duration: 1.5, ease: "circOut" }}
+      />
+
+      <motion.div 
+        className="w-[90vw] h-[85vh] m-auto bg-white rounded-2xl shadow-2xl flex overflow-hidden border border-slate-200 z-10"
+        initial={{ y: '20vh', scale: 0.95, opacity: 0 }}
+        animate={phase >= 1 ? { y: 0, scale: 1, opacity: 1 } : { y: '20vh', scale: 0.95, opacity: 0 }}
+        transition={{ type: 'spring', stiffness: 200, damping: 25 }}
       >
         {/* Sidebar */}
-        <div className="w-[30vw] bg-slate-50 border-r border-slate-200 p-8 flex flex-col">
-          <div className="w-12 h-12 bg-blue-600 rounded-lg mb-8" />
-          <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Unit 1</h3>
+        <div className="w-[25vw] bg-slate-50 border-r border-slate-200 flex flex-col p-6">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-8 h-8 rounded bg-blue-600 flex items-center justify-center text-white font-bold text-xs">M</div>
+            <span className="font-bold text-slate-800">Unit 1</span>
+          </div>
           
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
             {topics.map((topic, i) => (
               <motion.div 
                 key={i}
-                className={`text-sm font-medium ${i === 0 ? 'text-blue-600' : 'text-slate-600'}`}
+                className={`px-3 py-2 rounded-lg text-sm font-medium ${i === 3 ? 'bg-blue-100 text-blue-700' : 'text-slate-600'}`}
                 initial={{ opacity: 0, x: -20 }}
-                animate={phase >= 3 ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                transition={{ duration: 0.5, delay: phase >= 3 ? i * 0.1 : 0 }}
+                animate={phase >= 2 ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                transition={{ duration: 0.4, delay: phase >= 2 ? i * 0.08 : 0 }}
               >
                 {topic}
               </motion.div>
@@ -62,19 +70,56 @@ export function Scene2() {
         </div>
 
         {/* Content Pane */}
-        <div className="flex-1 p-16 flex flex-col justify-center">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={phase >= 2 ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 0.8 }}
+        <div className="flex-1 p-12 relative flex flex-col">
+          
+          {/* Depth Toggle */}
+          <motion.div 
+            className="self-end flex bg-slate-100 rounded-full p-1 mb-12 shadow-sm"
+            initial={{ opacity: 0, y: -10 }}
+            animate={phase >= 3 ? { opacity: 1, y: 0 } : { opacity: 0, y: -10 }}
           >
-            <h2 className="text-[3vw] font-bold text-slate-900 leading-tight mb-4">
-              Real concepts.<br />No jargon.
-            </h2>
-            <p className="text-xl text-slate-500 max-w-lg">
-              The curriculum covers exactly what you need to know about how we understand customers through data, told in plain language.
-            </p>
+            <div className="px-4 py-1.5 text-sm font-medium text-slate-500 rounded-full">Short</div>
+            <motion.div 
+              className="px-4 py-1.5 text-sm font-medium text-blue-600 bg-white shadow-sm rounded-full relative z-10"
+              initial={{ x: -70 }}
+              animate={phase >= 4 ? { x: 0 } : { x: -70 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+            >
+              Medium
+            </motion.div>
+            <div className="px-4 py-1.5 text-sm font-medium text-slate-500 rounded-full">Long</div>
           </motion.div>
+
+          <div className="max-w-3xl">
+            <motion.h1 
+              className="text-4xl font-bold text-slate-900 mb-6"
+              initial={{ opacity: 0 }}
+              animate={phase >= 3 ? { opacity: 1 } : { opacity: 0 }}
+            >
+              1.4 Customer Lifetime Value
+            </motion.h1>
+            
+            <motion.div 
+              className="space-y-6 text-lg text-slate-600 leading-relaxed"
+              initial={{ opacity: 0 }}
+              animate={phase >= 3 ? { opacity: 1 } : { opacity: 0 }}
+            >
+              <p>A customer is worth their whole relationship — not just a single sale.</p>
+              
+              <motion.div
+                className="overflow-hidden"
+                initial={{ height: 0, opacity: 0 }}
+                animate={phase >= 4 ? { height: 'auto', opacity: 1 } : { height: 0, opacity: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="bg-blue-50/50 p-6 rounded-xl border border-blue-100">
+                  <p className="font-medium text-slate-800 mb-2">Why it matters:</p>
+                  <p>Lifetime value (LTV) answers the question every budget depends on: how much can we afford to spend to win — and keep — a customer like this?</p>
+                </div>
+              </motion.div>
+            </motion.div>
+          </div>
+
         </div>
       </motion.div>
     </motion.div>

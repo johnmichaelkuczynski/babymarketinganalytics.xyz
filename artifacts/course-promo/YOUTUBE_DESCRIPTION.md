@@ -26,11 +26,11 @@ In this video you'll see the whole course in action:
 
 🔎 Eight plain-language topics — from "what marketing analytics really is" all the way to "turning an insight into a campaign"
 📖 Three-depth lessons — read any topic Short, Medium, or Long, same ideas at your pace
-✨ Examples on demand — turn any lesson into a version packed with vivid, real-to-life illustrations for every point
 💬 A section-scoped AI tutor that answers questions about the exact paragraph you're reading, streaming in real time
 🎯 Adaptive practice that gets harder when you're on a streak and eases off when you're stuck
 ✅ AI-graded homework, a unit test, and a final — each with written feedback
 🛡️ Two-layer AI-cheating detection: a text classifier (GPTZero) PLUS a keystroke-pattern detector that catches AI use even when the words are reworded
+📊 A live analytics dashboard — your questions, accuracy, streak, and per-topic mastery at a glance
 
 It's a self-paced course students can actually trust to be fair — and instructors can trust to be honest.
 
@@ -38,9 +38,13 @@ It's a self-paced course students can actually trust to be fair — and instruct
 
 ⏱️ Chapters
 0:00 Knowing the customer through data
-0:10 Lessons & the AI tutor
-0:25 Adaptive practice & AI grading
-0:39 AI-cheating detection & wrap-up
+0:05 The 8-topic curriculum
+0:12 Three-depth lessons & the AI tutor
+0:18 Adaptive practice
+0:25 AI-graded assignments
+0:31 Two-layer AI-cheating detection
+0:38 Your live analytics dashboard
+0:44 Taught. Tutored. Graded. Honest.
 
 🧠 Topics covered
 1.1 What marketing analytics is (knowing the customer through data)

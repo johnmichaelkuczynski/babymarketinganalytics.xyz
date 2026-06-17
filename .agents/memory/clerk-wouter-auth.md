@@ -28,3 +28,13 @@ Other durable points for this artifact:
   Bearer/getToken to the web client.
 - Google provider is enabled by default on Replit-managed Clerk; provider management
   is done in the workspace Auth pane, not in code.
+- `@clerk/react` v6 uses the signals/future API, NOT the old clerk-react hooks.
+  `useSignIn()` returns `{ signIn, errors, fetchStatus }` — there is NO `isLoaded`,
+  and `signIn` is a `SignInFutureResource` with NO `authenticateWithRedirect`.
+  To start social OAuth from a custom button use
+  `signIn.sso({ strategy: "oauth_google", redirectUrl, redirectCallbackUrl })`:
+  `redirectCallbackUrl` = the in-app SSO callback handler route
+  (`${basePath}/sign-in/sso-callback`, handled by the `<SignIn>` catch-all
+  `/sign-in/*?`), and `redirectUrl` = the final post-auth destination
+  (`${basePath}/dashboard`). Wrap the call in try/catch so a disabled provider
+  surfaces a visible error instead of failing silently.

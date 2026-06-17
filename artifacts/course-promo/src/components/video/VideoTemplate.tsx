@@ -11,24 +11,24 @@ import { Scene7 } from './video_scenes/Scene7';
 import { Scene8 } from './video_scenes/Scene8';
 
 export const SCENE_DURATIONS = {
-  s1_intro: 4500,
-  s2_curriculum: 6000,
-  s3_depths: 6000,
-  s4_tutor: 9000,
-  s5_practice: 7000,
-  s6_grading: 6500,
-  s7_detection: 8000,
-  s8_outro: 7000
+  s1_intro: 5500,
+  s2_curriculum: 6500,
+  s3_tutor: 6500,
+  s4_practice: 6500,
+  s5_grading: 6500,
+  s6_detection: 6500,
+  s7_dashboard: 6500,
+  s8_outro: 6500
 };
 
 const SCENE_COMPONENTS: Record<string, React.ComponentType> = {
   s1_intro: Scene1,
   s2_curriculum: Scene2,
-  s3_depths: Scene3,
-  s4_tutor: Scene4,
-  s5_practice: Scene5,
-  s6_grading: Scene6,
-  s7_detection: Scene7,
+  s3_tutor: Scene3,
+  s4_practice: Scene4,
+  s5_grading: Scene5,
+  s6_detection: Scene6,
+  s7_dashboard: Scene7,
   s8_outro: Scene8
 };
 
@@ -79,17 +79,17 @@ export default function VideoTemplate({
 
   return (
     <div className="w-full h-screen overflow-hidden relative bg-slate-50 text-slate-900" style={{ fontFamily: 'var(--font-body)' }}>
-      {/* Persistent Background Layer (Very subtle for clean UI shots) */}
+      {/* Persistent Background Layer */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <motion.div
           className="absolute w-[80vw] h-[80vw] rounded-full opacity-[0.03] blur-3xl"
-          style={{ background: 'radial-gradient(circle, var(--color-primary), transparent)' }}
+          style={{ background: 'radial-gradient(circle, #2563eb, transparent)' }}
           animate={{ x: ['-20%', '30%', '-10%'], y: ['-10%', '40%', '-20%'], scale: [1, 1.2, 0.9] }}
           transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
           className="absolute w-[60vw] h-[60vw] rounded-full opacity-[0.02] blur-3xl right-0 bottom-0"
-          style={{ background: 'radial-gradient(circle, var(--color-accent), transparent)' }}
+          style={{ background: 'radial-gradient(circle, #10b981, transparent)' }}
           animate={{ x: ['20%', '-20%', '10%'], y: ['10%', '-30%', '20%'] }}
           transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
         />

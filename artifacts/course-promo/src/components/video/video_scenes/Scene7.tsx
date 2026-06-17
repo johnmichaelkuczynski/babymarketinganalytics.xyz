@@ -7,76 +7,83 @@ export function Scene7() {
   useEffect(() => {
     const timers = [
       setTimeout(() => setPhase(1), 500),
-      setTimeout(() => setPhase(2), 2000), // Check 1
-      setTimeout(() => setPhase(3), 3500), // Check 2
-      setTimeout(() => setPhase(4), 5000), // Final verdict
+      setTimeout(() => setPhase(2), 1500), // KPIs
+      setTimeout(() => setPhase(3), 2500), // Bars
     ];
     return () => timers.forEach(t => clearTimeout(t));
   }, []);
 
   return (
     <motion.div 
-      className="absolute inset-0 flex bg-slate-900"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      className="absolute inset-0 flex bg-slate-100 overflow-hidden"
+      initial={{ opacity: 0, x: '5vw' }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.8 }}
     >
       <motion.div 
-        className="w-[85vw] h-[80vh] m-auto bg-slate-800 rounded-xl shadow-2xl flex overflow-hidden border border-slate-700"
+        className="w-[90vw] h-[85vh] m-auto bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-slate-200"
       >
-        <div className="flex-1 p-16 flex flex-col justify-center max-w-4xl mx-auto">
+        <div className="p-8 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
+          <h2 className="text-2xl font-bold text-slate-800">Analytics Dashboard</h2>
+          <div className="flex gap-2">
+            <div className="w-3 h-3 rounded-full bg-slate-300"></div>
+            <div className="w-3 h-3 rounded-full bg-slate-300"></div>
+            <div className="w-3 h-3 rounded-full bg-slate-300"></div>
+          </div>
+        </div>
+
+        <div className="flex-1 p-10 flex flex-col gap-10">
           
-          <h2 className="text-4xl font-bold text-white mb-2">Integrity Scan</h2>
-          <p className="text-slate-400 text-xl mb-12">Checking submission authenticity...</p>
-
-          <div className="space-y-6">
-            
-            {/* Layer 1 */}
-            <motion.div 
-              className="bg-slate-900/50 p-6 rounded-xl border border-slate-700 flex items-center justify-between"
-              initial={{ opacity: 0, y: 20 }}
-              animate={phase >= 2 ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded bg-slate-800 flex items-center justify-center text-slate-400">1</div>
-                <div>
-                  <h4 className="text-white font-bold">GPTZero Text Scan</h4>
-                  <p className="text-slate-400 text-sm">Semantic analysis for AI patterns</p>
-                </div>
-              </div>
-              <div className="text-emerald-400 font-medium">4% AI — looks human-written</div>
-            </motion.div>
-
-            {/* Layer 2 */}
-            <motion.div 
-              className="bg-slate-900/50 p-6 rounded-xl border border-slate-700 flex items-center justify-between"
-              initial={{ opacity: 0, y: 20 }}
-              animate={phase >= 3 ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded bg-slate-800 flex items-center justify-center text-slate-400">2</div>
-                <div>
-                  <h4 className="text-white font-bold">Keystroke Pattern</h4>
-                  <p className="text-slate-400 text-sm">Behavioral pacing & paste detection</p>
-                </div>
-              </div>
-              <div className="text-emerald-400 font-medium">Human — steady pace, no bulk paste</div>
-            </motion.div>
-
+          {/* KPIs */}
+          <div className="flex gap-6">
+            {[
+              { label: "Questions Answered", val: "142", color: "blue" },
+              { label: "Overall Accuracy", val: "88%", color: "emerald" },
+              { label: "Current Streak", val: "12", color: "orange" },
+            ].map((kpi, i) => (
+              <motion.div 
+                key={i}
+                className="flex-1 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm"
+                initial={{ opacity: 0, y: 20 }}
+                animate={phase >= 2 ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ delay: phase >= 2 ? i * 0.1 : 0, type: "spring" }}
+              >
+                <div className="text-slate-500 font-medium text-sm mb-2 uppercase tracking-wider">{kpi.label}</div>
+                <div className={`text-4xl font-black text-${kpi.color}-600`}>{kpi.val}</div>
+              </motion.div>
+            ))}
           </div>
 
-          {/* Final Verdict */}
+          {/* Mastery Bars */}
           <motion.div 
-            className="mt-12 self-start flex items-center gap-4 bg-emerald-500/10 border border-emerald-500/20 px-8 py-4 rounded-2xl"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={phase >= 4 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-            transition={{ type: 'spring', bounce: 0.5 }}
+            className="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm flex-1"
+            initial={{ opacity: 0, y: 20 }}
+            animate={phase >= 3 ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           >
-            <div className="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 text-2xl">✓</div>
-            <div>
-              <div className="text-slate-300 text-sm font-medium uppercase tracking-wider">Final Verdict</div>
-              <div className="text-emerald-400 text-3xl font-bold">Authentic</div>
+            <h3 className="text-lg font-bold text-slate-800 mb-6">Topic Mastery</h3>
+            
+            <div className="space-y-6">
+              {[
+                { name: "1.3 The Funnel", pct: 95 },
+                { name: "1.4 Lifetime Value", pct: 82 },
+                { name: "1.5 Churn", pct: 60 },
+              ].map((topic, i) => (
+                <div key={i}>
+                  <div className="flex justify-between text-sm font-medium text-slate-600 mb-2">
+                    <span>{topic.name}</span>
+                    <span>{topic.pct}%</span>
+                  </div>
+                  <div className="h-3 w-full bg-slate-100 rounded-full overflow-hidden">
+                    <motion.div 
+                      className={`h-full rounded-full ${topic.pct > 80 ? 'bg-emerald-500' : 'bg-blue-500'}`}
+                      initial={{ width: 0 }}
+                      animate={phase >= 3 ? { width: `${topic.pct}%` } : { width: 0 }}
+                      transition={{ duration: 1.5, delay: phase >= 3 ? 0.5 + (i * 0.2) : 0, ease: "circOut" }}
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
           </motion.div>
 
