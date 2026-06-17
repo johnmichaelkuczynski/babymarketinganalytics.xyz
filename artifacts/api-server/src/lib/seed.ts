@@ -14,7 +14,7 @@ import { logger } from "./logger";
 // the value stored in seed_meta; a mismatch forces a full re-seed, so content
 // edits self-heal in every environment (including a republished production)
 // without a manual database wipe.
-const SEED_CONTENT_VERSION = "2026-06-17-predictive-analytics-for-children-v1";
+const SEED_CONTENT_VERSION = "2026-06-17-marketing-analytics-v1";
 
 type SeedTopic = {
   slug: string;
@@ -26,262 +26,282 @@ type SeedTopic = {
 };
 
 const TOPICS: SeedTopic[] = [
-  // Unit 1 — Predictive Analytics for Everyone
+  // Unit 1 — Marketing Analytics for Everyone
   {
-    slug: "what-predictive-analytics-is",
-    title: "What predictive analytics is",
+    slug: "what-marketing-analytics-is",
+    title: "What marketing analytics is",
     weekNumber: 1,
-    blurb: "Predictive analytics is using patterns in the past to estimate what's likely to happen next — and most of what gut instinct tells you about the future is a myth.",
-    lectureTitle: "1.1 What predictive analytics is (using the past to see the future)",
-    body: `# What predictive analytics is
+    blurb: "Marketing analytics is using data about real customers to understand who they are and what makes them buy — replacing 'what we think the market wants' with what the evidence actually shows.",
+    lectureTitle: "1.1 What marketing analytics is (knowing the customer through data)",
+    body: `# What marketing analytics is
 
-Almost everyone tries to guess the future every single day — which line at the store will move faster, whether it's going to rain, how a friend will react to some news. Those guesses come from gut feeling, and gut feeling is powerful but often wrong. **Predictive analytics** is the careful version of that everyday habit: using patterns in past data to estimate what is *likely* to happen next, not by how it feels, but by what the evidence actually shows.
+Almost every business spends money trying to win customers — an ad here, a discount there, a fresh sign in the window — and most of it is based on a hunch about "what people want." Hunches are powerful, but they're often wrong, and wrong hunches cost real money. **Marketing analytics** is the careful version of that everyday habit: using data about real customers to understand who they are, what they do, and what actually makes them buy — not by how it feels, but by what the evidence shows.
 
-## Using the past to see the future
+## Knowing the customer through data
 
-Every prediction works the same simple way: you look at what has happened before and use it to estimate what comes next. Predictive analytics is the skill of doing that honestly instead of guessing. It turns a pile of past records — sales, weather, traffic, scores — into a careful estimate of what's coming, so you can prepare instead of being surprised. The goal isn't to know the future for certain; it's to be a little less wrong than a gut feeling would be.
+Every business is really trying to answer one question: *who is my customer, and what will make them say yes?* Marketing analytics answers it by looking at what customers actually do — what they click, buy, return, and ignore — instead of guessing. It turns a pile of ordinary records — sales receipts, sign-ups, website visits — into a clear picture of real people, so you can serve them better instead of shouting into the dark. The goal isn't to read minds; it's to be a lot less wrong than a gut feeling would be.
 
-## Everyone already predicts
+## Everyone already does marketing
 
-Here's something easy to miss: you already predict all the time. When you grab an umbrella because the sky looks grey, you've made a forecast from past experience. When a shop owner orders extra ice cream before a hot weekend, that's a prediction too. Predictive analytics doesn't invent something brand new — it just makes that ordinary skill more honest by leaning on real records instead of a hunch. Doing it with data is usually fairer and more reliable than trusting whoever feels most confident.
+Here's something easy to miss: you already think like a marketer all the time. When a friend reminds you about a sale they know you'll love, that's targeting. When a shop owner remembers a regular's usual order, that's using customer data. Marketing analytics doesn't invent something brand new — it just makes that ordinary skill more honest and more reliable by leaning on real records instead of memory and hope. Doing it with data is usually fairer and far more dependable than trusting whoever in the room sounds most confident.
 
-## A prediction is an estimate, not a guarantee
+## Opinions are cheap; evidence is not
 
-This is the most important idea in the whole course: a prediction is a set of **odds**, not a promise. When a forecast says there's an 80% chance of rain, it is not lying if the day turns out dry — it was always an estimate of what was *likely*, never a guarantee. Good predictors say how *sure* they are, and they expect to be wrong sometimes. The past is a guide to the future, but it is never a promise that tomorrow will copy yesterday.
+This is one of the most important ideas in the whole course: in marketing, *everyone has an opinion, and opinions are usually free and usually wrong.* The boss likes the blue logo, the designer prefers the green one, and both can argue forever. Marketing analytics steps in and asks a different question — not "which do we *like*?" but "which one actually makes more people buy?" Replacing confident opinions with measured evidence is the single biggest thing that separates modern marketing from guesswork.
 
-## The myths about prediction
+## The myths about customers
 
-People believe confident myths about the future: that a winning streak will keep going, that whatever just happened will keep happening, that an expert who sounds certain must be right, that the future is either perfectly knowable or completely random. None of these hold up. A streak can end the moment you bet on it, a confident voice can be confidently wrong, and most of the future sits in between "certain" and "anyone's guess." A big part of this course is **un-learning** those myths and replacing them with honest, careful estimates.
+People believe confident myths about customers: that "everybody" is their customer, that customers buy for the reasons they *say* they do, that one loud complaint speaks for thousands, that a good month means you've cracked the code forever. None of these hold up. Most products are for a specific kind of person, what people say and what they do often differ, and a single month can be luck. A big part of this course is **un-learning** those myths and replacing them with an honest look at what customers actually do.
 
-## Why this matters
+## It's about people, not just numbers
 
-Getting this right isn't just for scientists with big computers. The same ideas decide whether a family packs for a storm, whether a small shop orders the right amount of food, and whether a hospital has enough staff on a busy night. When people run on myth instead of measurement, real harm follows — wasted money, missed dangers, bad surprises. Making honest predictions is a kind of fairness to everyone who depends on the plan.
+It's easy to think analytics turns customers into cold numbers, but the opposite is true when it's done well. Behind every data point is a real person making a real choice — to click, to buy, to walk away. Good marketing analytics uses the numbers to *understand* people more clearly and treat them more fairly, not to manipulate them. When it's done badly, it feels creepy and pushy; when it's done well, customers feel understood, and the business stops wasting their time and its own money.
 
 ## In the real world
 
-The most familiar predictive analytics on earth is the **weather forecast.** Forecasters take huge amounts of past and present data — temperature, wind, pressure — and use it to estimate what the sky will likely do, then tell you the odds: a "70% chance of rain" means that on days that look like this one, it rained about seven times out of ten. Crucially, the forecast is an estimate, not a promise, which is why it can be useful and still be wrong on any single day. That everyday miracle — turning past patterns into honest odds about the future — is exactly what this whole course is about.`,
+The most famous example of a company learning its customers through data is the **supermarket loyalty card.** When a grocery chain gives you a little card that saves you a few cents, it isn't being generous for free — in return it records exactly what you buy, how often, and when. One British grocer used the mountains of data from its loyalty card to discover who its customers really were and what each kind of shopper wanted, and used that to send the right offers to the right people. It quietly became one of the most successful marketing moves in retail history. That everyday card — turning ordinary purchases into a real understanding of real customers — is exactly what this whole course is about.`,
   },
   {
-    slug: "shape-of-data-over-time",
-    title: "The shape of data over time",
+    slug: "segmentation",
+    title: "Segmentation: why the average customer doesn't exist",
     weekNumber: 1,
-    blurb: "A stream of data over time has three layers — a long-run trend, repeating seasonal patterns, and random noise — and mistaking the noise for a real signal fools almost everyone.",
-    lectureTitle: "1.2 The shape of data over time (trend, seasonality, and noise)",
-    body: `# The shape of data over time
+    blurb: "Customers aren't one big blob and 'the average customer' is a myth — segmentation splits them into meaningful groups so you can speak to each one instead of to no one.",
+    lectureTitle: "1.2 Segmentation (why 'the average customer' doesn't exist)",
+    body: `# Segmentation: why the average customer doesn't exist
 
-When you look at a chart of something measured over and over — daily sales, monthly temperatures, weekly visitors — it can look like a jumpy, confusing scribble. One of the most useful ideas in predictive analytics is that almost every such chart is really **three things stacked together**, and once you learn to pull them apart, the future gets much easier to estimate. Those three layers are trend, seasonality, and noise.
+When a business pictures "the customer," it usually imagines one made-up average person and tries to please them. That feels efficient, but it's a trap, because the average customer is a fiction — almost nobody actually matches them. One of the most useful ideas in marketing analytics is **segmentation**: instead of treating everyone as one blurry blob, you split customers into meaningful groups, so you can finally speak to real people instead of to an average that doesn't exist.
 
-## Data tells a story over time
+## The average customer is a myth
 
-A single number tells you almost nothing; a number measured again and again *over time* tells a story. Did it climb, fall, or hold steady? Does it spike every weekend? Is it just bouncing around for no reason? Reading data over time is the heart of forecasting, because the future is mostly a continuation of the patterns already hiding in the past. The skill is learning which wiggles are meaningful and which are just random.
+If half your customers are teenagers and half are retirees, the "average customer" is middle-aged — and you'd be designing for someone who isn't there at all. Averages hide the very differences that matter. A clothing store whose customers are split between budget shoppers and luxury buyers learns nothing from "the average customer spends a medium amount." The truth lives in the groups, not in the blended-together middle, and chasing the average usually means pleasing no one.
 
-## Trend: the long-run direction
+## What segmentation is
 
-The **trend** is the slow, overall direction once you ignore the day-to-day bumps — is the line generally heading up, down, or staying flat over months and years? A town's population creeping upward, a phone's battery slowly getting worse, a sport's records inching higher: those are trends. Spotting the trend matters because it's the part of the future you can most reliably lean on. But beware — a short stretch can *look* like a trend when it's really just a lucky run.
+**Segmentation** is dividing your customers into groups whose members are alike in some way that matters for marketing. The point is that people inside a group will tend to respond to the same message, while people in different groups need different ones. Good segments are big enough to be worth the effort, different enough from each other to deserve separate treatment, and based on something you can actually act on. Done right, segmentation turns one impossible question — "what does everyone want?" — into several answerable ones.
 
-## Seasonality: patterns that repeat
+## Ways to slice your customers
 
-**Seasonality** is any pattern that repeats on a regular cycle. Ice cream sells more every summer, stores get busy every December, a café fills up every weekday lunch, traffic jams happen every rush hour. These patterns repeat predictably, so they're a forecaster's best friend: once you know the cycle, you can prepare for it. Confusing a seasonal bump for a permanent change — "sales jumped in December, we're booming!" — is a classic and costly mistake.
+There are many ways to cut customers into groups, and the best one depends on your goal. You can slice by **who they are** (age, location, income), by **what they do** (how often they buy, how much they spend, what they browse), or by **what they need** (the job they're hiring your product to do). Behavior is often the most powerful, because what people *do* predicts what they'll do next far better than what they *are.* A useful habit is to ask: which way of grouping these customers actually changes how I'd treat them?
 
-## Noise: the random wiggle
+## Speaking to a segment, not to everyone
 
-**Noise** is the leftover jiggle that nothing can explain — pure randomness. One slightly busier Tuesday, a single rainy day, a customer who happened to wander in. Noise has no pattern and no meaning, which is exactly why it's dangerous: our brains love to invent stories for it. The single most important discipline here is refusing to treat noise as a signal. A good week might be a real improvement, or it might just be noise wearing a costume.
+The payoff of segmentation is the message. A gym can tell its committed regulars about a new advanced class while reminding lapsed members how much they miss it — two different messages for two different groups, each landing because it fits. Trying to write one message for everyone forces you into bland mush that excites no one. When marketing feels personal and relevant, it's usually because someone segmented first and then spoke to each group in its own language.
 
-## Why telling them apart matters
+## The danger of too many or too few segments
 
-The whole game of forecasting is separating the real pattern (trend plus seasonality) from the meaningless wiggle (noise). Mistake noise for a trend and you'll celebrate a fluke and over-order; mistake a real trend for noise and you'll get caught flat-footed by a change you should have seen coming. Almost every forecasting blunder traces back to confusing these three layers — so before predicting anything, a careful person asks: *is this a trend, a season, or just noise?*
+Segmentation can go wrong in two opposite directions. Too few segments — treating everyone the same — and you're back to the mythical average, missing real differences. Too many — a separate plan for every single customer — and you drown in complexity and can't act on any of it. The skill is finding a handful of segments that are genuinely different and genuinely useful. A good test: if two "segments" would get the exact same marketing anyway, they shouldn't be separate segments at all.
 
 ## In the real world
 
-Retailers live and die by **seasonality.** Many stores make a huge share of their entire year's sales in the few weeks around the December holidays — so much that the day after American Thanksgiving is nicknamed "Black Friday" because it's said to push stores into the black (into profit) for the year. A shop that mistook that predictable December spike for a permanent new trend would order far too much in January and get burned. Reading the data's real shape — knowing the holiday rush is seasonality, not a forever-trend — is what keeps the shelves stocked correctly all year long.`,
+A famous lesson about averages comes from the **U.S. Air Force.** In the 1950s, planes kept crashing, and the cockpit had been designed to fit the "average pilot" — built from the average of thousands of pilots' measurements. A researcher then checked how many real pilots actually matched that average across the key dimensions. The answer was *zero.* Not a single pilot was average on all of them, so the cockpit built for the average fit no one well. The fix was to stop designing for the average and instead make seats, pedals, and straps adjustable to different kinds of bodies. Marketers learned the same thing: there is no average customer, so the winning move is to design for the real, different groups who are actually out there.`,
   },
   {
-    slug: "regression",
-    title: "Regression: the workhorse of prediction",
+    slug: "the-funnel",
+    title: "The funnel: from stranger to buyer",
     weekNumber: 1,
-    blurb: "Regression finds the underlying relationship between two things so you can estimate one from the other — it's everywhere, but pushing it past the data you've seen is dangerous.",
-    lectureTitle: "1.3 Regression (the workhorse of prediction)",
-    body: `# Regression: the workhorse of prediction
+    blurb: "Customers travel a journey from never hearing of you to buying, dropping off at every stage — the funnel maps that journey so you can find and fix the leak.",
+    lectureTitle: "1.3 The funnel (tracking the journey from stranger to buyer)",
+    body: `# The funnel: from stranger to buyer
 
-If predictive analytics had a single most-used tool, it would be this one. **Regression** is the careful art of finding the relationship between two things — like temperature and ice cream sales — so that, knowing one, you can estimate the other. It sounds fancy, but the idea is simple and it's hiding behind an enormous number of the predictions made in the world every day, which is why it's called the workhorse.
+Nobody goes from never having heard of a business to handing over money in a single instant. They take a journey: they notice you, get curious, weigh it up, and finally decide. Marketing analytics gives that journey a shape — the **funnel** — and once you can see it, you can find exactly where customers are slipping away and fix the right thing instead of guessing.
 
-## Finding the relationship between things
+## The journey from stranger to buyer
 
-Regression starts with a question: when one thing changes, what tends to happen to another? When it's hotter, do more cold drinks sell? When a house is bigger, does it usually cost more? Regression looks at lots of past examples and measures how the two move together, so you can turn "I think they're related" into a usable estimate. It's how you go from "warm days seem busier" to "on a day this warm, we'll probably sell about this much."
+A customer's path usually runs through a few stages: first they become *aware* you exist, then *interested* enough to learn more, then they *consider* whether to buy, and finally they *purchase* (and ideally come back). Each stage is a real moment where a person either moves forward or drops out. Mapping this journey matters because "sales are down" is useless on its own — the cure is completely different depending on *which* step is losing people.
 
-## The line of best fit
+## Why it's shaped like a funnel
 
-Picture every past day as a dot on a chart — temperature across the bottom, sales up the side. The dots won't form a perfect line; they'll scatter. Regression draws the single straight line that comes **closest to all the dots at once** — the "line of best fit." That line is your prediction machine: pick tomorrow's expected temperature, slide up to the line, and read off the estimated sales. The line doesn't hit every dot, and it isn't supposed to — it captures the general relationship while ignoring the noise.
+It's called a funnel because it's wide at the top and narrow at the bottom: lots of people hear about you, fewer get interested, fewer still consider buying, and only some actually purchase. That narrowing is normal and unavoidable — not everyone who sees an ad needs the product. The shape is useful precisely because it shows you can't expect everyone to reach the bottom; the question is never "why didn't everyone buy?" but "are we losing too many at one particular step?"
 
-## Why it's the workhorse
+## Conversion rate: measuring each step
 
-Regression is everywhere because it's simple, cheap, and easy to explain. It estimates how much a bigger engine changes a car's price, how study time relates to test scores, how rainfall relates to crop size. Anyone can look at the line and roughly understand what it's saying, which matters: a prediction you can explain is one you can question and trust. Fancier methods exist, but this honest workhorse handles a huge share of real predictions perfectly well.
+The key number in a funnel is the **conversion rate** — the share of people who make it from one stage to the next. If 1,000 people visit your site and 50 buy, that's a 5% conversion from visit to purchase. Measuring the rate at *each* step turns a vague feeling of "not enough sales" into a precise map: maybe lots of people add items to the cart but almost none finish checkout. The rate, step by step, is what tells you where the journey is breaking.
 
-## The extrapolation trap
+## Finding the leak
 
-Here's where regression bites back. The line is only trustworthy *inside the range of data you've actually seen.* Stretching it far beyond that — called **extrapolation** — is dangerous, because there's no guarantee the relationship keeps holding. Watering a plant more makes it grow, but you can't conclude that a flood will make it grow enormously; past a point, the relationship flips. A line built from mild summer days tells you nothing reliable about a record-breaking heatwave. Trusting the line where you have no evidence is one of the most common ways predictions go badly wrong.
+The whole power of the funnel is that it shows you the **leak** — the one stage where you're losing far more people than you should. If tons of people visit but almost none get interested, your problem is the first impression, not the price. If many fill a cart but abandon it at payment, your problem is checkout, not advertising. Pouring more money into the top of the funnel when the leak is at the bottom is like filling a bucket faster instead of plugging the hole.
+
+## Fixing the right stage
+
+Once you've found the leaky stage, you fix *that* stage, not a random one. A drop-off at checkout might be solved by offering more payment options or removing a forced sign-up; a drop-off at awareness needs better reach, not a smoother checkout. The discipline is to let the funnel point you to the real problem before spending a cent. The biggest, cheapest wins in marketing usually come from plugging the worst leak, not from working harder everywhere at once.
 
 ## In the real world
 
-The word "regression" itself comes from a real discovery. More than a century ago, a scientist named Francis Galton compared the heights of parents and their grown children and found a clear relationship — taller parents tended to have taller children — that he could draw as a line. But he noticed something surprising: very tall parents usually had children a bit *shorter* than themselves, closer to the average. He called this "regression toward the average," and the prediction method kept the name. That early study — using a relationship in past data to estimate one thing from another — is the same workhorse powering countless predictions today.`,
+The clearest funnel leak on earth is the **abandoned online shopping cart.** Across e-commerce, roughly seven out of ten shoppers who put items in their cart never actually complete the purchase — they get all the way to the edge of buying and then vanish. Stores that studied this leak found the culprits were things like surprise shipping costs at the last second, being forced to create an account, or a checkout with too many steps. By fixing that one stage — showing costs upfront, allowing guest checkout, shortening the form — many recovered a big share of those nearly-lost sales. It's a perfect lesson of the funnel: the money wasn't hiding at the top of the journey, it was leaking out one specific step from the end.`,
   },
   {
-    slug: "correlation-vs-causation",
-    title: "Correlation vs. causation",
+    slug: "customer-lifetime-value",
+    title: "Customer lifetime value",
     weekNumber: 1,
-    blurb: "Two things moving together doesn't prove one causes the other — a hidden third factor often drives both, and this trap fools almost everyone.",
-    lectureTitle: "1.4 Correlation vs. causation (the trap that fools everyone)",
-    body: `# Correlation vs. causation
+    blurb: "A customer isn't worth one sale — they're worth every sale across the whole relationship, and seeing that total changes how much you can spend to win and keep them.",
+    lectureTitle: "1.4 Customer lifetime value (what a customer is really worth)",
+    body: `# Customer lifetime value
 
-This single idea is responsible for more bad predictions and silly conclusions than almost anything else in the field. When two things tend to move together, it's tempting to decide that one must be causing the other. But "moving together" (**correlation**) is not the same as "one makes the other happen" (**causation**), and confusing the two is a trap that fools experts, businesses, and everyday people alike.
+When a new customer makes a small first purchase, it's tempting to judge them by that one sale and move on. But that's like judging a friendship by the first conversation. The single most clarifying idea in marketing analytics is **customer lifetime value** — the total worth of a customer across the *whole* relationship, not just today's receipt. Once you see customers this way, almost every spending decision changes.
 
-## Moving together isn't the same as causing
+## One sale versus a lifetime of sales
 
-**Correlation** just means two things tend to rise and fall together, or move in opposite directions. That's a real, useful pattern — it can help you predict. But it says nothing about *why.* Maybe the first thing causes the second, maybe the second causes the first, maybe something else causes both, or maybe it's pure coincidence. Spotting that two things move together is the easy part; figuring out whether one actually drives the other is the hard, important part.
+A coffee shop might make two dollars when you buy a latte. Judged on that sale alone, spending much to attract you looks foolish. But if you come back twice a week for two years, you're worth thousands — and suddenly fighting to win and keep you is obviously worth it. The trap is treating each customer as a one-time two-dollar transaction when they're really a long stream of purchases. Seeing the lifetime, not the single sale, is what separates short-sighted marketing from smart marketing.
 
-## The hidden third factor
+## What customer lifetime value is
 
-The most common reason two things move together without causing each other is a sneaky **third factor** driving both. The classic example: as ice cream sales go up, so do drownings. Does ice cream cause drowning? Of course not — **hot weather** is the hidden cause. Heat makes people buy more ice cream *and* swim more, so both rise together while neither causes the other. Whenever you see a surprising correlation, the first thing a careful person hunts for is the lurking third factor that explains the whole thing.
+**Customer lifetime value (CLV)** is an estimate of the total money a customer will bring in over their entire relationship with you — how much they spend each time, how often, and for how long. You don't need exact math to use the idea: it's simply the difference between "this person bought once" and "this person will buy steadily for years." CLV reframes a customer from a single sale into an ongoing relationship with a total worth, which is the figure that should actually guide your decisions.
 
-## Why this trap fools everyone
+## Why CLV changes how much you can spend
 
-This mistake is so common because our brains are story-making machines: we see two things connected and instantly invent a cause. Headlines do it constantly — "people who do X live longer!" — when X might just be something healthy people already tend to do. Acting on a correlation as if it were a cause leads to wasted effort and worthless plans: you change the thing that was never the cause and nothing improves. The discipline is to *resist the satisfying story* until you have real evidence of cause.
+CLV answers a question every business struggles with: *how much can I afford to spend to get a new customer?* If a customer is worth two dollars, you can't spend twenty to win them. But if they're worth two thousand over their lifetime, spending fifty to acquire them is a bargain. Businesses that only look at the first sale starve their marketing and lose to rivals who understand the lifetime value and confidently outspend them to win the same customers. CLV turns "are we spending too much?" into a question you can actually answer.
 
-## How to test for real causation
+## Not all customers are equal
 
-So how do you tell? The gold standard is a fair test: change *only* the suspected cause, keep everything else the same, and see if the effect follows — that's why careful experiments split things into groups and compare. If you can't run a test, you at least ask hard questions: could a third factor explain this? Does the cause come *before* the effect? Does the link survive when you account for the obvious other explanations? Until a correlation passes that kind of scrutiny, treat it as a clue, not a conclusion.
+CLV also reveals an uncomfortable truth: customers are not equally valuable. A small group of loyal, frequent, high-spending customers often produces a huge share of the profit, while many one-time bargain-hunters barely cover the cost of serving them. This matters because it tells you where to aim your best effort: keeping and delighting your highest-value customers is usually worth far more than chasing endless cheap, one-time sales. Spreading attention equally across everyone quietly neglects the very customers who matter most.
+
+## The retention trap
+
+Here's a lesson that surprises people: it is almost always cheaper to *keep* a customer than to win a brand-new one. Yet many businesses pour nearly all their money into attracting strangers while letting loyal customers quietly drift away. Because winning a new customer can cost several times more than keeping an existing one, a business obsessed with new sales and blind to retention is filling a leaky bucket. Thinking in lifetime value naturally pushes you to protect the relationships you already have, not just hunt for new ones.
 
 ## In the real world
 
-A genuinely famous example involves shark attacks and ice cream. In summer, both shark attacks and ice cream sales rise together — a real correlation strong enough that you could almost predict one from the other. But ice cream obviously doesn't summon sharks; the hidden third factor is **hot weather**, which sends more people to the beach (more swimmers near sharks) and more people to the ice cream stand at the same time. Researchers and statistics teachers use this case constantly precisely because it makes the trap so obvious — and reminds everyone that even a strong, reliable correlation can hide the fact that neither thing causes the other.`,
+A clear example of lifetime-value thinking is a **paid membership like Amazon Prime.** On paper, giving members fast, free shipping costs the company money on each order and looks like a loss. But Amazon understood the lifetime value: members shop far more often and spend much more over the years than non-members, so the relationship is hugely profitable even when individual orders aren't. By spending generously to win and keep members — accepting thin or negative margins on single orders — the company invested in lifetime value instead of single sales. That willingness to lose a little on one purchase to gain a lot over a lifetime is exactly the mindset this section is about.`,
   },
   {
-    slug: "forecasting-methods",
-    title: "Forecasting methods",
+    slug: "churn",
+    title: "Churn: spotting who's about to leave",
     weekNumber: 1,
-    blurb: "Forecasting ranges from a simple moving average to complex machine learning — but fancier isn't automatically better, and a model is only as good as its assumptions.",
-    lectureTitle: "1.5 Forecasting methods (from moving averages to machine learning)",
-    body: `# Forecasting methods
+    blurb: "Customers rarely announce they're leaving — they just quietly stop, but their behavior changes first, and spotting those warning signs lets you act before they're gone.",
+    lectureTitle: "1.5 Churn (spotting who's about to leave before they do)",
+    body: `# Churn: spotting who's about to leave
 
-Once you accept that the future can be estimated from the past, the next question is *how* — what method should you actually use? There's a whole ladder of forecasting methods, from dead-simple tricks you could do on paper to dazzling computer systems. A surprising and important lesson runs through all of them: the fanciest method is not automatically the best one, and the simple methods are often shockingly hard to beat.
+A business can be winning new customers every month and still be shrinking, because customers are leaking out the back door just as fast as they arrive. That quiet leaving is called **churn**, and it's one of the most expensive problems in marketing precisely because it's so easy to ignore. The good news: customers usually send warning signs before they go, and marketing analytics is how you read those signs in time to act.
 
-## From simple to complex
+## What churn is
 
-Forecasting methods sit on a spectrum. At the easy end are simple rules anyone can understand and check by hand. At the hard end are complex computer models that crunch mountains of data in ways no person could follow step by step. Both ends can make good predictions, and both can fail. The skill isn't always reaching for the most powerful tool — it's choosing the method that fits the problem, the data you have, and how much you need to be able to explain it.
+**Churn** is simply customers leaving — canceling a subscription, not renewing, or just never coming back. Every business loses some customers; that's normal. The danger is when churn quietly outpaces the new customers coming in, so the business is shrinking even while marketing celebrates new sign-ups. Churn matters because it directly destroys the lifetime value you worked to build: a customer who leaves early was never worth what you paid to acquire them.
 
-## The moving average: smoothing the noise
+## Why churn is so expensive
 
-The friendliest forecasting tool is the **moving average.** Instead of reacting to every jumpy data point, you average the last several values to smooth out the random noise and reveal the underlying pattern. To guess this week's sales, you might just average the last few weeks. It's simple, easy to explain, and it stops you from overreacting to a single weird day. It won't catch sudden changes quickly, but for steady situations it's a humble, reliable workhorse that's genuinely hard to beat.
+Churn is brutal because of everything we learned about lifetime value: when a customer leaves, you lose not one sale but every future sale they would have made — and you've already spent good money winning them. It's a leaky bucket, where pouring in new customers at the top never fills it if they're draining out the bottom. Because keeping a customer is usually far cheaper than replacing them, reducing churn is often the single most profitable thing a business can do, even though it's far less glamorous than chasing new sign-ups.
 
-## Machine learning: the fancy end
+## The warning signs
 
-At the powerful end is **machine learning** — computer systems that hunt through huge piles of past data and find patterns far too complicated for a person to spot. These can be remarkably accurate, picking up subtle relationships a simple average would miss. But they have a cost: they're often a "black box" you can't easily look inside, so when they're wrong it can be very hard to understand *why.* Power and mystery come together, and that trade-off matters more than beginners expect.
+The crucial insight is that customers rarely leave without warning — their *behavior* changes first. Someone about to cancel a streaming service usually watches less and less for weeks before they quit; a once-weekly shopper starts coming monthly, then not at all. These slowdowns are the early-warning signals. By watching how engagement *changes over time* rather than just whether someone is still technically a customer, you can spot the people drifting toward the exit while there's still time to do something about it.
 
-## Fancier isn't automatically better
+## Predicting churn from patterns
 
-Here's the lesson that surprises people: a simple method you fully understand often beats a complicated one you can't check. A black box can quietly latch onto a meaningless quirk in the old data and fail badly on new data, and you might never notice until it's too late. A method you can explain is a method you can question, sanity-check, and fix. So the right question isn't "what's the most advanced model?" but "what's the simplest method that does the job well enough that I can still trust and understand it?"
+Once you know what leaving looks like, you can look across all your customers and flag the ones whose behavior matches that pattern — declining visits, smaller orders, longer gaps, ignored emails. This is prediction in the service of marketing: not certainty about who will leave, but a ranked list of who's *at risk.* It works because past leavers tend to behave a certain way before going, and current customers showing the same signs are likely heading the same way. The point isn't to be exactly right; it's to find the at-risk customers before they're gone.
 
-## A model is only as good as its assumptions
+## Acting in time
 
-Every forecasting method, simple or fancy, rests on a hidden bet: that the future will resemble the past in the ways the method assumes. A model built assuming next year looks like last year will break the moment the world genuinely changes. That's why no model should be trusted blindly — you have to know what it's assuming and ask whether those assumptions still hold. When people say "garbage in, garbage out," this is what they mean: feed a model bad data or bad assumptions, and even the smartest method gives confident nonsense.
+A churn prediction is only useful if it changes what you do. Once you've flagged at-risk customers, you can step in — a friendly check-in, a well-timed offer, fixing whatever frustrated them — while they can still be saved. Acting *before* someone leaves is far more effective than trying to win them back after they've already quit and moved on. The whole point of spotting churn early is turning a silent goodbye into a second chance, and doing it while the relationship is still alive.
 
 ## In the real world
 
-Forecasting experts run big public contests where many teams compete to predict the same real data, and the results keep delivering the same humbling surprise: **simple methods often beat the complicated ones.** In famous forecasting competitions, plain approaches like moving averages have repeatedly matched or outperformed far more elaborate, expensive models. The lesson the whole field took from this is exactly this section's point — fancier is not automatically better, a model is only as good as its assumptions, and a simple method you can understand and check is often the wiser choice.`,
+The classic home of churn analysis is the **mobile phone carrier.** For years, phone companies faced customers who could switch to a rival at the end of any contract, and losing them was enormously costly. So carriers became pioneers of churn prediction: they watched for the tell-tale signs — more dropped-call complaints, declining usage, calls to customer service, a contract nearing its end — and flagged customers likely to leave. Then they acted in time, offering those specific at-risk customers a better deal or a new phone before the contract expired. That playbook — read the warning signs in the data, predict who's about to leave, and intervene before they do — is exactly what this section is teaching.`,
   },
   {
-    slug: "measuring-forecast-error",
-    title: "How good is the forecast?",
+    slug: "ab-testing",
+    title: "A/B testing: letting data settle the argument",
     weekNumber: 1,
-    blurb: "A forecast is only meaningful if you measure how wrong it was — accuracy is earned by checking predictions against reality, not by sounding confident.",
-    lectureTitle: "1.6 How good is the forecast? (measuring error and accuracy)",
-    body: `# How good is the forecast?
+    blurb: "Instead of arguing over which version is better, an A/B test shows both to similar customers at random and lets their actual behavior decide — the closest marketing gets to a fair experiment.",
+    lectureTitle: "1.6 A/B testing (letting data settle the argument)",
+    body: `# A/B testing: letting data settle the argument
 
-It's easy to make predictions. The hard, honest part — and the part most people skip — is checking afterward whether the prediction was any good. A forecast that nobody ever scores against reality is worthless, no matter how confident it sounded. This section is about **error**: the gap between what you predicted and what actually happened, and why measuring it is what separates real forecasting from fortune-telling.
+Marketing teams love to argue: which headline, which color, which price, which photo. These arguments can go in circles forever because everyone's reasoning from opinion. **A/B testing** ends the argument the only honest way — by trying both versions on real customers and letting their actual behavior decide. It's the closest thing marketing has to a fair scientific experiment, and it's how data settles a debate that opinions never could.
 
-## A forecast nobody scores is worthless
+## What an A/B test is
 
-There's a comfortable trick people play: make confident predictions, and quietly forget the ones that were wrong. A weather guesser, a stock tipster, or a friend who "called it" can seem brilliant if you only remember the hits. But a prediction you never check is just a story. The whole value of a forecast comes from being held to account afterward — without scoring, you can never tell a genuine skill from a lucky guess or a confident bluff.
+An **A/B test** is beautifully simple: you make two versions of something — call them A and B — show each version to a different randomly chosen group of customers, and measure which one performs better. Maybe version A is the old button and version B is a new one; whichever gets more clicks wins, decided by what people *did,* not what anyone *predicted.* The genius is that you don't have to win the argument in advance; you just run the test and read the answer off reality.
 
-## Error: the gap between predicted and actual
+## Why the random split matters
 
-**Error** is simply the difference between what you forecast and what really happened. Predicted 100 customers and 120 showed up? That's an error of 20. Measuring error turns a vague feeling of "pretty close" into something concrete you can track and improve. The goal isn't zero error — that's impossible, because noise and uncertainty are real — but smaller, honest error over time. You can't get better at predicting if you never measure how wrong you were.
+The single most important rule is that the two groups must be split **at random.** If you showed version A to your loyal regulars and version B to brand-new visitors, you couldn't tell whether the difference came from the button or from the kind of people who saw it. Splitting customers randomly makes the two groups statistically alike in every other way, so any difference in results can fairly be credited to the one thing you changed. This is exactly the lesson of a fair experiment: change only one thing, keep everything else the same.
 
-## Backtesting: checking against reality
+## Reading the result honestly
 
-A powerful way to test a forecasting method is **backtesting**: take old data, pretend you didn't know the future, make the prediction, then compare it to what actually happened. It's like grading yourself on a test where the answers already exist. Backtesting reveals whether a method really works *before* you bet on it with real stakes. A method that can't predict the past it hasn't peeked at has no business predicting the future.
+A winning version isn't always a real winner — sometimes one group just got lucky. If A gets 11 clicks and B gets 10 out of a few dozen people, that gap is probably random noise, not a real difference. To trust a result, you need enough people in each group and a big enough gap that luck is an unlikely explanation. The discipline is to ask not just "which number is higher?" but "is this difference big and solid enough that it would probably show up again?" — because a tiny lead on a tiny test means almost nothing.
 
-## Why confident isn't the same as accurate
+## Common mistakes
 
-The most dangerous forecaster is the one who is confident but never checked. Confidence is a feeling; accuracy is a measured track record. They often come apart — the loudest, surest voice is frequently no more accurate than a coin flip, while a careful, humble forecaster who keeps score quietly does better. So when judging any prediction, ignore how sure it sounds and ask the only question that matters: *what's their track record when we actually measured?* Accuracy is earned by being checked, not by being confident.
+A/B testing is easy to do badly. **Stopping early** the moment your favorite version is ahead lets you fool yourself with a lucky streak that would have evened out. **Changing several things at once** — new color *and* new wording *and* new price — means that even if B wins, you have no idea *which* change did it. And **testing something nobody cares about**, like a shade of grey almost no one notices, wastes effort that could test something that actually moves customers. The cure for all three is patience and focus: one change, enough data, and a result you're willing to be surprised by.
+
+## One change at a time
+
+The reason to test just one change at a time is the same reason scientists isolate variables: it's the only way to know *what* caused the result. If you want to learn whether a shorter form helps, change only the form length and leave everything else alone. It feels slower, but it's the only path to real knowledge instead of a pile of changes and a mystery about which one mattered. Tested patiently, one change at a time, A/B testing turns marketing from a shouting match into a steady accumulation of things you actually know.
 
 ## In the real world
 
-A researcher named Philip Tetlock spent years doing something most pundits dread: he wrote down thousands of expert predictions about politics and the economy, then waited to **score them against what really happened.** The uncomfortable finding was that many confident, famous experts were barely better than random guessing — and the loudest, most certain voices were often the *least* accurate. But he also found a smaller group of careful, humble forecasters who kept score and genuinely beat the rest. The whole study makes this section's point unforgettable: a forecast means nothing until it's measured, and confidence is no substitute for a checked track record.`,
+A famous A/B test comes from the **2008 Obama presidential campaign.** The team couldn't agree on which photo and which button text would get more people to sign up on the website, so instead of arguing, they tested different combinations on real visitors at random and measured who actually signed up. The winning combination beat the version the team had originally favored by a wide margin — and, scaled across millions of visitors, that single tested improvement was estimated to have gained the campaign tens of millions of dollars in donations. They didn't win the argument in the meeting; they let the data settle it. That's the entire spirit of A/B testing: stop debating, run the test, and trust what customers actually do.`,
   },
   {
-    slug: "why-forecasts-fail",
-    title: "Why forecasts fail",
+    slug: "attribution-and-personalization",
+    title: "Attribution and personalization",
     weekNumber: 1,
-    blurb: "Forecasts fail for real reasons — irreducible uncertainty, rare unforeseeable black swans, and overfitting that memorizes the past and breaks on the future.",
-    lectureTitle: "1.7 Why forecasts fail (uncertainty, black swans, and overfitting)",
-    body: `# Why forecasts fail
+    blurb: "When a customer sees many ads before buying, attribution asks which one deserves the credit — and personalization uses what you know to target each person, right up to the creepiness line.",
+    lectureTitle: "1.7 Attribution and personalization (who gets credit, who gets targeted)",
+    body: `# Attribution and personalization
 
-By now you can make a forecast and measure how good it is. But honesty demands the other half of the story: even good forecasts fail, and they fail for understandable reasons. Knowing *why* predictions break is what keeps you humble and stops you from trusting any forecast too much. Three big culprits show up again and again: uncertainty you can't remove, rare shocks nobody saw coming, and a sneaky mistake called overfitting.
+A customer almost never buys after seeing a single ad. They see a post, get an email, notice a billboard, click a search result, and *then* buy — so when the sale finally happens, which of those touches deserves the credit? That's the puzzle of **attribution.** And once you know enough about a customer to answer it, you face a second power and a second danger: **personalization** — using what you know to target each person individually. These two ideas, credit and targeting, are where marketing analytics gets both most powerful and most fraught.
 
-## Some uncertainty can't be removed
+## Attribution: who gets the credit?
 
-The first reason is the simplest: parts of the future are just genuinely uncertain, and no amount of data will fix that. A coin flip, the exact moment a customer walks in, which way a close game goes — some things carry real randomness baked in. A good forecast doesn't pretend this away; it gives a range or a probability instead of a single confident number. Expecting any prediction to be exactly right is asking for the impossible, because some uncertainty is **irreducible** — it's a feature of the world, not a flaw in your method.
+**Attribution** is the problem of deciding which marketing efforts actually caused a sale, when many of them touched the customer along the way. It matters enormously because credit decides where the money goes: if you wrongly believe the last ad did all the work, you'll pour your budget there and starve the efforts that really started the journey. Getting attribution right means spending on what genuinely brings customers in, instead of on whatever happens to be standing closest when they finally buy.
 
-## Black swans: the events the past never showed
+## The last-click trap
 
-The scariest failures come from **black swans** — rare, enormous events that the past gave no warning about. If something has never happened in your data, no pattern-finder can predict it: a sudden crash, a once-in-a-century storm, a brand-new invention that changes everything. Because predictive analytics learns from the past, it is essentially blind to events the past never contained. The danger isn't just that black swans happen; it's that they're often the events that matter most, and the ones our tidy forecasts most confidently ignore.
+The most common attribution mistake is giving *all* the credit to the very last thing the customer clicked before buying — the "last click." It's tempting because it's easy to see, but it's like crediting only the player who scored and ignoring everyone who passed the ball up the field. The ad that first made the customer aware of you may have done the real work; the final click just collected an already-decided sale. Trusting last-click attribution quietly funds the ending of the journey while defunding the beginning that made it possible.
 
-## Overfitting: memorizing the past
+## Different ways to give credit
 
-The third culprit is the subtlest and the most important to understand: **overfitting.** This happens when a model tries *too* hard to match the old data — it memorizes every little wiggle and quirk and bit of random noise, instead of learning the real underlying pattern. Such a model looks amazing on the past it studied, scoring nearly perfectly, then falls apart on new data because it learned the noise, not the signal. It's like a student who memorizes the exact answers to last year's test and then fails this year's, because they never actually learned the subject.
+Because no single rule is perfect, marketers use different **attribution models.** *First-touch* credits whatever first brought the customer in; *last-touch* credits the final step; *multi-touch* tries to spread credit across all the steps in between. Each tells a different story about what's working, and the honest move is to recognize that the truth is usually shared across the whole journey, not owned by any one touch. The goal isn't a perfect formula; it's to stop fooling yourself that one easy-to-see step deserves all the credit.
 
-## The more you tune to the past
+## Personalization: targeting the right person
 
-There's a painful irony here: the harder you tune a model to fit history perfectly, the worse it often does on the future. Past a certain point, every extra bit of fitting is just chasing noise, and chasing noise makes you *less* able to predict what's next. This is why simpler models frequently beat complicated ones — they're less able to overfit. The lesson is to be suspicious of any forecast that fit the past *too* beautifully; near-perfect hindsight is often a warning sign, not a triumph.
+The flip side of knowing your customers is **personalization** — tailoring what each person sees to who they are and what they've done. Recommending a product based on past purchases, sending a reminder about an abandoned cart, or showing different offers to different segments are all personalization. Done well, it's genuinely helpful: customers see things they actually want and waste less time wading through things they don't. It's segmentation taken to its logical end — speaking not just to a group, but as closely as possible to the individual.
+
+## The creepiness line
+
+Personalization carries a real danger: push it too far and helpful becomes creepy, even harmful. Customers feel watched when targeting reveals you know more than they ever told you, and personalization can cross into manipulation or expose private things people never wanted shared. The line between "this is useful" and "this is unsettling" is where marketing analytics meets ethics. The responsible habit is to ask not only "*can* we target this precisely?" but "*should* we — would the customer feel served or spied on?" Power over data comes with a duty not to abuse it.
 
 ## In the real world
 
-The clearest black swan in recent memory is the **2008 housing and banking crash.** For years, complex models predicted that home prices and the banking system were safe, in part because their data showed prices almost always going up — the kind of disaster that was about to happen had essentially never appeared in the records they learned from. The models were also badly overfit to a calm past, so when the rare, huge event arrived, the confident forecasts collapsed all at once. It's a sobering reminder of this whole section: uncertainty is real, the past can't warn you about what it never contained, and a model that fit history too neatly can fail spectacularly on the future.`,
+The most famous personalization story is the American retailer **Target.** By analyzing what customers bought, the company learned to predict surprisingly private things — including, in one widely reported case, that certain shopping patterns suggested a customer was pregnant, sometimes before her own family knew. Target used this to send pregnancy-related offers, which was powerfully effective marketing and also, to many people, deeply unsettling once they realized how much a store could infer. The story became a landmark lesson precisely because it sits exactly on the creepiness line: it shows both how potent personalization can be and why marketers must constantly ask whether precise targeting crosses from helpful into a violation of trust.`,
   },
   {
-    slug: "prediction-to-decision",
-    title: "From prediction to decision (capstone)",
+    slug: "insight-to-campaign",
+    title: "From insight to campaign (capstone)",
     weekNumber: 1,
-    blurb: "A prediction is only useful if it changes a decision — and you must weigh the cost of being wrong in each direction and act with humility.",
-    lectureTitle: "1.8 From prediction to decision (Capstone)",
-    body: `# From prediction to decision (capstone)
+    blurb: "An insight buried in a report changes nothing — it's only worth something when it becomes a real campaign, and then you must measure whether the campaign actually worked.",
+    lectureTitle: "1.8 From insight to campaign (Capstone)",
+    body: `# From insight to campaign (capstone)
 
-We end on the hardest and most important skill in the whole field: turning a prediction into an actual **decision.** A forecast sitting in a report changes nothing. A family deciding whether to evacuate, a shop deciding how much to order, a doctor deciding whether to run a test — all of them have to move from *estimating* what's likely to *acting* on it. Everything in this course comes together here, including its deepest limits.
+We end on the hardest and most important skill in the whole field: turning what you've learned about customers into something that actually happens. An insight sitting in a slide deck changes nothing. A business deciding *which customers to win back,* *which message to send,* *which idea to test* — that's where everything in this course comes together, including its deepest limits. This is the move from knowing to doing: from insight to **campaign.**
 
-## A prediction is only useful if it changes a decision
+## An insight is only useful if it changes a campaign
 
-Here's the blunt truth: if a prediction wouldn't change what you do, it's just trivia. The point of forecasting the weather is to decide whether to bring an umbrella; the point of predicting demand is to decide how much to make. Before investing effort in any prediction, the sharpest question is, *what decision will this change?* A forecast that leads to the same action no matter what it says is a waste of time — useful predictions are the ones that actually tip a real choice one way or the other.
+Here's the blunt truth: if a finding wouldn't change anything you do, it's just trivia. Discovering that a certain segment is drifting toward churn matters only if it leads to a win-back campaign; learning which ad truly brings customers in matters only if you move budget toward it. Before celebrating any insight, the sharpest question is, *what will this change?* A beautiful chart that leads to the same actions you'd have taken anyway was a waste of everyone's time — useful insights are the ones that actually tip a real decision.
 
-## Weighing the cost of being wrong both ways
+## Turning a number into an action
 
-A prediction can fail in two opposite directions, and the costs are rarely equal. Predict no storm and one hits — that might be a disaster. Predict a storm and none comes — that's wasted preparation, but usually far cheaper. A smart decision-maker doesn't just ask "what's most likely?"; they ask "what does each kind of mistake *cost* me?" Sometimes you act against the most likely outcome on purpose, because being wrong the other way would be catastrophic. Buying insurance against an unlikely fire is exactly this logic: the unlikely outcome is the unaffordable one.
+The whole course becomes a toolkit here. You *segment* to decide who the campaign is for, use *lifetime value* to decide how much they're worth spending on, read the *funnel* to find the stage that needs fixing, watch *churn* signals to decide who to save, *A/B test* to decide which version to send, and use *attribution* to decide where the budget really belongs. Each idea answers one piece of "what should we actually do?" A campaign is just a chain of these decisions, each one grounded in evidence instead of opinion.
 
-## Act with humility: size the bet to your confidence
+## Closing the loop: did it work?
 
-Because every prediction is an estimate, you should act in proportion to how *sure* you are. A confident, well-checked forecast can justify a bold move; a shaky one calls for a small, cautious step you can reverse. This is "sizing the bet to your confidence" — never staking everything on a single uncertain guess. Humble decision-makers leave themselves room to be wrong: they hedge, they keep options open, and they avoid the overconfident leap that a single tidy forecast can tempt them into.
+A campaign isn't finished when it launches — it's finished when you measure whether it worked. This is where everything about honest measurement returns: you check the campaign's results against what you hoped for, ideally compared to a group that didn't get it, so you can tell real impact from what would have happened anyway. A marketer who never checks results can't tell a brilliant campaign from a lucky one or a flop, and will keep repeating mistakes confidently. Closing the loop is what turns a one-off guess into a business that gets steadily smarter.
+
+## Weighing the cost: spend where it counts
+
+Every campaign spends limited money, so good decisions weigh the cost of each choice. Chasing brand-new strangers can cost far more than keeping existing customers; a flashy campaign aimed at low-value buyers can lose money even if it "works." A smart marketer asks not just "will this get a response?" but "is the response worth what it costs, given what these customers are worth?" Sometimes the wisest move is unglamorous — protecting loyal, high-value customers — because the math of lifetime value and acquisition cost says that's where the real profit lives.
+
+## Act with humility: test, learn, iterate
+
+Because customers are people and the world keeps changing, no campaign should be a single all-or-nothing bet. The honest approach is to test small, learn from the result, and scale up what works while quietly dropping what doesn't. A confident, well-tested finding can justify a bold campaign; a shaky hunch calls for a small experiment first. Humble marketers leave themselves room to be wrong — they pilot before they commit, and they treat every campaign as another chance to learn rather than a verdict carved in stone.
 
 ## Tying the course together
 
-Look back and one thread runs through all eight topics: **the past is a guide, not a guarantee.** A prediction is only odds, not a promise; data over time hides random noise that fools us; a relationship like regression breaks when pushed too far; correlation isn't causation; the fanciest method isn't always best; a forecast means nothing until it's scored; uncertainty, black swans, and overfitting make failure normal. Predictive analytics replaces overconfident gut feeling with careful, honest, humble estimation — harder than a tidy story, but the only kind that survives contact with reality.
+Look back and one thread runs through all eight topics: **don't guess what customers want — measure what they actually do, and act on it.** There is no average customer, so you segment; the journey leaks, so you read the funnel; a customer is worth a lifetime, not a sale; churn hides until you watch behavior; arguments are settled by testing, not opinions; credit and targeting must be handled honestly. Marketing analytics replaces confident assumptions with evidence about real people — harder than a flattering story, but the only kind that survives contact with actual customers.
 
 ## The biggest questions stay open
 
-And plenty stays unsettled. How much should we trust a prediction we can't fully explain? When does relying on forecasts make us blind to the rare events that matter most? How do we keep our models from quietly steering us toward decisions that look smart on paper but ignore human judgment? Predictive analytics gives us better questions and more honest odds — not certainty. The most useful habit to carry out of this course is simple: whenever a forecast tells a clean, confident story about the future, ask, "Is that real, or am I trusting the past to be a promise?"
-
-## In the real world
-
-When a hurricane approaches, forecasters publish a "cone of uncertainty" — not a single line, but a range of where the storm might go, because the future is genuinely uncertain. Officials then have to turn that probability into a hard decision: order an evacuation or not. Both mistakes are costly — evacuate needlessly and you waste enormous money and trust; fail to evacuate and people can die — and the costs aren't equal, so leaders often act against the single most likely path because being wrong the deadly way is unthinkable. That marriage of an honest, humble prediction and a courageous human decision, made while weighing the cost of each error, is exactly where this whole course has been heading.`,
+And plenty stays unsettled. How precisely *should* we target people before it becomes a violation of their privacy? When does using data to persuade tip over into manipulation? How do we keep our numbers from quietly steering us toward decisions that look smart on a dashboard but treat customers as targets instead of people? Marketing analytics gives us sharper questions and more honest evidence — not permission to do anything we can measure. The most useful habit to carry out of this course is simple: whenever the data tells a clean, flattering story about your customers, ask, "Is that real — and is acting on it fair to the people behind the numbers?"`,
   },
 ];
 
@@ -304,7 +324,7 @@ type SeedAssignment = {
 const ASSIGNMENTS: SeedAssignment[] = [
   {
     kind: "homework",
-    title: "Homework 1.1 — Patterns, trends, regression, and correlation",
+    title: "Homework 1.1 — Customers, segments, funnels, and value",
     weekNumber: 1,
     isTimed: false,
     timeLimitMinutes: null,
@@ -312,47 +332,47 @@ const ASSIGNMENTS: SeedAssignment[] = [
       "Untimed practice covering sections 1.1–1.4. Answer each question in a few sentences (about 3–5) in your own words. There's no need for any math — just explain your thinking clearly. One-word answers won't receive credit.",
     problems: [
       {
-        topicSlug: "what-predictive-analytics-is",
+        topicSlug: "what-marketing-analytics-is",
         prompt:
-          "A friend says, 'The forecast said 80% chance of rain and it stayed dry all day — so the forecast was just wrong and predictions are useless.' Use what predictive analytics actually is to explain why your friend is misunderstanding what a prediction means. (3–5 sentences.)",
+          "A shop owner says, 'I don't need data — I've been doing this for years and I just know what my customers want.' Use what marketing analytics actually is to explain why relying only on gut feeling can mislead the owner, and what data would add. (3–5 sentences.)",
         correctAnswer:
-          "A prediction is an estimate of what's likely — a set of odds — not a guarantee about a single day. An 80% chance of rain means that on days that look like this one, it rains about eight times out of ten, so a dry day is exactly one of the two-in-ten times the forecast already accounted for. That doesn't make the forecast useless; it was honestly reporting the odds based on patterns in past data, and being wrong on one day is built into what 'likely' means. My friend is treating an estimate as if it were a promise, which is the very myth predictive analytics is meant to replace with honest odds.",
+          "Marketing analytics is using data about what customers actually do — what they buy, click, and ignore — to understand them, instead of relying on a hunch. Gut feeling is powerful but often wrong: the owner may remember loyal regulars vividly while never noticing the many customers who quietly tried the shop once and never came back. Data would replace 'I just know' with evidence about who really shops there, what actually sells, and where customers are being lost, which the owner's memory can't reliably see. It doesn't replace the owner's experience; it makes it more honest by checking confident opinions against what customers truly do.",
         explanation:
-          "Full credit: explains a prediction is an estimate/odds not a guarantee, interprets the 80% correctly (a dry day is within the expected 20%), and notes that being wrong on a single day doesn't make a probabilistic forecast useless.",
+          "Full credit: explains marketing analytics uses real behavior data not just intuition, notes gut feeling is often biased/incomplete (e.g. memory misses silent non-returners), and that data turns confident opinion into evidence about real customers.",
       },
       {
-        topicSlug: "shape-of-data-over-time",
+        topicSlug: "segmentation",
         prompt:
-          "An online store sees a big jump in sales every December and the owner excitedly says, 'We've found a permanent new growth trend — let's order huge amounts for January!' Using the idea of trend, seasonality, and noise, explain what the owner is getting wrong. (3–5 sentences.)",
+          "A streaming service looks at its users and proudly reports, 'Our average customer is 35 years old and watches 4 hours a week, so we'll design everything for that person.' Using the idea of segmentation, explain what's wrong with designing for the average customer. (3–5 sentences.)",
         correctAnswer:
-          "Data over time usually has three layers: a long-run trend, repeating seasonal patterns, and random noise, and the owner is confusing seasonality with a trend. A jump that happens every December is almost certainly the holiday season — a pattern that repeats on a cycle — not a permanent change in the store's overall direction. Treating that predictable seasonal spike as a new trend would lead to massively over-ordering for January, when the seasonal bump has already passed. The careful move is to compare December to previous Decembers, separate the repeating seasonal pattern from the real underlying trend, and not mistake a known cycle for forever-growth.",
+          "The 'average customer' is usually a fiction that almost nobody actually matches, so designing for them can please no one. If the service really has a big group of teenagers bingeing cartoons and a big group of retirees watching the news, the '35-year-old who watches 4 hours' is just those groups blended into a middle that doesn't exist. Segmentation means splitting customers into meaningful groups that respond to different messages, so the service can offer each group what it actually wants. Designing for the blended average hides the very differences that matter and leads to bland choices that fit nobody well.",
         explanation:
-          "Full credit: names the three layers (trend/seasonality/noise), identifies the December jump as seasonality not a trend, and explains why mistaking it for a permanent trend leads to over-ordering; may note comparing to prior years.",
-        hint: "Is a spike that happens at the same time every year a permanent change of direction, or a pattern that repeats on a cycle?",
+          "Full credit: explains the average customer is a myth that hides real differences, that segmentation splits customers into meaningful groups needing different treatment, and why designing for the average pleases no one; may give an example of distinct groups.",
+        hint: "If half your customers are very different from the other half, who exactly is the 'average' one — and does that person really exist?",
       },
       {
-        topicSlug: "regression",
+        topicSlug: "the-funnel",
         prompt:
-          "A lemonade stand finds that warmer days bring more sales, and on mild summer days a simple line predicts sales nicely. The owner says, 'So on the hottest day ever recorded, this line says we'll sell a gigantic amount — let's make ten times our usual batch.' Using regression, explain two things this reasoning gets wrong. (3–5 sentences.)",
+          "An online store sees lots of visitors and lots of items added to carts, but very few completed purchases, and the owner's plan is to 'buy more ads to get even more visitors.' Using the idea of the funnel, explain why this plan probably won't fix the problem. (3–5 sentences.)",
         correctAnswer:
-          "Regression finds the relationship (a line of best fit) between two things, like temperature and sales, so you can estimate one from the other — but that line is only trustworthy inside the range of data you've actually seen. First, a record-breaking temperature is far outside the mild days the line was built from, so stretching it that far (extrapolation) is unreliable; the relationship may not hold or could even flip, since brutal heat might keep customers inside instead. Second, the line captures a general relationship, not a guarantee, so it shouldn't be used to justify a drastic ten-times bet. The owner should treat the prediction cautiously, gather data closer to that extreme, and not assume the line keeps going straight forever.",
+          "The funnel is the journey from awareness to interest to purchase, and the store should find which stage is leaking before spending. Here, plenty of people are reaching the cart but dropping out at checkout, so the leak is near the bottom of the funnel, not the top. Buying more ads just pours more people into a funnel that's losing them at the same broken step, which is like filling a leaky bucket faster instead of plugging the hole. The smarter move is to fix the checkout stage — for example surprise costs or a forced sign-up — so more of the visitors they already have actually finish buying.",
         explanation:
-          "Full credit: explains regression/line of best fit, identifies extrapolation (using the line far beyond observed data) as the danger, and notes the relationship may not hold at extremes; may add that the line is a general estimate not a guarantee.",
+          "Full credit: explains the funnel and conversion at each stage, identifies the leak as checkout (bottom) not awareness (top), and explains why more top-of-funnel ads won't fix a bottom-of-funnel leak; may suggest fixing checkout.",
       },
       {
-        topicSlug: "correlation-vs-causation",
+        topicSlug: "customer-lifetime-value",
         prompt:
-          "A blogger notices that towns with more ice cream shops also have more drownings each year, and concludes, 'Ice cream is dangerous — it must be causing people to drown.' Explain the mistake using correlation versus causation. (3–5 sentences.)",
+          "A coffee shop refuses to spend more than $1 to attract a new customer because 'a single coffee only earns us about $1 in profit.' Using customer lifetime value, explain why this reasoning could be costing the shop money. (3–5 sentences.)",
         correctAnswer:
-          "The blogger has confused correlation (two things moving together) with causation (one actually causing the other). Ice cream sales and drownings do rise together, but neither causes the other — there's a hidden third factor, hot weather, that drives both: heat makes people buy more ice cream and also makes more people swim, where drownings happen. So the real cause is the lurking variable, not the ice cream, and banning ice cream would do nothing to reduce drownings. Whenever two things move together, the careful step is to hunt for a third factor that could explain both before claiming one causes the other.",
+          "Customer lifetime value is the total a customer is worth across the whole relationship, not just one sale. A regular who buys coffee twice a week for two years is worth hundreds of dollars, not one — so judging them by a single $1 cup massively undervalues them. Because the lifetime value is so much larger than one sale, the shop could afford to spend far more than $1 to win a customer who will keep coming back, and still come out ahead. By looking only at the first sale, the shop starves its marketing and loses good long-term customers to competitors who understand what those customers are really worth.",
         explanation:
-          "Full credit: distinguishes correlation from causation, identifies the hidden third factor (hot weather) driving both, and explains that acting on the false cause (banning ice cream) wouldn't help; may state the general lesson to look for lurking variables.",
+          "Full credit: explains CLV is total value over the whole relationship not one sale, that judging by a single purchase undervalues a repeat customer, and that knowing CLV lets the shop justify spending more to acquire customers it would otherwise lose.",
       },
     ],
   },
   {
     kind: "homework",
-    title: "Homework 1.2 — Forecasting, error, failure, and decisions",
+    title: "Homework 1.2 — Churn, testing, attribution, and campaigns",
     weekNumber: 1,
     isTimed: false,
     timeLimitMinutes: null,
@@ -360,47 +380,47 @@ const ASSIGNMENTS: SeedAssignment[] = [
       "Untimed practice covering sections 1.5–1.8. Answer each question in a few sentences (about 3–5) in your own words. No math is required — explain your reasoning. One-word answers won't receive credit.",
     problems: [
       {
-        topicSlug: "forecasting-methods",
+        topicSlug: "churn",
         prompt:
-          "A company replaces its simple, easy-to-understand forecasting method with an expensive new computer model that nobody on the team can explain, just because it's more advanced. Explain why 'fancier' isn't automatically better here. (3–5 sentences.)",
+          "A subscription app is thrilled because it's signing up more new users than ever, but its total number of users isn't growing. Using the idea of churn, explain what's likely happening and why the company should care. (3–5 sentences.)",
         correctAnswer:
-          "Forecasting methods range from simple ones you can check by hand to complex machine-learning models, and fancier is not automatically more reliable. A model nobody can explain is a 'black box,' so when it makes a strange prediction the team can't tell whether it found a real pattern or latched onto meaningless noise. A simple method you understand can be questioned, sanity-checked, and fixed, which often makes it more trustworthy than a powerful one you can't see inside. Every model is also only as good as its assumptions, so the right question isn't 'what's most advanced?' but 'what's the simplest method that does the job well and that we can still understand and trust?'",
+          "Churn is customers quietly leaving — canceling or just never coming back — and it sounds like users are leaving the back door as fast as new ones come in the front. Even with record sign-ups, if churn is just as high the total stays flat, like a leaky bucket that never fills no matter how fast you pour. The company should care because churn destroys the lifetime value of customers it already paid to acquire, and keeping an existing customer is usually far cheaper than winning a new one. Instead of only celebrating sign-ups, it should watch for the behavior changes that signal people drifting away and act to keep them before they leave.",
         explanation:
-          "Full credit: explains fancier isn't automatically better, that an unexplainable black box can't be sanity-checked, that a simple understandable method can be questioned/trusted, and/or that a model is only as good as its assumptions.",
-        hint: "Think about what happens when the fancy model makes a weird prediction and no one can look inside to see why.",
+          "Full credit: explains churn (customers leaving) can cancel out new sign-ups (leaky bucket), why it's expensive (lost lifetime value, retention cheaper than acquisition), and that the firm should track/reduce churn, not just count sign-ups.",
+        hint: "If new users come in just as fast as old ones leave, what happens to the total — and which number is the company ignoring?",
       },
       {
-        topicSlug: "measuring-forecast-error",
+        topicSlug: "ab-testing",
         prompt:
-          "A TV pundit reminds everyone of the three predictions he got right last year and insists he's a brilliant forecaster, but he never mentions the predictions he got wrong. Explain why this isn't good evidence he's accurate, using the idea of measuring forecast error. (3–5 sentences.)",
+          "A marketing team can't agree whether a red or a green 'Buy Now' button gets more clicks, so they show the red button only to their loyal repeat customers and the green button only to first-time visitors, then declare the winner. Explain what's wrong with this test using the idea of A/B testing. (3–5 sentences.)",
         correctAnswer:
-          "A forecast only means something if it's scored against what actually happened, and the pundit is only counting his hits while quietly forgetting his misses. Without measuring his error across all his predictions, there's no way to tell genuine skill from luck or from confident bluffing — anyone looks brilliant if you only remember the times they were right. Real accuracy is a measured track record, not a feeling of confidence, so we'd need to see how often he was wrong, not just a hand-picked few he got right. Until his predictions are honestly scored as a whole, his confidence is no evidence at all that he's actually accurate.",
+          "A proper A/B test must split customers between the two versions at random, so the groups are alike in every way except the one thing being tested. Here the groups are completely different kinds of people — loyal regulars versus brand-new visitors — so if one button 'wins,' you can't tell whether it was the color or just the type of customer who saw it. Loyal customers buy more anyway, so the result is hopelessly tangled with who got which button. To fix it, they should show red and green to randomly mixed customers and change only the button color, so any difference in clicks can fairly be credited to the color itself.",
         explanation:
-          "Full credit: explains a forecast must be scored against reality, that cherry-picking hits hides error and can't separate skill from luck, and that accuracy is a measured track record rather than confidence.",
+          "Full credit: explains A/B tests need a random split so groups are comparable, identifies that splitting by customer type confounds the result (can't separate color from customer), and that the fix is random assignment changing only one thing.",
       },
       {
-        topicSlug: "why-forecasts-fail",
+        topicSlug: "attribution-and-personalization",
         prompt:
-          "A data team builds a model that predicted last year's sales almost perfectly — it matched nearly every single day. They're sure it will nail next year too. Using the idea of overfitting, explain why their confidence might be misplaced. (3–5 sentences.)",
+          "A company notices that customers almost always click a search ad right before buying, so it decides to move its entire budget to search ads and cut everything else. Using the idea of attribution, explain why this could be a mistake. (3–5 sentences.)",
         correctAnswer:
-          "A model that matches nearly every past day almost perfectly is a warning sign of overfitting, not a triumph. Overfitting happens when a model memorizes the random noise and quirks of the old data instead of learning the real underlying pattern, so it looks amazing on the past it studied but falls apart on new data. It's like a student who memorized the exact answers to last year's test and then fails this year's because they never learned the subject. The team should be suspicious precisely because the fit was too perfect, and they should test the model on data it hasn't seen before trusting it with next year.",
+          "Attribution is about deciding which marketing efforts actually deserve credit for a sale when many touched the customer along the way, and this company is falling into the last-click trap. The search ad is just the final step the customer clicks, but other efforts — a social post or email that first made them aware and interested — may have done the real work of starting the journey. Crediting only the last click is like crediting only the player who scored and ignoring everyone who passed the ball up the field. If the company cuts the earlier efforts that bring customers in, it may find the search ads have far fewer people left to convert, and overall sales fall.",
         explanation:
-          "Full credit: explains overfitting (memorizing noise/quirks rather than the real pattern), why a near-perfect fit to the past is a warning sign, and that such a model often fails on new data; may suggest testing on unseen data.",
+          "Full credit: explains attribution and the last-click trap, that earlier touches may have done the real work of creating awareness/interest, and that cutting them could starve the top of the journey and reduce sales; may use a multi-touch point.",
       },
       {
-        topicSlug: "prediction-to-decision",
+        topicSlug: "insight-to-campaign",
         prompt:
-          "A town's forecasters say there's a real but uncertain chance a major storm will hit this weekend. One official says, 'It's not the single most likely outcome, so we shouldn't bother preparing at all.' Explain why this reasoning is dangerous, using the idea of turning a prediction into a decision. (3–5 sentences.)",
+          "A data team discovers that a particular group of customers is showing early signs of leaving, writes it up in a slide, and moves on to the next analysis. Using the idea of turning insight into a campaign, explain why this insight has created no value yet, and what should happen next. (3–5 sentences.)",
         correctAnswer:
-          "A prediction is only useful when it changes a decision, and a good decision weighs not just what's most likely but what each kind of mistake would cost. Even if the storm isn't the single most likely outcome, the cost of being unprepared when it does hit — danger to people and property — is far worse than the cost of preparing for a storm that doesn't come. Because the two errors are so unequal, it can be wise to act against the most likely outcome and prepare anyway, sizing the response to both the odds and the stakes. Doing nothing just because the storm isn't most likely ignores the whole point of acting humbly on uncertain predictions.",
+          "An insight is only useful if it actually changes what the company does; sitting in a slide, this finding has changed nothing and so is just trivia. Discovering that a group is drifting toward churn matters only if it leads to action — a win-back offer, a check-in, or fixing whatever is frustrating them — aimed at those specific at-risk customers while they can still be saved. The team should turn the insight into a real campaign targeting that group, then close the loop by measuring whether the campaign actually kept more of them, ideally compared to a group that didn't get it. Without that move from knowing to doing and then checking, the analysis produces no value at all.",
         explanation:
-          "Full credit: explains a prediction should drive a decision, that you must weigh the cost of being wrong in each direction (the unequal costs), and that it can be right to prepare even against the most likely outcome when one error is far more dangerous.",
+          "Full credit: explains an insight is worthless until it changes an action, that this churn finding should drive a targeted win-back campaign, and that they should measure whether it worked (close the loop); may note acting before customers leave.",
       },
     ],
   },
   {
     kind: "test",
-    title: "Unit Test — Predictive Analytics for Everyone",
+    title: "Unit Test — Marketing Analytics for Everyone",
     weekNumber: 1,
     isTimed: true,
     timeLimitMinutes: 30,
@@ -408,82 +428,82 @@ const ASSIGNMENTS: SeedAssignment[] = [
       "Timed. 30 minutes. Covers sections 1.1–1.8. Answer each question in a few sentences (about 4–6) in your own words. No math is required. Pasting is disabled; keystrokes are screened for AI use.",
     problems: [
       {
-        topicSlug: "what-predictive-analytics-is",
+        topicSlug: "what-marketing-analytics-is",
         prompt:
-          "Explain what predictive analytics is, why it's fair to say 'everyone already predicts,' and why a prediction should be understood as a set of odds rather than a guarantee. Why does keeping that distinction matter? (4–6 sentences.)",
+          "Explain what marketing analytics is, why it's fair to say 'everyone already does marketing,' and why measured evidence about what customers do beats confident opinions about what they want. Why does keeping that distinction matter? (4–6 sentences.)",
         correctAnswer:
-          "Predictive analytics is the careful practice of using patterns in past data to estimate what's likely to happen next, instead of relying on gut feeling. It's fair to say everyone already predicts because we all forecast informally every day — grabbing an umbrella when the sky looks grey, or expecting a shop to be busy on a hot weekend — and predictive analytics just makes that habit more honest by leaning on real records rather than a hunch. A prediction should be understood as a set of odds, not a guarantee, because it's an estimate about a future that hasn't happened yet; an 80% chance of rain isn't wrong when the day turns out dry, since it only ever claimed what was likely. Keeping that distinction matters because treating an estimate as a promise leads to overconfidence and nasty surprises, while remembering that the past is a guide and not a guarantee keeps you appropriately humble. That honesty about uncertainty is the foundation the whole course is built on.",
+          "Marketing analytics is the careful practice of using data about what real customers actually do — what they buy, click, return, and ignore — to understand them and decide what will make them buy, instead of relying on gut feeling. It's fair to say everyone already does marketing because we all do it informally, like a friend who flags a sale they know you'll love (that's targeting) or a shopkeeper who remembers a regular's usual order (that's using customer data). Measured evidence beats opinion because in marketing everyone has a free and confident opinion — the boss likes blue, the designer likes green — and analytics replaces 'which do we like?' with 'which actually makes more people buy?' Keeping that distinction matters because acting on untested opinion wastes money and misreads customers, while grounding decisions in real behavior is fairer and far more reliable. That honesty about evidence over assumption is the foundation the whole course is built on.",
         explanation:
-          "Full credit: defines predictive analytics as using past patterns to estimate the likely future, explains everyone predicts informally and data makes it more honest, frames a prediction as odds not a guarantee (with correct intuition), and why that distinction supports humility/good decisions.",
+          "Full credit: defines marketing analytics as using real customer-behavior data to understand customers, explains everyone markets informally and data makes it more honest, contrasts measured evidence with free opinions, and why that distinction supports better/fairer decisions.",
       },
       {
-        topicSlug: "shape-of-data-over-time",
+        topicSlug: "segmentation",
         prompt:
-          "Describe the three layers in data measured over time — trend, seasonality, and noise — and explain why telling them apart is the heart of good forecasting. (4–6 sentences.)",
+          "Explain what segmentation is, why 'the average customer' is a myth, and why splitting customers into a few meaningful groups beats either treating everyone the same or making a separate plan for every single person. (4–6 sentences.)",
         correctAnswer:
-          "Data measured over time is usually three things stacked together. The trend is the slow overall direction once you ignore the day-to-day bumps — whether something is generally rising, falling, or holding steady over the long run. Seasonality is any pattern that repeats on a regular cycle, like more ice cream sold every summer or stores busier every December. Noise is the leftover random wiggle that has no pattern and no meaning, like one slightly busier Tuesday. Telling them apart is the heart of forecasting because the real, predictable future lives in the trend and seasonality, while noise is meaningless — mistake noise for a trend and you'll celebrate a fluke and over-prepare, while mistaking a real change for noise leaves you caught off guard. So before predicting anything, a careful person asks whether what they're seeing is a trend, a season, or just noise.",
+          "Segmentation is dividing customers into groups whose members are alike in some way that matters for marketing, so people in the same group respond to the same message while different groups get different ones. The 'average customer' is a myth because real customers are usually a mix of very different kinds of people, and blending them produces a made-up middle person almost nobody matches — like averaging teenagers and retirees into a 'middle-aged' customer who isn't there. Treating everyone the same falls back on that fictional average and misses real differences, so the marketing pleases no one. But making a separate plan for every individual drowns you in complexity you can't act on. The skill is finding a handful of segments that are genuinely different and genuinely useful — big enough to matter, distinct enough to deserve their own message, and based on something you can actually act on.",
         explanation:
-          "Full credit: defines trend (long-run direction), seasonality (repeating cycle), and noise (meaningless randomness) with examples, and explains that separating the real pattern from noise is what prevents both over-reacting to flukes and missing real changes.",
+          "Full credit: defines segmentation (meaningful groups responding to different messages), explains the average customer is a myth that hides differences, and why a few useful segments beat both one-size-fits-all and per-person plans (too few misses differences, too many is unmanageable).",
       },
       {
-        topicSlug: "regression",
+        topicSlug: "the-funnel",
         prompt:
-          "Explain what regression does, what the 'line of best fit' is, why regression is called the workhorse of prediction, and why extrapolating beyond your data is dangerous. (4–6 sentences.)",
+          "Describe the marketing funnel and its stages, explain what a conversion rate measures, and explain why finding the 'leak' is more useful than just trying to get more customers at the top. (4–6 sentences.)",
         correctAnswer:
-          "Regression finds the relationship between two things — like temperature and sales — by looking at many past examples so you can estimate one from the other. The 'line of best fit' is the single straight line drawn as close as possible to all the scattered data points at once; it doesn't touch every point, and isn't supposed to, because it captures the general relationship while ignoring the noise. Regression is called the workhorse because it's simple, cheap, easy to explain, and hiding behind an enormous share of everyday predictions, from house prices to crop sizes. The danger is extrapolation — stretching the line far beyond the range of data you've actually seen — because there's no guarantee the relationship keeps holding out there, and it can even flip, the way more water helps a plant grow but a flood doesn't. So the line is trustworthy inside the data you have and unreliable past it, which is one of the most common ways predictions go wrong.",
+          "The funnel is the customer's journey from stranger to buyer, usually running through stages like awareness, interest, consideration, and purchase, and it's shaped like a funnel because it's wide at the top and narrows as people drop out at each step. A conversion rate is the share of people who make it from one stage to the next — for example, if 1,000 people visit and 50 buy, that's a 5% visit-to-purchase conversion. Measuring the rate at each step turns a vague 'sales are low' into a precise map of where customers are slipping away. Finding the leak — the one stage losing far more people than it should — matters because the cure depends entirely on which step is broken: a checkout problem needs a smoother checkout, not more ads. Pouring money into the top of the funnel when the leak is at the bottom is like filling a leaky bucket faster instead of plugging the hole, so the biggest cheap wins come from fixing the worst-leaking stage.",
         explanation:
-          "Full credit: explains regression finds a relationship to estimate one thing from another, describes the line of best fit (closest to all points, ignores noise), notes why it's the workhorse (simple/explainable/everywhere), and explains extrapolation beyond observed data is unreliable.",
+          "Full credit: describes the funnel stages (awareness→…→purchase) and its narrowing shape, defines conversion rate (share moving to the next stage), and explains why fixing the leaky stage beats adding top-of-funnel volume; may use the leaky-bucket image.",
       },
       {
-        topicSlug: "correlation-vs-causation",
+        topicSlug: "customer-lifetime-value",
         prompt:
-          "Explain the difference between correlation and causation, why a hidden third factor is so often the real explanation, and why this trap fools almost everyone. Use an example. (4–6 sentences.)",
+          "Explain what customer lifetime value is, why it changes how much a business can afford to spend to win a customer, and why it usually makes sense to protect existing customers rather than only chase new ones. (4–6 sentences.)",
         correctAnswer:
-          "Correlation means two things tend to move together, while causation means one actually makes the other happen — and correlation does not prove causation. A correlation can be real and useful for prediction yet say nothing about why, because the link might run the other way, be a coincidence, or be driven by something else entirely. Very often the real explanation is a hidden third factor that drives both: ice cream sales and drownings rise together not because ice cream is dangerous, but because hot weather makes people both buy ice cream and swim. This trap fools almost everyone because our brains are story-making machines that instantly invent a cause whenever they see two things connected, which is why headlines constantly claim one thing causes another. The discipline is to resist the satisfying story, hunt for a lurking third factor, and treat a correlation as a clue rather than a conclusion until it's actually tested.",
+          "Customer lifetime value (CLV) is an estimate of the total money a customer brings in across the whole relationship — how much they spend, how often, and for how long — not just the value of a single sale. It changes how much you can spend to win a customer because if someone is worth only one $2 sale you can't spend $20 to get them, but if they're worth thousands over years, spending $50 to acquire them is a bargain. Businesses that look only at the first sale starve their marketing and lose customers to rivals who understand the lifetime value and confidently outspend them. CLV also reveals that customers aren't equally valuable — a small group of loyal, frequent buyers often produces most of the profit. And because keeping a customer is usually several times cheaper than winning a new one, it usually makes sense to protect existing high-value customers rather than pour everything into chasing strangers while loyal customers quietly drift away.",
         explanation:
-          "Full credit: distinguishes correlation (moving together) from causation (one causes the other), explains the hidden third factor with an example (e.g. hot weather behind ice cream and drownings), and why the trap is so common (brains invent causes); may note treating correlation as a clue, not proof.",
+          "Full credit: defines CLV (total value over the whole relationship), explains it sets how much you can afford to acquire a customer, notes customers differ in value, and that retention is usually cheaper than acquisition so protecting existing customers often pays more.",
       },
       {
-        topicSlug: "forecasting-methods",
+        topicSlug: "churn",
         prompt:
-          "Describe the range of forecasting methods from a simple moving average to machine learning, explain why fancier isn't automatically better, and what it means that 'a model is only as good as its assumptions.' (4–6 sentences.)",
+          "Explain what churn is, why it can be so expensive even while a business is gaining new customers, and how watching customer behavior over time helps you act before customers leave. (4–6 sentences.)",
         correctAnswer:
-          "Forecasting methods sit on a spectrum from very simple to very complex. At the easy end is the moving average, which smooths out random noise by averaging the last several values to reveal the underlying pattern — humble, easy to explain, and hard to beat for steady situations. At the powerful end is machine learning, where computers hunt through huge piles of data for subtle patterns no person could spot, often very accurately but as a 'black box' you can't easily look inside. Fancier isn't automatically better because a method you can't explain can quietly latch onto meaningless noise and fail on new data without you noticing, while a simple method you understand can be questioned, checked, and fixed. And every method, simple or fancy, rests on the bet that the future will resemble the past in the ways it assumes, so 'a model is only as good as its assumptions' — feed it bad data or wrong assumptions and even a brilliant method gives confident nonsense. The right question is the simplest method that does the job while staying understandable and trustworthy.",
+          "Churn is customers leaving — canceling, not renewing, or simply never coming back — and every business loses some, but it becomes dangerous when leavers quietly outpace new arrivals. It can be expensive even while you're gaining customers because, like a leaky bucket, pouring new customers in the top never fills it if just as many drain out the bottom, and each leaver costs you all their future lifetime value plus the money you already spent to acquire them. The key insight is that customers rarely leave without warning — their behavior changes first, like a streaming user watching less and less for weeks before canceling, or a weekly shopper slipping to monthly and then to nothing. By watching how engagement changes over time rather than just whether someone is still technically a customer, you can flag the people drifting toward the exit while there's still time. Then you can act — a check-in, a well-timed offer, or fixing the frustration — before they're gone, which is far more effective than trying to win them back afterward.",
         explanation:
-          "Full credit: describes the moving average (smoothing noise) and machine learning (powerful but black box), explains fancier isn't automatically better (unexplainable models can overfit/fail unnoticed vs simple checkable ones), and explains a model depends on its assumptions/data.",
+          "Full credit: defines churn, explains the leaky-bucket effect (churn can cancel out new sign-ups) and lost lifetime value, that behavior changes are early warning signs, and that watching behavior over time lets you intervene before customers leave.",
       },
       {
-        topicSlug: "measuring-forecast-error",
+        topicSlug: "ab-testing",
         prompt:
-          "Explain why a forecast nobody scores is worthless, what 'error' and 'backtesting' mean, and why being confident is not the same as being accurate. (4–6 sentences.)",
+          "Explain what an A/B test is, why splitting customers at random is essential, and why you should change only one thing at a time and avoid stopping the test the moment your favorite version is ahead. (4–6 sentences.)",
         correctAnswer:
-          "A forecast nobody checks against reality is worthless because, without scoring, you can never tell genuine skill from a lucky guess or a confident bluff — people who only remember their hits can seem brilliant while being no better than chance. Error is simply the gap between what you predicted and what actually happened, like forecasting 100 customers when 120 show up; measuring it turns a vague 'pretty close' into something concrete you can track and improve. Backtesting is testing a method on old data by pretending you didn't know the future, making the prediction, and comparing it to what really happened — a way to see if a method works before betting real stakes on it. Confidence is just a feeling, while accuracy is a measured track record, and the two often come apart: the loudest, surest voice is frequently no more accurate than a coin flip. So when judging any forecast, ignore how sure it sounds and ask what its track record was when someone actually measured.",
+          "An A/B test is comparing two versions of something — call them A and B — by showing each to a different randomly chosen group of customers and measuring which performs better, letting actual behavior decide instead of opinion. Splitting at random is essential because it makes the two groups alike in every other way, so any difference in results can fairly be credited to the one thing you changed; if you instead gave A to loyal regulars and B to new visitors, you couldn't tell whether the button or the customers caused the difference. You should change only one thing at a time because if you change the color and the wording and the price all at once and B wins, you have no idea which change actually did it. And you shouldn't stop the moment your favorite is ahead, because a small early lead is often just luck (noise) that would even out — you need enough people and a big enough gap that luck is an unlikely explanation. Tested patiently, one change at a time, A/B testing turns a marketing argument into something you actually know.",
         explanation:
-          "Full credit: explains an unscored forecast can't separate skill from luck, defines error (gap between predicted and actual) and backtesting (testing on past data as if blind), and distinguishes confidence (a feeling) from accuracy (a measured track record).",
+          "Full credit: defines an A/B test (two versions, random split, measure which wins), explains random assignment makes groups comparable so the change gets the credit, why isolating one change identifies the cause, and why stopping early/small samples risk mistaking luck for a real result.",
       },
       {
-        topicSlug: "why-forecasts-fail",
+        topicSlug: "attribution-and-personalization",
         prompt:
-          "Explain three reasons forecasts fail — irreducible uncertainty, black swans, and overfitting — and why a model that fit the past too perfectly should make you suspicious. (4–6 sentences.)",
+          "Explain the problem of attribution and the 'last-click trap,' then explain what personalization is and why marketers must watch the 'creepiness line.' (4–6 sentences.)",
         correctAnswer:
-          "Forecasts fail first because of irreducible uncertainty: parts of the future carry real randomness that no amount of data can remove, so a good forecast gives a range or probability rather than a single confident number. They fail second because of black swans — rare, enormous events the past gave no warning about, like a sudden crash or a once-in-a-century storm; since predictive analytics learns from history, it's essentially blind to events that history never contained, and those are often the events that matter most. They fail third because of overfitting, where a model tries so hard to match old data that it memorizes the random noise instead of the real pattern, looking perfect on the past it studied and then collapsing on new data — like a student who memorized last year's test answers and fails this year's. A model that fit the past almost perfectly should make you suspicious precisely because near-perfect hindsight usually means it learned the noise, and the harder you tune a model to fit history, the worse it often does on the future. That's why simpler models, which can't overfit as easily, frequently beat complex ones.",
+          "Attribution is the problem of deciding which marketing efforts actually deserve credit for a sale when many of them touched the customer along the way, and it matters because credit decides where the budget goes. The last-click trap is giving all the credit to the very last thing the customer clicked before buying — easy to see, but like crediting only the player who scored while ignoring everyone who passed the ball up the field; the earlier touches that first created awareness may have done the real work. That's why marketers use different models (first-touch, last-touch, multi-touch) and accept that credit is usually shared across the whole journey. Personalization is the flip side of knowing your customers: tailoring what each person sees to who they are and what they've done, like recommending products from past purchases or reminding someone about an abandoned cart, which is genuinely helpful when done well. But marketers must watch the creepiness line, because pushing personalization too far makes customers feel watched or exposes private things, tipping helpful into unsettling or manipulative — so the real question is not just 'can we target this precisely?' but 'should we, and would the customer feel served or spied on?'",
         explanation:
-          "Full credit: explains irreducible uncertainty (some randomness can't be removed), black swans (rare unforeseeable events the past never showed), and overfitting (memorizing noise, failing on new data), and why a too-perfect fit to the past is a warning sign.",
+          "Full credit: explains attribution (which efforts get credit) and the last-click trap (over-crediting the final touch, ignoring earlier ones), defines personalization (tailoring to the individual), and explains the creepiness line (too-precise targeting feels invasive/manipulative — must ask 'should we?').",
       },
       {
-        topicSlug: "prediction-to-decision",
+        topicSlug: "insight-to-campaign",
         prompt:
-          "Explain why a prediction is only useful if it changes a decision, why you must weigh the cost of being wrong in each direction, and what it means to act with humility by sizing the bet to your confidence. (4–6 sentences.)",
+          "Explain why an insight is only useful if it changes a campaign, why you must measure whether the campaign actually worked, and what it means to act with humility by testing and iterating rather than betting everything at once. (4–6 sentences.)",
         correctAnswer:
-          "A prediction is only useful if it changes a decision, because a forecast that leads to the same action no matter what it says is just trivia — the point of predicting rain is to decide whether to bring an umbrella. A good decision-maker doesn't only ask 'what's most likely?' but also 'what does each kind of mistake cost me?', since the two errors are rarely equal: failing to prepare for a storm that hits can be a disaster, while preparing for one that doesn't come is merely wasted effort. Because of that, it's sometimes wise to act against the most likely outcome on purpose, the way buying insurance guards against an unlikely but unaffordable loss. Acting with humility means sizing the bet to your confidence — a well-checked, confident forecast can justify a bold move, while a shaky one calls for a small, cautious, reversible step. Underneath it all runs the course's thread: the past is a guide, not a guarantee, so you leave yourself room to be wrong.",
+          "An insight is only useful if it changes a campaign because a finding that wouldn't change anything you do is just trivia — discovering a segment is drifting toward churn matters only if it leads to a real win-back effort. Turning insight into action draws on the whole course: you segment to decide who the campaign is for, use lifetime value to decide how much they're worth, read the funnel to find what to fix, and use attribution to decide where the budget belongs. You must measure whether the campaign worked because a campaign isn't finished when it launches but when you check its results, ideally against a group that didn't get it, so you can tell real impact from what would have happened anyway — otherwise you can't separate a brilliant campaign from a lucky or failed one. Acting with humility means testing small, learning from the result, and scaling up what works rather than betting everything on a single all-or-nothing campaign: a well-tested finding can justify a bold move, but a shaky hunch calls for a small experiment first. Underneath it all runs the course's thread — don't guess what customers want, measure what they actually do, and act on it — which is why you pilot, check, and leave yourself room to be wrong.",
         explanation:
-          "Full credit: explains a prediction must change a decision to be useful, that you weigh the unequal costs of each kind of error (not just likelihood), and that acting with humility means matching the size of the action to your confidence; may cite 'past is a guide not a guarantee.'",
+          "Full credit: explains an insight must change a campaign to matter, that you must measure results (ideally vs. a control) to tell real impact from luck, and that acting with humility means testing/iterating rather than one big bet; may cite the course's measure-don't-guess thread.",
       },
     ],
   },
   {
     kind: "final",
-    title: "Final — Predictive Analytics for Everyone",
+    title: "Final — Marketing Analytics for Everyone",
     weekNumber: 1,
     isTimed: true,
     timeLimitMinutes: 45,
@@ -491,40 +511,40 @@ const ASSIGNMENTS: SeedAssignment[] = [
       "Timed cumulative final. 45 minutes. Covers the whole course (sections 1.1–1.8). Answer each question in a paragraph (about 5–7 sentences) in your own words. No math is required. Pasting is disabled; keystrokes are screened for AI use.",
     problems: [
       {
-        topicSlug: "prediction-to-decision",
+        topicSlug: "insight-to-campaign",
         prompt:
-          "Using ideas from across the whole course, argue that one habit of mind — 'the past is a guide, not a guarantee' — runs through predictive analytics. Show how it applies to at least three different topics (for example: a prediction as odds, noise vs. a real trend, extrapolating a regression line, correlation vs. causation, trusting a fancy model, scoring forecasts, black swans, or overfitting). (5–7 sentences.)",
+          "Using ideas from across the whole course, argue that one habit of mind — 'don't guess what customers want; measure what they actually do, and act on it' — runs through marketing analytics. Show how it applies to at least three different topics (for example: opinions vs. evidence, the average customer myth, finding the funnel's leak, lifetime value, churn warning signs, A/B testing, last-click attribution, or turning insight into a campaign). (5–7 sentences.)",
         correctAnswer:
-          "The thread running through the whole course is that the past is a guide to the future, not a guarantee, which is why every prediction should be treated as honest odds rather than a promise — an 80% chance of rain isn't wrong on a dry day. The same humility shows up in reading data over time, where a single good week might be meaningless noise rather than a real trend, so you shouldn't bet the future on it. It appears again in regression, where a line of best fit is trustworthy only inside the data you've seen and dangerous when extrapolated to extremes the past never contained. It explains why correlation isn't causation: two things moving together in past data doesn't promise that changing one will change the other, because a hidden third factor may drive both. The habit also warns against trusting a fancy model that fit history too perfectly, since that's usually overfitting — memorizing noise — and it reminds us that black swans are exactly the huge events the past never showed. Across all of it, predictive analytics replaces overconfident gut feeling with careful, humble estimation, which is harder than believing a tidy story but far more honest about a future that was never promised to copy the past.",
+          "The thread running through the whole course is that you shouldn't guess what customers want — you should measure what they actually do and act on it, replacing confident opinions with evidence about real people. It shows up first in what marketing analytics is: instead of arguing over which logo the boss likes, you measure which one actually makes more people buy. It appears in segmentation, where the comfortable 'average customer' is a myth and the truth lives in what different real groups actually do, so you split them and speak to each. It drives the funnel, where you don't assume why sales are low but measure the conversion at each step to find the real leak, and A/B testing, where you stop debating and let a fair, randomized test settle which version wins. It governs churn, where you watch how behavior actually changes over time to spot who's leaving rather than assuming everyone's happy, and attribution, where you resist the easy last-click story and look at what really brought customers in. Finally it defines the capstone: an insight is worthless until it becomes a campaign and you measure whether that campaign truly worked. Across all of it, marketing analytics trades flattering assumptions for honest evidence about what customers really do — harder than a tidy story, but the only approach that survives contact with actual customers.",
         explanation:
-          "Full credit: states the unifying habit (the past is a guide, not a guarantee / resist overconfident stories about the future) and applies it correctly to at least three distinct course topics with accurate detail.",
+          "Full credit: states the unifying habit (measure real behavior, don't guess/assume) and applies it correctly to at least three distinct course topics with accurate detail.",
       },
       {
-        topicSlug: "shape-of-data-over-time",
+        topicSlug: "segmentation",
         prompt:
-          "Someone insists, 'Our numbers went up three weeks in a row — that's obviously a real upward trend, so we should bet big on it continuing.' Using ideas from the course, argue why a business's real pattern is better understood by separating trend, seasonality, and noise. Use at least one concrete example. (5–7 sentences.)",
+          "A company says, 'Our typical customer is a 30-something city dweller, so we'll send the exact same campaign to everyone on our list.' Using ideas from the course, argue why understanding customers as distinct segments would lead to better marketing. Use at least one concrete example. (5–7 sentences.)",
         correctAnswer:
-          "The 'three weeks up means a real trend' view assumes every movement is meaningful, but data measured over time is really three layers stacked together: a long-run trend, repeating seasonal patterns, and random noise. Three good weeks could easily be noise — the meaningless wiggle that our story-making brains love to mistake for a signal — or it could be a seasonal bump that happens at this time every year, neither of which promises the rise will continue. For example, an online store that sells more every December is seeing seasonality, not a permanent new trend, and betting big in January on that 'growth' would mean badly over-ordering once the predictable holiday spike passes. To tell which layer you're looking at, you compare against a longer history and against the same period in past years, instead of reacting to a short run. The danger of confusing noise or seasonality with a trend is celebrating a fluke and preparing for growth that was never real. So the honest move is to separate the real, repeatable pattern from the random jiggle before placing any big bet, because a short streak is a guide at best, not a guarantee.",
+          "The 'typical customer' view assumes one made-up average person stands in for everyone, but that average is usually a fiction almost nobody matches, so a single campaign aimed at them tends to please no one. Real customer lists are normally a mix of very different groups, and segmentation means splitting them into meaningful groups that respond to different messages. For example, a streaming service might have committed daily viewers, occasional weekend watchers, and lapsed members who haven't logged in for months — and the same email can't possibly fit all three. The daily viewers might want news of an advanced new feature, the occasional ones a reminder of what's new, and the lapsed ones a win-back offer; one blended message lands with none of them. Segmenting also connects to lifetime value, since the loyal heavy users are usually worth far more and deserve the best effort. The honest move is to identify a handful of genuinely different, useful segments and speak to each in its own language, instead of broadcasting one bland message to a customer who doesn't exist.",
         explanation:
-          "Full credit: rejects the 'short streak = trend' view, explains the three layers (trend/seasonality/noise) and that a short run could be noise or seasonality, supports it with a concrete example (e.g. December holiday spike), and notes comparing to longer/prior-year history.",
+          "Full credit: rejects the 'average/typical customer' approach, explains segmentation into meaningful groups needing different messages, supports it with a concrete example of distinct segments, and notes why one-size-fits-all pleases no one; may link to lifetime value.",
       },
       {
-        topicSlug: "correlation-vs-causation",
+        topicSlug: "ab-testing",
         prompt:
-          "A company finds that customers who use a certain feature spend far more money, and an executive declares, 'The feature obviously causes people to spend more — let's force it on everyone.' Using the course, argue why this could be a costly mistake and what they should check first. Use a concrete example. (5–7 sentences.)",
+          "A team is sure that a new website design is better, so they switch everyone over to it, see sales rise the next month, and declare the new design a success. Using ideas from the course, explain why this isn't solid proof the design caused the rise, and what they should have done instead. Use a concrete example. (5–7 sentences.)",
         correctAnswer:
-          "The executive has jumped from correlation to causation: the fact that feature-users spend more only means the two move together, not that the feature makes people spend. A hidden third factor could easily explain both — for instance, the company's most enthusiastic, loyal customers might be the kind of people who both try every feature and spend a lot anyway, so the feature is a marker of big spenders, not the cause of their spending. If that's true, forcing the feature on everyone would change the thing that was never the cause, and spending wouldn't rise — wasting effort and possibly annoying customers who didn't want it. The same trap fools people constantly because our brains invent a cause the moment they see two things linked, the way some once blamed ice cream for drownings when hot weather drove both. Before acting, they should run a fair test: give the feature to a randomly chosen group and withhold it from a similar group, then compare spending, so any difference can't be explained by what kind of person already chose it. Only if spending genuinely rises in the test group is there real evidence of cause. Until then, the correlation is a clue worth investigating, not a conclusion worth betting the business on.",
+          "Switching everyone over at once and watching sales rise mixes up correlation with causation: many things could have lifted sales that month, so the rise moving together with the new design doesn't prove the design caused it. Maybe a holiday, a competitor's stumble, or a separate ad campaign happened at the same time — a hidden third factor driving the rise while the design got the credit. The honest tool is an A/B test: show the old design and the new one to randomly split groups of visitors at the same time, change only the design, and compare how each group actually behaves. Because random assignment makes the two groups alike in every other way, any difference in sales can fairly be credited to the design rather than to timing or luck. They should also have collected enough visitors and a big enough gap that the result isn't just noise, and changed only the design rather than several things at once. With everyone switched at once and no comparison group, they have a confident story but no real evidence — exactly the guesswork the course warns against.",
         explanation:
-          "Full credit: rejects the correlation-equals-causation leap, explains a hidden third factor (e.g. loyal big spenders self-select into the feature), warns acting on a false cause wastes effort, and says to test it fairly (a randomized comparison) before concluding; may give a classic example.",
+          "Full credit: explains that a before/after rise with no control confounds the design with other causes (correlation not causation / hidden third factor), that an A/B test with a randomized control changing only the design would isolate the cause, and notes needing enough data; may give a concrete confounder.",
       },
       {
-        topicSlug: "measuring-forecast-error",
+        topicSlug: "churn",
         prompt:
-          "A forecaster boasts, 'My model is incredible — it matched last year's sales almost perfectly, so trust it completely for next year.' Using the course, explain why a near-perfect fit to the past is not proof the model will work, and what they should actually do to judge it. Use a concrete example. (5–7 sentences.)",
+          "A subscription business celebrates record new sign-ups every month but is frustrated that revenue is flat, and an executive says, 'We just need even more new customers.' Using ideas from the course, explain why focusing only on new customers may be the wrong fix, and what they should examine instead. Use a concrete example. (5–7 sentences.)",
         correctAnswer:
-          "A model that matched last year almost perfectly is a warning sign, not proof, because of overfitting: when a model tries too hard to match old data, it memorizes the random noise and quirks instead of the real underlying pattern, so it looks flawless on the past it studied and then falls apart on new data. It's like a student who memorized the exact answers to last year's test and aces it but fails this year's, because they never actually learned the subject. A forecast also means nothing until it's scored against reality, so a boast about hindsight isn't the same as a measured track record on data the model hasn't seen. To judge it honestly they should backtest properly — hide some data, have the model predict it as if blind, and measure the error between its predictions and what really happened — and ideally test it on a fresh period entirely. They should also be more impressed by a humble model with consistent, checked accuracy than by one that fit history too beautifully. The deeper lesson is that the past is a guide, not a guarantee, so a perfect fit to yesterday earns suspicion, not blind trust, until the model proves itself on tomorrow.",
+          "Record sign-ups with flat revenue is the classic sign of churn: customers are leaving out the back door about as fast as new ones arrive, so the bucket never fills no matter how fast you pour. Chasing even more new customers is expensive and, on its own, won't fix a leak at the bottom — and winning a new customer usually costs several times more than keeping an existing one, so this plan may actually lose money. The business should examine its churn and the lifetime value it's destroying: each customer who leaves early takes all their future revenue and wastes the money spent acquiring them. It should look for the warning signs in behavior — for example, users who log in less and less each week, or whose usage drops before they cancel — and flag the at-risk customers while there's still time. Then it can act with a targeted retention campaign, like a check-in or a well-timed offer to those specific people, and measure whether it keeps more of them. Plugging the leak by reducing churn is often far more profitable than pouring in ever more new sign-ups, which is why the right fix starts at the bottom of the bucket, not the top.",
         explanation:
-          "Full credit: explains overfitting (memorizing noise, near-perfect past fit as a warning sign), that a forecast must be scored on unseen data not just hindsight, and what to do (backtest on hidden/fresh data, measure error) before trusting it; may support with a concrete example.",
+          "Full credit: identifies churn as the cause of flat revenue despite sign-ups (leaky bucket), explains retention is usually cheaper than acquisition and that churn destroys lifetime value, and says to detect at-risk customers via behavior signals and run a targeted retention campaign; may give a concrete warning sign.",
       },
     ],
   },
@@ -535,24 +555,24 @@ type SeedPrimer = SeedTopic;
 const REASONING_PRIMERS: SeedPrimer[] = [
   {
     slug: "reasoning-primer-subject",
-    title: "How to reason about predictive analytics cases",
+    title: "How to reason about marketing analytics cases",
     weekNumber: 1,
     blurb:
-      "Diagnostic primer: applying the course's ideas to concrete prediction and forecasting situations.",
-    lectureTitle: "Primer: How to reason about predictive analytics cases",
-    body: `# How to reason about predictive analytics cases
+      "Diagnostic primer: applying the course's ideas to concrete marketing and customer-data situations.",
+    lectureTitle: "Primer: How to reason about marketing analytics cases",
+    body: `# How to reason about marketing analytics cases
 
-This short primer prepares you for the **Predictive Analytics** diagnostic. That check is *ungraded practice* — it never affects your course grade. It is drawn from the eight topics of this unit and asks you to *apply* what you have learned to a specific situation, not to recite a definition.
+This short primer prepares you for the **Marketing Analytics** diagnostic. That check is *ungraded practice* — it never affects your course grade. It is drawn from the eight topics of this unit and asks you to *apply* what you have learned to a specific situation, not to recite a definition.
 
 ## It tests application, not memorization
 
-A diagnostic question gives you a small, concrete scene — a forecast treated as a promise, a good week mistaken for a real trend, a correlation read as a cause, a model that fit the past too perfectly — and asks what the course's ideas tell you about it. Knowing the words "regression" or "overfitting" is not enough; the question wants you to recognize *when* you are looking at one and *why* it matters here.
+A diagnostic question gives you a small, concrete scene — a business designing for "the average customer," a funnel leaking at checkout, a last-click decision that defunds the real source of customers, an A/B test split unfairly — and asks what the course's ideas tell you about it. Knowing the words "segmentation" or "churn" is not enough; the question wants you to recognize *when* you are looking at one and *why* it matters here.
 
 ## What the questions reward
 
-- **Naming the right idea** — match the situation to the concept that fits it: why a prediction is odds not a guarantee, how to separate trend, seasonality, and noise, when extrapolating a regression line is dangerous, why correlation isn't causation, why a simple method can beat a fancy one, why a forecast must be scored, and what makes forecasts fail.
+- **Naming the right idea** — match the situation to the concept that fits it: why evidence beats opinion, why there's no average customer, how to find the leak in a funnel, what a customer is worth over a lifetime, how to read churn warning signs, why an A/B test must be split at random, when last-click attribution misleads, and what it takes to turn an insight into a campaign.
 - **Using evidence from the scene** — point to the detail in the situation that supports your answer, rather than answering from a general impression.
-- **Avoiding the overconfident reading** — the course estimates what's really likely; it does not assume the tidiest or most flattering story about the future. The best answers stay grounded in the data and the odds, not in how confident a forecast sounds.
+- **Avoiding the flattering reading** — marketing analytics measures what customers actually do; it does not assume the tidiest or most convenient story about them. The best answers stay grounded in real behavior and evidence, not in what a business wishes were true.
 
 ## How to do this activity well
 
@@ -652,7 +672,7 @@ export async function seedReasoningPrimersIfMissing(): Promise<void> {
 }
 
 export async function seedIfEmpty(): Promise<void> {
-  // The course was migrated to the Predictive Analytics for Children syllabus.
+  // The course was migrated to the Marketing Analytics syllabus.
   // Detect the marker topic; if present and the content version matches, the
   // content is current and we skip. This makes the seed self-healing across
   // environments: a database that still holds older content (e.g. a previous
@@ -660,7 +680,7 @@ export async function seedIfEmpty(): Promise<void> {
   const markerTopic = await db
     .select({ id: topicsTable.id })
     .from(topicsTable)
-    .where(eq(topicsTable.slug, "what-predictive-analytics-is"));
+    .where(eq(topicsTable.slug, "what-marketing-analytics-is"));
   // Read the stored content version. Tolerate the seed_meta table not yet
   // existing (e.g. a boot that races ahead of schema migration): treat that as
   // "no version recorded", which forces a reseed once the table is present.
@@ -701,7 +721,7 @@ export async function seedIfEmpty(): Promise<void> {
     const row = (existing.rows[0] ?? {}) as { n?: number };
     if ((row.n ?? 0) > 0) {
       logger.warn(
-        "Seed: stale course content detected — replacing with the Predictive Analytics for Children curriculum",
+        "Seed: stale course content detected — replacing with the Marketing Analytics curriculum",
       );
       await tx.execute(
         sql`TRUNCATE TABLE answers, attempts, practice_attempts, practice_problems, practice_sessions, problems, assignments, lectures, topics, diagnostic_responses, diagnostic_attempts, diagnostic_items, diagnostic_assessments RESTART IDENTITY CASCADE`,

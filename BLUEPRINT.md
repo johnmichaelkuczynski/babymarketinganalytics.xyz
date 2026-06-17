@@ -1,23 +1,23 @@
-# Predictive Analytics for Children — App Blueprint
+# Marketing Analytics — App Blueprint
 
-A complete architectural blueprint for the Predictive Analytics for Children one-unit course. This document is the single reference for what the app does, how it's wired, and the contracts between pieces. For day-to-day commands and gotchas see `replit.md`.
+A complete architectural blueprint for the Marketing Analytics one-unit course. This document is the single reference for what the app does, how it's wired, and the contracts between pieces. For day-to-day commands and gotchas see `replit.md`.
 
 ---
 
 ## 1. Product summary
 
-Predictive Analytics for Children is a self-paced, single-user web course (Clerk sign-in) covering a friendly, plain-language one-unit curriculum (8 topics) introducing how we use patterns in past data to estimate what's likely to happen next — and how to do it honestly. Students read AI-rewritten lecture notes at three lengths, ask an AI tutor scoped to the section they're reading, drill on adaptive practice problems, and submit homework / unit test / final that are AI-graded and AI-detection-screened.
+Marketing Analytics is a self-paced, single-user web course (Clerk sign-in) covering a friendly, plain-language one-unit curriculum (8 topics) introducing how we use data on what customers actually do to understand them and act — and how to do it honestly. Students read AI-rewritten lecture notes at three lengths, ask an AI tutor scoped to the section they're reading, drill on adaptive practice problems, and submit homework / unit test / final that are AI-graded and AI-detection-screened.
 
-The 8 topics (Unit 1):
+The 8 topics (Unit 1, "Marketing Analytics for Everyone"):
 
-1. 1.1 What predictive analytics is (using the past to see the future)
-2. 1.2 The shape of data over time (trend, seasonality, and noise)
-3. 1.3 Regression (the workhorse of prediction)
-4. 1.4 Correlation vs. causation (the trap that fools everyone)
-5. 1.5 Forecasting methods (from moving averages to machine learning)
-6. 1.6 How good is the forecast? (measuring error and accuracy)
-7. 1.7 Why forecasts fail (uncertainty, black swans, and overfitting)
-8. 1.8 From prediction to decision (Capstone)
+1. 1.1 What marketing analytics is (knowing the customer through data)
+2. 1.2 Why "the average customer" doesn't exist (segmentation)
+3. 1.3 The funnel (tracking the journey from stranger to buyer)
+4. 1.4 Customer lifetime value (what a customer is really worth)
+5. 1.5 Churn (spotting who's about to leave before they do)
+6. 1.6 A/B testing (letting data settle the argument)
+7. 1.7 Attribution and personalization (who gets credit, who gets targeted)
+8. 1.8 From insight to campaign (Capstone)
 
 The product surface is three deployable artifacts in one pnpm monorepo:
 
@@ -267,8 +267,8 @@ artifacts/course-promo/src/components/video/
 └── video_scenes/
     ├── Scene1.tsx  (s1_intro, 4.5s)      Title + honest one-line pitch
     ├── Scene2.tsx  (s2_curriculum, 6s)   The real 8-topic Unit 1 curriculum list
-    ├── Scene3.tsx  (s3_depths, 6s)       A real lesson (1.4 Correlation vs. causation) with the Short / Medium / Long depth toggle
-    ├── Scene4.tsx  (s4_tutor, 9s)        Section-scoped AI tutor answering a concrete correlation-vs-causation case, streaming in
+    ├── Scene3.tsx  (s3_depths, 6s)       A real lesson (1.4 Customer lifetime value) with the Short / Medium / Long depth toggle
+    ├── Scene4.tsx  (s4_tutor, 9s)        Section-scoped AI tutor answering a concrete attribution / last-click case, streaming in
     ├── Scene5.tsx  (s5_practice, 7s)     Adaptive practice: correct answer → difficulty ticks up
     ├── Scene6.tsx  (s6_grading, 6.5s)    AI grading: score badge + written per-problem feedback
     ├── Scene7.tsx  (s7_detection, 8s)    Two-layer AI-authorship detection (GPTZero text scan + keystroke pattern) → "Authentic"
@@ -279,7 +279,7 @@ artifacts/course-promo/src/components/video/
 
 ### 8.2 Key rules
 
-- **Show real content, not placeholders.** On-screen copy is grounded in the real curriculum (`artifacts/api-server/src/lib/seed.ts`): the 8 topic titles, real correlation-vs-causation lesson text, a real graded-homework rationale, and the real two-layer detection verdicts. Do not swap in generic/abstract filler.
+- **Show real content, not placeholders.** On-screen copy is grounded in the real curriculum (`artifacts/api-server/src/lib/seed.ts`): the 8 topic titles, real customer-lifetime-value lesson text, a real graded-homework rationale, and the real two-layer detection verdicts. Do not swap in generic/abstract filler.
 - **The UI is rebuilt in JSX**, using the app's real fonts and colors — every pixel is JSX, not a screenshot.
 - Auto-plays and loops; no interactivity (it is recorded from the browser tab).
 - Do not modify `src/lib/video/hooks.ts`. After changing scenes, run `bash scripts/validate-recording.sh` and keep `index.html` `<title>` + OG/Twitter meta in sync with the course.

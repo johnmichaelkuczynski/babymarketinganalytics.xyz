@@ -41,11 +41,11 @@ export function Scene6() {
           <div className="flex-1 bg-slate-900/50 rounded-xl p-8 border border-slate-700/50 relative">
             <div className="mb-4">
               <span className="text-slate-400 font-medium text-sm">Question 3</span>
-              <p className="text-slate-200 mt-2">Why can a forecast that nailed last year suddenly flop this year?</p>
+              <p className="text-slate-200 mt-2">A subscription app celebrates record new sign-ups, yet its total user count is flat. What should it suspect?</p>
             </div>
             
             <div className="bg-slate-800 p-4 rounded-lg text-slate-300 border border-slate-700 font-serif italic mb-6">
-              "Because it may have overfit — it memorized the random quirks and noise of last year's data instead of the real pattern. When this year's data comes in a little different, the model breaks because it was never learning what actually matters."
+              "It should suspect churn — customers are leaving about as fast as new ones arrive, like a leaky bucket. The headline sign-up number hides the back door, so the app should watch behavior for at-risk users and act to keep them."
             </div>
 
             <motion.div 
@@ -57,7 +57,7 @@ export function Scene6() {
               <div>
                 <h4 className="text-blue-400 font-bold mb-1">Feedback</h4>
                 <p className="text-blue-100/80 leading-relaxed text-sm">
-                  Full credit — you named overfitting, explained that memorizing noise is different from learning the real pattern, and connected it to why a model can break on new data.
+                  Full credit — you named churn, used the leaky-bucket idea to explain why flat totals can hide it, and connected it to watching behavior to keep at-risk customers.
                 </p>
               </div>
             </motion.div>

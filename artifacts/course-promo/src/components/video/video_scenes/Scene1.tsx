@@ -28,7 +28,7 @@ export function Scene1() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         >
-          Predictive Analytics <br/><span className="text-blue-600">for Children</span>
+          Marketing <br/><span className="text-blue-600">Analytics</span>
         </motion.h1>
         
         <motion.p 
@@ -37,7 +37,7 @@ export function Scene1() {
           animate={phase >= 1 ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         >
-          A friendly intro to how we use the past to predict the future — taught, tutored, and graded by AI.
+          A friendly intro to how we know the customer through data — taught, tutored, and graded by AI.
         </motion.p>
       </div>
 

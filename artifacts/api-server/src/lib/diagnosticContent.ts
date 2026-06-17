@@ -3,7 +3,7 @@
 //
 // Two instruments, each offered at FOUR time-points (phases) so a student can
 // gauge themselves before, during, and after the course:
-//   - subject  — Predictive Analytics subject-specific reasoning.
+//   - subject  — Marketing Analytics subject-specific reasoning.
 //     Realistic short cases about the course material; the best-supported answer
 //     is keyed first.
 //   - general  — General Reasoning. Genuine reasoning items spanning analysis,
@@ -88,25 +88,25 @@ const SUBJECT_SPECS: Record<Phase, GenSpec> = {
     level:
       "Intro level: answerable by a thoughtful newcomer reasoning carefully, BEFORE any lessons. Do not assume prior course knowledge or technical terms.",
     topicFocus:
-      "What predictive analytics is and how it thinks about the future: that you use patterns in past data to estimate what's *likely* to happen next, that a prediction is an estimate or set of odds rather than a guarantee, and that everyone already predicts informally — doing it with data is more honest than trusting gut feeling. The past is a guide, not a promise.",
+      "What marketing analytics is and how it thinks about customers: that you use data about what real customers actually do — what they buy, click, and ignore — to understand them and decide what will make them buy, rather than relying on a hunch about 'what the market wants'; that everyone already markets informally; and that measured evidence about real behavior is more honest than confident opinions. Don't guess what customers want — measure what they do.",
   },
   third: {
     level:
       "Early course level: covers roughly the first third of the unit. Plain language, short realistic cases.",
     topicFocus:
-      "Topics 1.1-1.3: what predictive analytics is (the past is a guide, not a guarantee); the shape of data over time (trend, seasonality, and noise, and not mistaking random noise for a real signal); and regression (finding the underlying relationship or 'line of best fit' to estimate one thing from another, and the danger of pushing that line far beyond the data you've seen).",
+      "Topics 1.1-1.3: what marketing analytics is (measure what customers do, don't guess); segmentation (there is no 'average customer'; split customers into meaningful groups that respond to different messages); and the funnel (the journey from stranger to buyer, the conversion rate at each stage, and finding the leak — the stage losing the most people — instead of just adding more at the top).",
   },
   twothirds: {
     level:
       "Mid course level: covers roughly the first two-thirds of the unit. Realistic short cases requiring a step of reasoning.",
     topicFocus:
-      "Topics 1.1-1.6: what predictive analytics is, the shape of data over time, and regression, PLUS correlation vs. causation (two things moving together doesn't prove one causes the other, since a hidden third factor often drives both), forecasting methods (from a simple moving average to machine learning, where fancier is not automatically better), and measuring forecast error (a forecast only means something if you check it against reality and score how wrong it was).",
+      "Topics 1.1-1.6: what marketing analytics is, segmentation, and the funnel, PLUS customer lifetime value (a customer is worth their whole relationship, not one sale, which sets how much you can spend to win and keep them), churn (customers leave quietly but their behavior changes first, so you can spot who's at risk and act in time), and A/B testing (settle arguments by showing two versions to randomly split groups and measuring which wins, changing only one thing at a time).",
   },
   after: {
     level:
       "End-of-course level: covers the whole unit. Integrative short cases that apply more than one idea.",
     topicFocus:
-      "The full unit, topics 1.1-1.8: what predictive analytics is, the shape of data over time, regression, correlation vs. causation, forecasting methods, and measuring forecast error, PLUS why forecasts fail (irreducible uncertainty, black swans, and overfitting a model to the quirks of old data) and from prediction to decision (a prediction is only useful if it changes a decision, and you weigh the cost of being wrong in each direction and size the bet to your confidence).",
+      "The full unit, topics 1.1-1.8: what marketing analytics is, segmentation, the funnel, customer lifetime value, churn, and A/B testing, PLUS attribution and personalization (which efforts deserve credit for a sale — avoiding the last-click trap — and tailoring to individuals while watching the 'creepiness line') and from insight to campaign (an insight is only useful if it changes a campaign, and you measure whether the campaign actually worked and act with humility by testing and iterating).",
   },
 };
 
@@ -152,7 +152,7 @@ const FORMAT_LABEL: Record<DiagFormat, string> = {
 function instructionsFor(instrument: Instrument, format: DiagFormat): string {
   const subject =
     instrument === "subject"
-      ? "Answer each question about predictive analytics — these reward careful reasoning about realistic forecasting situations, not memorized facts"
+      ? "Answer each question about marketing analytics — these reward careful reasoning about realistic customer and marketing situations, not memorized facts"
       : "Answer each reasoning question — these measure how you think, not what you recall";
   const body =
     format === "mcq"
@@ -164,86 +164,86 @@ function instructionsFor(instrument: Instrument, format: DiagFormat): string {
 }
 
 // ===========================================================================
-// SUBJECT — Predictive Analytics blueprint cases (best answer keyed FIRST)
+// SUBJECT — Marketing Analytics blueprint cases (best answer keyed FIRST)
 // ===========================================================================
 
 const SUBJECT_BEFORE: DiagItem[] = [
   {
     prompt:
-      "A reporter asks a forecaster how she can possibly say what next month's sales will look like when nobody can know the future. She would most likely explain that a prediction is:",
+      "A shop owner is asked why she bothers tracking what customers buy when she's run the store for years and 'just knows' what they want. She would most likely explain that marketing analytics is:",
     options: [
-      "an estimate of what's likely, read from patterns in past data — not a guarantee",
-      "a certainty, because the numbers always come true",
-      "whatever the boss happens to hope will happen",
-      "the same thing as a lucky guess about anything at all",
+      "using data about what customers actually do to understand them — more honest than relying on gut feeling alone",
+      "a guarantee that you'll always know exactly what every customer wants",
+      "whatever the owner happens to hope her customers want",
+      "the same thing as guessing, just with fancier words",
     ],
     modelAnswer:
-      "Predictive analytics uses patterns in past data to estimate what's likely to happen next; a prediction is an estimate or set of odds, not a promise that something will happen.",
+      "Marketing analytics uses data about what real customers actually do — what they buy, click, and ignore — to understand them, which is more reliable and honest than relying only on a hunch that memory can distort.",
   },
   {
     prompt:
-      "A headline claims 'a confident prediction backed by data is basically a guarantee of what will happen.' How would a forecaster most likely treat this claim?",
+      "A headline claims 'a confident expert opinion about customers is basically as good as data.' How would someone who understands marketing analytics most likely treat this claim?",
     options: [
-      "As an oversimplification, since the past is a guide, not a promise, and predictions can be wrong",
+      "As an oversimplification, since opinions are often wrong and measured evidence about real behavior is more reliable",
       "As obviously true and needing no evidence",
       "As something that can never be checked at all",
-      "As true only when the prediction is about money",
+      "As true only when the opinion is about pricing",
     ],
     modelAnswer:
-      "It is an oversimplification; even a confident, data-backed prediction is only an estimate of what's likely, so the past guides us but never guarantees the outcome.",
+      "It is an oversimplification; in marketing everyone has a confident opinion and opinions are often wrong, so measuring what customers actually do is more trustworthy than even an expert's hunch.",
   },
   {
     prompt:
-      "Which question is most central to what predictive analytics actually studies?",
+      "Which question is most central to what marketing analytics actually studies?",
     options: [
-      "What patterns in past data tell us is likely to happen next, and how sure we can be",
+      "Who the customer really is and what actually makes them buy, based on what they do",
       "Which company has the friendliest-looking logo",
       "How to design the fanciest office lobby",
-      "Which forecaster has the most confident voice",
+      "Which marketer has the most confident voice",
     ],
     modelAnswer:
-      "Predictive analytics studies what past patterns suggest is likely to happen next and how confident we can be — using data rather than gut feeling, while remembering a prediction is an estimate, not a certainty.",
+      "Marketing analytics studies who the customer is and what actually makes them buy, using data about real behavior rather than gut feeling — measuring what customers do instead of guessing what they want.",
   },
 ];
 
 const SUBJECT_THIRD: DiagItem[] = [
   {
     prompt:
-      "An ice-cream shop had one unusually busy Tuesday and the owner wants to hire extra staff for every Tuesday from now on. Deciding whether that's wise depends most on:",
+      "A streaming service reports that its 'average customer is 35 and watches 4 hours a week,' and plans to design everything for that one person. The main weakness of this plan is:",
     options: [
-      "telling a real pattern from random noise, since one good day may just be a lucky wiggle, not a trend",
-      "guessing based on the owner's personal mood that morning",
-      "the alphabetical order of the flavors on the menu",
-      "how confident the owner sounds when announcing the plan",
+      "the 'average customer' is usually a myth almost nobody matches, so designing for them can please no one",
+      "35-year-olds never watch streaming services at all",
+      "averages can never be calculated from customer data",
+      "the service should simply copy whatever a competitor does",
     ],
     modelAnswer:
-      "A single busy day could just be random noise rather than a repeating pattern; you'd look for a real trend or weekly seasonality across many Tuesdays before treating one good day as a signal.",
+      "If customers are really a mix of very different groups, the 'average' blends them into a middle person who doesn't exist; segmentation into meaningful groups that get different messages serves real customers better than designing for a fictional average.",
     skillArea: "analysis",
   },
   {
     prompt:
-      "A shop notices that on hotter days it tends to sell more cold drinks, and wants to estimate tomorrow's drink sales from the forecast temperature. The tool best suited to that is:",
+      "An online store gets lots of visitors and lots of items added to carts, but very few completed purchases. To fix this, the most useful first step is:",
     options: [
-      "regression — finding the underlying relationship between temperature and sales so one can be estimated from the other",
-      "pure luck, since the two could not possibly be related",
-      "counting how many letters are in the word 'lemonade'",
-      "whichever number the manager likes best",
+      "find the leak in the funnel — here checkout — and fix that stage, rather than just buying more ads",
+      "buy far more ads to pour even more visitors into the top",
+      "assume nothing can be done since some drop-off is normal",
+      "rename the products to sound more exciting",
     ],
     modelAnswer:
-      "Regression finds the underlying relationship (a line of best fit) between temperature and sales, so the shop can estimate one from the other instead of guessing.",
+      "The funnel is leaking near the bottom — people reach the cart but abandon at checkout — so the fix is that stage (e.g. surprise costs or forced sign-up), not more top-of-funnel ads, which just pour more people into the same broken step.",
     skillArea: "inference",
   },
   {
     prompt:
-      "A team built a line relating study hours to test scores using students who studied 1 to 3 hours, then used it to claim that studying 40 hours straight would produce a near-perfect score. Why would a forecaster push back?",
+      "A marketer wants to write a single email that excites loyal regulars, occasional buyers, and people who haven't purchased in a year, all at once. Why would this be hard to pull off?",
     options: [
-      "Because pushing the line far beyond the data you've actually seen (extrapolation) is unreliable",
-      "Because lines can never describe a relationship at all",
-      "Because study hours have nothing to do with scores ever",
-      "Because only very large groups of students can be measured",
+      "Different segments respond to different messages, so one message for everyone tends to fit no one well",
+      "Email is never an effective way to reach any customer",
+      "Loyal customers and lapsed customers are actually identical",
+      "Only the number of recipients matters, not what the email says",
     ],
     modelAnswer:
-      "The relationship was only learned over 1–3 hours; stretching the line out to 40 hours is extrapolating far beyond the data, where the pattern may not hold, so the claim isn't trustworthy.",
+      "Those are distinct segments with different needs — regulars, occasional buyers, and lapsed customers — so a single blended message lands with none of them; segmenting lets you send each group a message that actually fits.",
     skillArea: "evaluation",
   },
 ];
@@ -251,83 +251,83 @@ const SUBJECT_THIRD: DiagItem[] = [
 const SUBJECT_TWOTHIRDS: DiagItem[] = [
   {
     prompt:
-      "A town finds that the more firefighters it sends to a blaze, the more damage the fire causes, and a councilor concludes that firefighters cause the damage. What's the better way to read this?",
+      "A coffee shop refuses to spend more than the $1 profit on one cup to attract a new customer. Using lifetime value, the better way to read this is:",
     options: [
-      "A hidden third factor — the size of the fire — drives both, so correlation here isn't causation",
-      "Sending firefighters clearly causes the extra damage",
-      "The two numbers moving together proves one causes the other",
-      "The damage figures must simply be made up",
+      "A regular is worth their whole relationship — hundreds of dollars over years — so judging them by one cup badly undervalues them",
+      "Spending anything to attract customers is always a waste",
+      "A single cup's profit is exactly what a customer is worth",
+      "The shop should spend as much as it likes with no limit",
     ],
     modelAnswer:
-      "Bigger fires both cause more damage and require more firefighters, so the link is driven by a hidden third factor; two things rising together doesn't mean one causes the other.",
+      "Customer lifetime value is the total over the whole relationship, not one sale; a twice-a-week regular is worth far more than $1, so the shop can afford to spend much more than $1 to win a customer who keeps coming back.",
     skillArea: "evaluation",
   },
   {
     prompt:
-      "A manager replaces a simple moving average that staff understand with a complex machine-learning model nobody on the team can explain or check. What's the most sensible caution?",
+      "A subscription app celebrates record new sign-ups, but its total user count is flat. What's the most sensible thing to suspect?",
     options: [
-      "Fancier isn't automatically better; a method you can understand and check often beats a black box you can't",
-      "The most complex method is always the most accurate one",
-      "Simple methods like a moving average are never worth using",
-      "The choice of method can never affect the forecast",
+      "Churn — users are leaving about as fast as new ones arrive, so the bucket never fills",
+      "The new sign-ups must all be fake",
+      "Flat user counts always mean marketing is working perfectly",
+      "Nothing can be learned from sign-up and cancellation numbers",
     ],
     modelAnswer:
-      "A model is only as good as its assumptions, and a complex black box you can't inspect can hide mistakes; a simpler method you understand and can check is often the wiser choice.",
-    skillArea: "analysis",
+      "Flat totals despite record sign-ups point to churn: customers are leaving the back door as fast as new ones come in, like a leaky bucket, and the app should watch behavior for at-risk users and act to keep them.",
+    skillArea: "inference",
   },
   {
     prompt:
-      "A forecaster keeps publishing confident predictions but never goes back to compare them with what actually happened. Why is that a problem?",
+      "A team can't agree whether a red or green button gets more clicks, so they show red only to loyal regulars and green only to first-time visitors, then declare a winner. What's the most sensible caution?",
     options: [
-      "A forecast only means something if you measure its error against reality; one nobody scores is worthless",
-      "Checking a forecast against reality is a waste of time",
-      "A confident forecast must be accurate because it sounds sure",
-      "Forecasts can never be compared to what really happened",
+      "The groups differ, so you can't tell whether the color or the customer type caused the result — split customers at random",
+      "Whichever button the manager prefers is the real winner",
+      "Button color can never possibly affect clicks",
+      "The test is fine because both buttons were shown to someone",
     ],
     modelAnswer:
-      "Accuracy is earned by being checked: error is the gap between what you predicted and what happened, and a forecast nobody ever backtests against reality is worthless no matter how confident it sounds.",
-    skillArea: "inference",
+      "A fair A/B test splits customers at random so the groups are alike except for the one change; splitting by customer type confounds the color with who saw it, so any difference can't be credited to the button — change only one thing and assign at random.",
+    skillArea: "analysis",
   },
 ];
 
 const SUBJECT_AFTER: DiagItem[] = [
   {
     prompt:
-      "A model predicted last year's sales almost perfectly but flopped badly this year. Drawing on the unit, the most likely explanation is:",
+      "A company sees customers almost always click a search ad right before buying, so it moves its whole budget to search ads and cuts everything else. Drawing on the unit, the most likely problem is:",
     options: [
-      "Overfitting — it memorized the quirks and noise of old data instead of the real pattern, so it broke on new data",
-      "The model was simply too simple to be useful",
-      "Forecasts are pointless, so this proves they should never be made",
-      "Last year's data must have been entirely fake",
+      "The last-click trap — earlier touches that first created awareness may have done the real work, so cutting them can starve the journey",
+      "Search ads are always useless and should never be funded",
+      "Whatever the customer clicks last clearly deserves all the credit",
+      "Attribution can never be analyzed at all",
     ],
     modelAnswer:
-      "A model that nails the past but fails on new data has usually overfit — it learned the random noise and quirks of old data rather than the true pattern, so the more it was tuned to the past, the worse it did on the future.",
+      "This over-credits the last click; the social post or email that first made the customer aware may have done the real work, so cutting those earlier touches can leave the search ads with far fewer people to convert and overall sales falling.",
     skillArea: "inference",
   },
   {
     prompt:
-      "A planner had a sensible forecast, yet a rare, unforeseeable event the past had never shown wrecked it. How should that one result be understood?",
+      "A store discovers it can predict private things about customers from their purchases and starts targeting them on it, and some customers feel watched and unsettled. How should that result be understood?",
     options: [
-      "As a black swan — some uncertainty is irreducible, so a good forecast can still be undone by the unforeseeable",
-      "As proof the forecaster is incompetent",
-      "As a guarantee that all forecasting is useless",
-      "As a fixed fact the planner should have simply known",
+      "As the 'creepiness line' — personalization can be powerful but tips into harmful when it feels invasive, so marketers must ask not just 'can we?' but 'should we?'",
+      "As proof that personalization is always wrong and useless",
+      "As irrelevant, since anything you can measure you may freely use",
+      "As a sign the customers simply misunderstood the offers",
     ],
     modelAnswer:
-      "Black swans are rare, huge events the past never showed, and some uncertainty can't be removed; one being blindsided by such an event doesn't make the original forecast unreasonable, it shows why forecasts are held with humility.",
+      "Personalization is powerful but crosses a line when targeting reveals more than customers shared and makes them feel watched; the responsible question is not just whether you can target precisely but whether you should, and whether the customer would feel served or spied on.",
     skillArea: "evaluation",
   },
   {
     prompt:
-      "Two forecasts are equally likely to be right, but acting wrongly on one would be cheap to fix while acting wrongly on the other would be ruinous. From prediction to decision, the strongest point is that:",
+      "A data team finds that one customer group is drifting toward leaving, writes it in a slide, and moves on. From insight to campaign, the strongest point is that:",
     options: [
-      "A prediction is only useful when it changes a decision, and you weigh the cost of being wrong in each direction",
-      "You should always act on whichever forecast sounds most confident",
-      "The two situations should be treated identically since the odds match",
-      "Predictions should never influence any decision at all",
+      "An insight is only useful if it changes a campaign — they should act on it and then measure whether it worked",
+      "Writing the insight in a slide is itself all that's needed",
+      "Insights about churn never justify doing anything",
+      "The team should always launch the biggest possible campaign instantly",
     ],
     modelAnswer:
-      "A prediction matters only if it changes what you do, and equal odds don't mean equal stakes; you size the bet to your confidence and to the cost of being wrong in each direction, acting with humility where a mistake would be ruinous.",
+      "An insight sitting in a slide changes nothing; this finding matters only if it drives a targeted win-back campaign for that at-risk group, and then they should close the loop by measuring whether it actually kept more customers, ideally against a comparison group.",
     skillArea: "evaluation",
   },
 ];
@@ -440,7 +440,7 @@ const BASE_CONTENT: BaseContent[] = PHASE_ORDER.flatMap((phase) => {
     {
       instrument: "subject" as const,
       phase,
-      baseTitle: `Predictive Analytics Check — ${PHASE_LABEL[phase]}`,
+      baseTitle: `Marketing Analytics Check — ${PHASE_LABEL[phase]}`,
       items: subjectItems[phase],
     },
     {

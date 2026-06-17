@@ -14,14 +14,14 @@ export function Scene2() {
   }, []);
 
   const topics = [
-    "1.1 What predictive analytics is",
-    "1.2 The shape of data over time — trend, seasonality & noise",
-    "1.3 Regression — the workhorse of prediction",
-    "1.4 Correlation vs. causation — the trap that fools everyone",
-    "1.5 Forecasting methods — from moving averages to machine learning",
-    "1.6 How good is the forecast? — measuring error and accuracy",
-    "1.7 Why forecasts fail — uncertainty, black swans & overfitting",
-    "1.8 From prediction to decision"
+    "1.1 What marketing analytics is",
+    "1.2 Why 'the average customer' doesn't exist",
+    "1.3 The funnel — from stranger to buyer",
+    "1.4 Customer lifetime value — what a customer is worth",
+    "1.5 Churn — spotting who's about to leave",
+    "1.6 A/B testing — letting data settle the argument",
+    "1.7 Attribution & personalization — credit and targeting",
+    "1.8 From insight to campaign"
   ];
 
   return (
@@ -72,7 +72,7 @@ export function Scene2() {
               Real concepts.<br />No jargon.
             </h2>
             <p className="text-xl text-slate-500 max-w-lg">
-              The curriculum covers exactly what you need to know about how we use the past to predict the future, told in plain language.
+              The curriculum covers exactly what you need to know about how we understand customers through data, told in plain language.
             </p>
           </motion.div>
         </div>

@@ -13,8 +13,8 @@ export function Scene4() {
     return () => timers.forEach(t => clearTimeout(t));
   }, []);
 
-  const question = "Ice cream sales and pool drownings both climb every summer. Does that mean buying ice cream makes people drown?";
-  const answer = "No — hot weather is the hidden third factor that pushes both up at the same time, so the two only move together by coincidence, not because one actually causes the other.";
+  const question = "Customers almost always click a search ad right before buying. Doesn't that prove the search ad is what makes them buy?";
+  const answer = "Not quite — the search ad just happens to get the last click, but the social post or email that first made them aware may have done the real work; crediting only the final touch is the last-click trap.";
 
   return (
     <motion.div 
@@ -29,9 +29,9 @@ export function Scene4() {
       >
         <div className="flex-1 p-12 bg-slate-50 border-r border-slate-200 relative overflow-hidden">
           <div className="max-w-2xl blur-sm opacity-30 pointer-events-none">
-            <h1 className="text-4xl font-bold text-slate-900 mb-8">Correlation vs. causation</h1>
+            <h1 className="text-4xl font-bold text-slate-900 mb-8">Attribution & personalization</h1>
             <p className="text-xl leading-relaxed text-slate-700 mb-6">
-              Correlation means two things tend to move together — but moving together does not prove that one of them actually causes the other.
+              Attribution asks which marketing efforts actually deserve credit for a sale — and warns against handing it all to the last thing the customer clicked.
             </p>
           </div>
         </div>

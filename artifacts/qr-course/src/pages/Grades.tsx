@@ -13,7 +13,7 @@ const PHASE_SHORT: Record<string, string> = {
 };
 
 const INSTRUMENT_SHORT: Record<string, string> = {
-  subject: "Predictive Analytics",
+  subject: "Marketing Analytics",
   general: "General Reasoning",
 };
 

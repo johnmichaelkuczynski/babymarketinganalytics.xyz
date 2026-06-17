@@ -25,7 +25,7 @@ const BLURBS: Record<Phase, string> = {
 };
 
 const INSTRUMENT_LABELS: Record<Instrument, string> = {
-  subject: "Predictive Analytics",
+  subject: "Marketing Analytics",
   general: "General Reasoning",
 };
 

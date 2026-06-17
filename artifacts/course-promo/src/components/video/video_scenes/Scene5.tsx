@@ -53,12 +53,12 @@ export function Scene5() {
 
           <div className="w-full max-w-3xl bg-white p-10 rounded-2xl shadow-sm border border-slate-200">
             <h3 className="text-2xl font-semibold text-slate-800 mb-8 leading-snug">
-              A store has one unusually great sales week and the manager wants to call it a brand-new upward trend. Name two things that conclusion gets wrong.
+              A streaming service designs everything for its "average customer" — age 35, four hours a week. Name two things that approach gets wrong.
             </h3>
 
             <div className="space-y-4">
               <div className="p-4 border border-slate-200 rounded-xl text-slate-500 bg-slate-50 opacity-50">
-                It assumes every week will be exactly the same from now on.
+                It assumes every customer wants exactly the same thing.
               </div>
               <motion.div 
                 className="p-4 border-2 rounded-xl text-slate-800 relative overflow-hidden"
@@ -69,7 +69,7 @@ export function Scene5() {
                 }
               >
                 <div className="font-medium">
-                  It mistakes random noise for a real signal, and it calls a single point a trend when a trend needs a pattern over many points.
+                  The "average customer" is a blend almost no real person matches, and designing for that made-up middle can end up fitting none of the actual segments well.
                 </div>
                 
                 <motion.div 
@@ -78,7 +78,7 @@ export function Scene5() {
                   animate={phase >= 3 ? { height: 'auto', opacity: 1, marginTop: '1rem' } : { height: 0, opacity: 0, marginTop: 0 }}
                 >
                   <div className="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs">✓</div>
-                  Correct. One week is noise, and a trend takes many points, not one.
+                  Correct. The average blends distinct groups into a person who doesn't exist.
                 </motion.div>
               </motion.div>
             </div>
