@@ -23,7 +23,7 @@ const WEEK_TITLES: Record<number, { title: string; summary: string }> = {
   1: {
     title: "Predictive Analytics for Everyone",
     summary:
-      "What predictive analytics really is, how a stream of data over time splits into trend, seasonality, and noise, how regression finds the relationship between things so you can estimate one from another, why correlation is not causation, how forecasting methods range from simple moving averages to machine learning, how to measure forecast error and accuracy, why forecasts fail (uncertainty, black swans, and overfitting), and how to turn a prediction into a decision — all in plain language, no math required.",
+      "What predictive analytics really is, how a stream of data over time splits into trend, seasonality, and noise, how regression finds the relationship between things so you can estimate one from another, why correlation is not causation, how forecasting methods range from simple moving averages to machine learning, how to measure forecast error and accuracy, why forecasts fail (uncertainty, black swans, and overfitting), and how to turn a prediction into a decision — every idea explained conceptually, with no mathematical prerequisites.",
   },
 };
 
@@ -112,7 +112,7 @@ router.get("/course/overview", async (_req, res) => {
 
   res.json(
     GetCourseOverviewResponse.parse({
-      title: "Predictive Analytics for Children",
+      title: "Basic Predictive Analytics",
       weeks,
       totals: { assignmentsCompleted, assignmentsTotal, practiceCount },
     }),
@@ -317,7 +317,7 @@ router.post(
       "You are an introductory predictive analytics lecturer adding illustrations to your own lecture. " +
       "You are given the CURRENT lecture. Return the SAME lecture, unchanged in what it teaches, but with vivid illustrations added. ABSOLUTE RULES, no exceptions:\n" +
       "1. KEEP every concept, claim, heading, section, and learning objective exactly as they are, in the same order. Do not remove, reorder, or rewrite the existing explanation — only ADD to it.\n" +
-      "2. For EVERY distinct point the lecture makes, add AT LEAST ONE concrete, vivid illustration that makes the point easy to picture: a short scenario, a real-to-life case sketch, an everyday analogy, or a worked example. Keep illustrations tasteful and age-appropriate — never graphic or sensational.\n" +
+      "2. For EVERY distinct point the lecture makes, add AT LEAST ONE concrete, vivid illustration that makes the point easy to picture: a short scenario, a real-to-life case sketch, an everyday analogy, or a worked example. Keep illustrations tasteful and professional — never graphic or sensational.\n" +
       "3. Set off each illustration so it reads as an example (e.g. a short *Example:* sentence or a brief italicized vignette) rather than blending into the original text.\n" +
       "4. Stay accurate to the source material and to predictive analytics as a discipline. Do not invent fake facts, statistics, citations, or quotations; keep examples plausibly illustrative, not presented as documented cases.\n" +
       "5. Use clear Markdown. Use $...$ for any inline math.\n" +

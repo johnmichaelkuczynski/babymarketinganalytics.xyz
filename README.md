@@ -1,8 +1,8 @@
-# 🔎 Predictive Analytics for Children
+# 📈 Basic Predictive Analytics
 
-**A friendly, one-unit intro to predictive analytics that teaches, tutors, drills, and grades itself — for curious students and adults alike.**
+**A complete, AI-powered one-unit course in predictive analytics — taught, tutored, drilled, and graded end to end, with built-in academic-integrity enforcement.**
 
-Predictive Analytics for Children is a self-paced, single-user web course that delivers a plain-language introduction to predictive analytics — taught, tutored, drilled, and graded entirely by AI, with built-in academic-integrity enforcement. No math, coding, or statistics required. The material is kept friendly and age-appropriate: it explains *how we use patterns in the past to estimate what's likely to happen next* and how to do it honestly, never technical or jargon-heavy.
+Basic Predictive Analytics is a self-paced, single-user web course that delivers a thorough, plain-language introduction to predictive analytics for adults beginning the discipline — graduate students, researchers, instructors, and professionals. It teaches, tutors, drills, and grades you entirely with AI. The course explains *how we use patterns in the past to estimate what's likely to happen next* — and how to do it honestly — with every idea presented conceptually and no mathematical prerequisites.
 
 ---
 
@@ -93,11 +93,11 @@ Open the **Diagnostics** page in the app (or hit the API directly) to run:
 
 ## 📚 Who it's for
 
-- **Middle schoolers & curious adults** — a complete, plain-language intro with on-demand tutoring and adaptive practice.
+- **Adults new to the field** — graduate students, researchers, instructors, and professionals who need a thorough conceptual foundation in predictive analytics, with on-demand tutoring and adaptive practice.
 - **Instructors & curriculum designers** — a working reference for AI-taught, AI-graded, AI-detection-screened coursework.
 - **Academic-integrity researchers** — a live testbed for layered AI-authorship detection (text classification + keystroke behavior).
 - **Product & engineering teams** — a reference implementation of contract-first full-stack architecture, streaming AI UX, and self-diagnostic tooling.
 
 ---
 
-*Predictive Analytics for Children — where the curriculum, the tutor, the grader, and the integrity check all live in one room.*
+*Basic Predictive Analytics — where the curriculum, the tutor, the grader, and the integrity check all live in one room.*

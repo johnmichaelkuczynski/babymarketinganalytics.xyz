@@ -28,7 +28,7 @@ export function Scene1() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         >
-          Predictive Analytics <br/><span className="text-blue-600">for Children</span>
+          Basic <br/><span className="text-blue-600">Predictive Analytics</span>
         </motion.h1>
         
         <motion.p 
@@ -37,7 +37,7 @@ export function Scene1() {
           animate={phase >= 1 ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         >
-          A friendly intro to how we use the past to predict the future — taught, tutored, and graded by AI.
+          An AI-powered course in predictive analytics — taught, tutored, drilled, and graded end to end.
         </motion.p>
       </div>
 

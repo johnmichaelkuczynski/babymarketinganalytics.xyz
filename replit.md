@@ -1,18 +1,18 @@
-# 🔎 Predictive Analytics for Children
+# 📈 Basic Predictive Analytics
 
-**A Friendly, One-Unit Intro to Predictive Analytics That Teaches, Tutors, and Proofs Itself — for Curious Students and Adults Alike**
+**A Complete, AI-Powered One-Unit Course in Predictive Analytics — Taught, Tutored, Drilled, and Graded End to End, With Built-In Academic-Integrity Enforcement**
 
 ---
 
 ## 🧩 Overview
 
-Predictive Analytics for Children is a self-paced, single-user web course that delivers a friendly, plain-language introduction to predictive analytics — taught, tutored, drilled, and graded entirely by AI, with built-in academic-integrity enforcement. No math, coding, statistics, or other technical skills required.
+Basic Predictive Analytics is a self-paced, single-user web course that delivers a thorough, plain-language introduction to predictive analytics for adults beginning the discipline — graduate students, researchers, instructors, and professionals. The unit is taught, tutored, drilled, and graded entirely by AI, with built-in academic-integrity enforcement. Every idea is presented conceptually, with no mathematical prerequisites.
 
-It turns the everyday human habit of *guessing what's likely to happen next* into one product: read each lesson at the depth you want, ask a tutor scoped to the exact section you're on, drill questions whose difficulty adapts to you in real time, and submit homework, a unit test, and a final that are AI-graded with feedback and screened for AI-generated answers. The material is kept friendly and age-appropriate — it explains how we use patterns in the past to estimate the future and how to do it honestly, never technical or jargon-heavy.
+It turns the everyday human habit of *guessing what's likely to happen next* into one product: read each lesson at the depth you want, ask a tutor scoped to the exact section you're on, drill questions whose difficulty adapts to you in real time, and submit homework, a unit test, and a final that are AI-graded with feedback and screened for AI-generated answers. It explains how we use patterns in the past to estimate the future and how to do it honestly — conceptual and accessible, but never thin.
 
 The curriculum is organized into **one unit and 8 topics**: 1.1 what predictive analytics is — using the past to see the future; 1.2 the shape of data over time — trend, seasonality, and noise; 1.3 regression — the workhorse of prediction; 1.4 correlation vs. causation — the trap that fools everyone; 1.5 forecasting methods — from moving averages to machine learning; 1.6 how good is the forecast? — measuring error and accuracy; 1.7 why forecasts fail — uncertainty, black swans, and overfitting; and 1.8 from prediction to decision.
 
-Designed for **middle schoolers, curious adults wanting brief but meaningful exposure, instructors evaluating AI-taught coursework, and researchers studying AI academic integrity**, Predictive Analytics for Children pairs a real curriculum with two layers of AI-authorship detection — surfacing not just *whether* the writing looks AI-generated, but whether the *act of producing it* did.
+Designed for **adults beginning a new discipline — graduate students, researchers, and professionals — plus instructors evaluating AI-taught coursework and researchers studying AI academic integrity**, Basic Predictive Analytics pairs a real curriculum with two layers of AI-authorship detection — surfacing not just *whether* the writing looks AI-generated, but whether the *act of producing it* did.
 
 ---
 
@@ -50,7 +50,7 @@ Designed for **middle schoolers, curious adults wanting brief but meaningful exp
 
 ## 📊 Designed For
 
-- **Middle Schoolers & Curious Adults:** A complete, plain-language intro to predictive analytics delivered with on-demand tutoring and adaptive practice — no instructor, math, or coding required.
+- **Adults New to the Field:** A thorough, plain-language introduction to predictive analytics for graduate students, researchers, and professionals — delivered with on-demand tutoring and adaptive practice, no instructor required.
 - **Instructors & Curriculum Designers:** A working reference for what AI-taught, AI-graded, AI-detection-screened coursework actually looks like end-to-end.
 - **Academic-Integrity Researchers:** A live testbed for layered AI-authorship detection that combines text-based classification with behavioral keystroke evidence.
 - **Product & Engineering Teams:** A reference implementation of contract-first full-stack architecture, streaming AI UX, and self-diagnostic operator tooling in a Replit pnpm monorepo.
@@ -59,14 +59,18 @@ Designed for **middle schoolers, curious adults wanting brief but meaningful exp
 
 ## 💡 Core Idea
 
-Predictive Analytics for Children reframes an AI-taught course as a *closed accountability loop*.
+Basic Predictive Analytics reframes an AI-taught course as a *closed accountability loop*.
 
 It doesn't just teach the material and grade the homework — it **teaches**, **tutors**, **drills**, **grades**, **detects misuse**, and **proves the whole pipeline still works** with a single click. The result is a self-paced course that students can actually trust to be fair, and that instructors can actually trust to be honest.
 
-**Predictive Analytics for Children — where the curriculum, the tutor, the grader, and the integrity check all live in one room.**
+**Basic Predictive Analytics — where the curriculum, the tutor, the grader, and the integrity check all live in one room.**
 
 ---
 
 ## 👤 User preferences
 
 - The user prefers to **convert the existing app in place** (e.g. replacing the prior course content/branding with the new subject) rather than create a standalone clone — keep all functionality and format intact when making content/branding changes.
+- **Audience is adults**, often graduate students or professors entering a new discipline — never frame the course as for children. The words "children"/"baby"/"kid" must not appear anywhere in the app, README, video, or descriptions **except** where the actual subject matter legitimately references them (e.g. Galton's parents-and-children regression history).
+- **App naming:** never give the app a cute, goofy, or childish name. Use the most literal, utilitarian name possible (e.g. "Data Analytics", "Ethics", "Formal Logic"). If a name would otherwise be "X for Children" or "Baby X", call it **"Basic X"** instead. The current app is **"Basic Predictive Analytics"**; refer to it by that exact name everywhere (README, video, frontend).
+- **YouTube description app title** must always be exactly `X — AI-Powered Course` with no extra descriptors — e.g. `Basic Predictive Analytics — AI-Powered Course`.
+- **Marketing copy** (README, video, descriptions) must lead with the substance and breadth of the course. Do not lead with "no math!" / "kid-friendly" / "friendly" framing; mention the conceptual, no-prerequisites nature at most once and never as the headline.

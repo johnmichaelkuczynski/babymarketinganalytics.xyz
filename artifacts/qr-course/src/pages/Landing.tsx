@@ -62,7 +62,7 @@ export default function Landing() {
             <Search className="w-4 h-4" />
           </div>
           <span className="font-serif font-semibold text-lg tracking-tight">
-            Predictive Analytics for Children
+            Basic Predictive Analytics
           </span>
         </div>
         <div className="flex items-center gap-2">
@@ -89,15 +89,16 @@ export default function Landing() {
         <section className="max-w-4xl mx-auto px-6 pt-20 pb-16 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-xs font-medium mb-6">
             <BarChart3 className="w-3.5 h-3.5" />
-            A friendly, one-unit intro to predictive analytics
+            An AI-powered one-unit course in predictive analytics
           </div>
           <h1 className="text-4xl md:text-5xl font-serif font-bold text-primary leading-tight mb-5">
-            How we use the past to see the future. Let's figure it out together.
+            How we use the past to see the future.
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-            A self-paced course that teaches, tutors, drills, and grades you —
-            predictive analytics in plain language, no math or coding required.
-            Perfect for curious students and grown-ups alike.
+            A self-paced course that teaches, tutors, drills, and grades you across
+            the full arc of predictive analytics — from trend, seasonality, and
+            regression to forecasting, error, and decision-making. Every idea is
+            explained conceptually and assessed with written feedback.
           </p>
           <div className="flex items-center justify-center gap-3">
             <Link href="/sign-up">
@@ -162,7 +163,7 @@ export default function Landing() {
       </main>
 
       <footer className="border-t border-border px-6 py-6 text-center text-sm text-muted-foreground">
-        Predictive Analytics for Children — where the curriculum, the tutor, the grader, and the
+        Basic Predictive Analytics — where the curriculum, the tutor, the grader, and the
         integrity check all live in one room.
       </footer>
     </div>

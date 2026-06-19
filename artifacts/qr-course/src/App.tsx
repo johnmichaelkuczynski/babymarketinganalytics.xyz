@@ -235,13 +235,13 @@ function ClerkProviderWithRoutes() {
         signIn: {
           start: {
             title: "Welcome back",
-            subtitle: "Sign in to continue your Predictive Analytics for Children course",
+            subtitle: "Sign in to continue your Basic Predictive Analytics course",
           },
         },
         signUp: {
           start: {
             title: "Create your account",
-            subtitle: "Start your predictive analytics journey with Predictive Analytics for Children",
+            subtitle: "Start your predictive analytics journey with Basic Predictive Analytics",
           },
         },
       }}

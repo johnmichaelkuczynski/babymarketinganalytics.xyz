@@ -1,12 +1,12 @@
-# Predictive Analytics for Children — App Blueprint
+# Basic Predictive Analytics — App Blueprint
 
-A complete architectural blueprint for the Predictive Analytics for Children one-unit course. This document is the single reference for what the app does, how it's wired, and the contracts between pieces. For day-to-day commands and gotchas see `replit.md`.
+A complete architectural blueprint for the Basic Predictive Analytics one-unit course. This document is the single reference for what the app does, how it's wired, and the contracts between pieces. For day-to-day commands and gotchas see `replit.md`.
 
 ---
 
 ## 1. Product summary
 
-Predictive Analytics for Children is a self-paced, single-user web course (Clerk sign-in) covering a friendly, plain-language one-unit curriculum (8 topics) introducing how we use patterns in past data to estimate what's likely to happen next — and how to do it honestly. Students read AI-rewritten lecture notes at three lengths, ask an AI tutor scoped to the section they're reading, drill on adaptive practice problems, and submit homework / unit test / final that are AI-graded and AI-detection-screened.
+Basic Predictive Analytics is a self-paced, single-user web course (Clerk sign-in) covering a plain-language one-unit curriculum (8 topics) introducing how we use patterns in past data to estimate what's likely to happen next — and how to do it honestly. Students read AI-rewritten lecture notes at three lengths, ask an AI tutor scoped to the section they're reading, drill on adaptive practice problems, and submit homework / unit test / final that are AI-graded and AI-detection-screened.
 
 The 8 topics (Unit 1):
 
