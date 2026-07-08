@@ -115,9 +115,9 @@ export async function setupAuth(app: Express) {
 
   // --- Google OAuth 2.0 (optional login: the app itself is fully open) ---
   if (googleEnabled) {
-    // Callback path is /auth/google/callback to match the redirect URIs
-    // registered in the owner's Google Cloud Console OAuth client.
-    const CALLBACK_PATH = "/auth/google/callback";
+    // Callback path must be under /api so the reverse proxy routes it to
+    // this server (not the static frontend). Update Google Console to match.
+    const CALLBACK_PATH = "/api/auth/google/callback";
 
     const getCallbackURL = () => {
       if (process.env.NODE_ENV === "production") {
@@ -247,7 +247,6 @@ export async function setupAuth(app: Express) {
       },
     ];
     app.get(CALLBACK_PATH, ...callbackHandler);
-    app.get("/api/auth/google/callback", ...callbackHandler);
 
     console.log("Google OAuth configured. Callback URL:", getCallbackURL());
   }
