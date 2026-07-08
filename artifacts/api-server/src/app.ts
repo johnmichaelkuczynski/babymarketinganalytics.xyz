@@ -7,61 +7,63 @@ import { setupAuth } from "./auth.js";
 import router from "./routes/index.js";
 import { logger } from "./lib/logger.js";
 
-const app: Express = express();
+export async function createApp(): Promise<Express> {
+  const app: Express = express();
 
-app.use(
-  pinoHttp({
-    logger,
-    serializers: {
-      req(req) {
-        return {
-          id: req.id,
-          method: req.method,
-          url: req.url?.split("?")[0],
-        };
+  app.use(
+    pinoHttp({
+      logger,
+      serializers: {
+        req(req) {
+          return {
+            id: req.id,
+            method: req.method,
+            url: req.url?.split("?")[0],
+          };
+        },
+        res(res) {
+          return {
+            statusCode: res.statusCode,
+          };
+        },
       },
-      res(res) {
-        return {
-          statusCode: res.statusCode,
-        };
-      },
-    },
-  }),
-);
+    }),
+  );
 
-app.use(cors({ credentials: true, origin: true }));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+  app.use(cors({ credentials: true, origin: true }));
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
 
-// Auth: session + passport + Google OAuth + /api/auth/* routes.
-// Must be called after body parsers but before the main API router.
-setupAuth(app);
+  // Auth: session + passport + Google OAuth + /api/auth/* routes.
+  // Must be called after body parsers but before the main API router.
+  await setupAuth(app);
 
-app.use("/api", router);
+  app.use("/api", router);
 
-// In production, serve the built qr-course frontend from the same process.
-if (process.env.NODE_ENV === "production") {
-  const candidates = [
-    path.resolve(process.cwd(), "artifacts/qr-course/dist/public"),
-    path.resolve(process.cwd(), "../qr-course/dist/public"),
-    path.resolve(process.cwd(), "../../artifacts/qr-course/dist/public"),
-  ];
-  const staticDir = candidates.find((p) => fs.existsSync(p));
+  // In production, serve the built qr-course frontend from the same process.
+  if (process.env.NODE_ENV === "production") {
+    const candidates = [
+      path.resolve(process.cwd(), "artifacts/qr-course/dist/public"),
+      path.resolve(process.cwd(), "../qr-course/dist/public"),
+      path.resolve(process.cwd(), "../../artifacts/qr-course/dist/public"),
+    ];
+    const staticDir = candidates.find((p) => fs.existsSync(p));
 
-  if (staticDir) {
-    const indexHtml = path.join(staticDir, "index.html");
-    logger.info({ staticDir }, "Serving qr-course static bundle");
-    app.use(express.static(staticDir, { index: false }));
-    app.get(/^\/(?!api\/).*/, (_req, res, next) => {
-      if (!fs.existsSync(indexHtml)) return next();
-      res.sendFile(indexHtml);
-    });
-  } else {
-    logger.warn(
-      { tried: candidates },
-      "qr-course static bundle not found; only /api will be served",
-    );
+    if (staticDir) {
+      const indexHtml = path.join(staticDir, "index.html");
+      logger.info({ staticDir }, "Serving qr-course static bundle");
+      app.use(express.static(staticDir, { index: false }));
+      app.get(/^\/(?!api\/).*/, (_req, res, next) => {
+        if (!fs.existsSync(indexHtml)) return next();
+        res.sendFile(indexHtml);
+      });
+    } else {
+      logger.warn(
+        { tried: candidates },
+        "qr-course static bundle not found; only /api will be served",
+      );
+    }
   }
-}
 
-export default app;
+  return app;
+}

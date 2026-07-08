@@ -18,7 +18,7 @@ declare global {
   }
 }
 
-export function setupAuth(app: Express) {
+export async function setupAuth(app: Express) {
   // Strip invisible characters (non-breaking spaces, zero-width chars, BOM) and
   // surrounding whitespace that often sneak in when secrets are copy-pasted.
   const sanitizeSecret = (v?: string) =>
@@ -49,6 +49,19 @@ export function setupAuth(app: Express) {
   // Trust proxy for production (behind Replit's proxy)
   app.set("trust proxy", 1);
 
+  // Pre-create the session table — connect-pg-simple's createTableIfMissing
+  // reads a bundled table.sql that esbuild doesn't copy into dist, so we
+  // create the table ourselves before handing the pool to the session store.
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS "user_sessions" (
+      "sid"    varchar       NOT NULL COLLATE "default",
+      "sess"   json          NOT NULL,
+      "expire" timestamp(6)  NOT NULL,
+      CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE
+    ) WITH (OIDS=FALSE);
+    CREATE INDEX IF NOT EXISTS "IDX_session_expire" ON "user_sessions" ("expire");
+  `);
+
   // Database-backed session store (reuses the shared DB pool from @workspace/db)
   const PgSession = connectPgSimple(session);
 
@@ -56,7 +69,7 @@ export function setupAuth(app: Express) {
   const pgStore = new PgSession({
     pool,
     tableName: "user_sessions",
-    createTableIfMissing: true,
+    createTableIfMissing: false,
     errorLog: console.error.bind(console, "Session store error:"),
   });
 
