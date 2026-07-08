@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { LayoutDashboard, PenTool, BarChart3, Activity, RotateCcw, Sparkles, Scale, GraduationCap, ShieldCheck, Search, LogIn, LogOut, User } from "lucide-react";
+import { LayoutDashboard, PenTool, BarChart3, RotateCcw, Sparkles, Scale, GraduationCap, ShieldCheck, Search, LogOut, User, KeyRound } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAdminMode } from "@/lib/adminMode";
 import { useAuthUser, useLogout } from "@/hooks/useAuthUser";
+
+const ADMIN_EMAIL = "johnmichaelkuczynski@gmail.com";
 
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 export function Sidebar() {
   const [location] = useLocation();
   const [adminMode] = useAdminMode();
+  const { data: authState } = useAuthUser();
+  const isAdmin = authState?.user?.email?.toLowerCase() === ADMIN_EMAIL;
 
   const navItems = [
     { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -18,7 +22,10 @@ export function Sidebar() {
     { href: "/grades", label: "Grades", icon: GraduationCap },
     { href: "/analytics", label: "Analytics", icon: BarChart3 },
     ...(adminMode
-      ? [{ href: "/admin", label: "Administrator", icon: ShieldCheck }]
+      ? [{ href: "/admin", label: "Admin Mode", icon: ShieldCheck }]
+      : []),
+    ...(isAdmin
+      ? [{ href: "/administrative", label: "Administrative", icon: KeyRound }]
       : []),
   ];
 
@@ -163,7 +170,7 @@ function TopBar() {
           }`}
           data-testid="button-diagnostic"
         >
-          <Activity className="w-4 h-4" />
+          <Sparkles className="w-4 h-4" />
           Diagnostic
         </button>
       </Link>
@@ -184,37 +191,25 @@ function TopBar() {
 
       <div className="mx-1 h-6 w-px bg-border" />
 
-      {authState?.authenticated && authState.user ? (
-        <>
-          <span
-            className="hidden sm:inline-flex items-center gap-1.5 text-sm text-muted-foreground max-w-[12rem] truncate"
-            title={authState.user.email ?? undefined}
-          >
-            <User className="w-3.5 h-3.5 shrink-0" />
-            {authState.user.displayName ?? authState.user.email ?? authState.user.username}
-          </span>
-          <button
-            onClick={() => logout.mutate()}
-            disabled={logout.isPending}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium border border-border hover:bg-secondary disabled:opacity-50"
-            data-testid="button-sign-out"
-            title="Sign out"
-          >
-            <LogOut className="w-4 h-4" />
-            {logout.isPending ? "Signing out…" : "Sign out"}
-          </button>
-        </>
-      ) : (
-        <a
-          href={`${basePath}/api/auth/google`}
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium border border-border hover:bg-secondary transition-colors"
-          data-testid="button-sign-in"
-          title="Sign in with Google (optional)"
+      {authState?.user && (
+        <span
+          className="hidden sm:inline-flex items-center gap-1.5 text-sm text-muted-foreground max-w-[12rem] truncate"
+          title={authState.user.email ?? undefined}
         >
-          <LogIn className="w-4 h-4" />
-          Sign in
-        </a>
+          <User className="w-3.5 h-3.5 shrink-0" />
+          {authState.user.displayName ?? authState.user.email ?? authState.user.username}
+        </span>
       )}
+      <button
+        onClick={() => logout.mutate()}
+        disabled={logout.isPending}
+        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium border border-border hover:bg-secondary disabled:opacity-50"
+        data-testid="button-sign-out"
+        title="Sign out"
+      >
+        <LogOut className="w-4 h-4" />
+        {logout.isPending ? "Signing out…" : "Sign out"}
+      </button>
     </div>
   );
 }

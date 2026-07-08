@@ -66,7 +66,7 @@ export const storage = {
     return db
       .select()
       .from(usersTable)
-      .orderBy(desc(usersTable.updatedAt));
+      .orderBy(desc(usersTable.createdAt));
   },
 
   async getVisitTimestampsSince(since: Date | null): Promise<string[]> {
