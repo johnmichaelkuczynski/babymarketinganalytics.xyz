@@ -251,6 +251,33 @@ export async function setupAuth(app: Express) {
     console.log("Google OAuth configured. Callback URL:", getCallbackURL());
   }
 
+  // --- Dev-only bypass login (never available in production) ---
+  if (process.env.NODE_ENV !== "production") {
+    app.post("/api/auth/dev-login", async (req, res) => {
+      try {
+        // Reuse or create a persistent dev user keyed to the admin email
+        const devEmail = ADMIN_EMAIL;
+        let user =
+          (await storage.getUserByEmail(devEmail)) ??
+          (await storage.createUserWithGoogle({
+            username: "dev",
+            googleId: "dev-bypass-local",
+            email: devEmail,
+            displayName: "Dev Bypass",
+          }));
+        req.login(user, (err: Error | null) => {
+          if (err) {
+            res.status(500).json({ error: "Dev login failed" });
+            return;
+          }
+          req.session.save(() => res.json({ success: true }));
+        });
+      } catch (err) {
+        res.status(500).json({ error: "Dev login error" });
+      }
+    });
+  }
+
   app.get("/api/auth/user", (req, res) => {
     if (req.isAuthenticated() && req.user) {
       res.json({

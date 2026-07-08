@@ -1,8 +1,29 @@
+import { useState } from "react";
 import { Search } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
 
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
+const isDev = import.meta.env.DEV;
 
 export default function LoginPage() {
+  const qc = useQueryClient();
+  const [bypassing, setBypassing] = useState(false);
+
+  async function handleDevBypass() {
+    setBypassing(true);
+    try {
+      const res = await fetch(`${basePath}/api/auth/dev-login`, {
+        method: "POST",
+        credentials: "include",
+      });
+      if (res.ok) {
+        await qc.invalidateQueries({ queryKey: ["auth-user"] });
+      }
+    } finally {
+      setBypassing(false);
+    }
+  }
+
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-6">
       <div className="w-full max-w-md">
@@ -33,6 +54,23 @@ export default function LoginPage() {
               <GoogleIcon />
               Sign in with Google
             </a>
+
+            {isDev && (
+              <>
+                <div className="flex items-center gap-2 w-full">
+                  <div className="flex-1 border-t border-dashed border-border" />
+                  <span className="text-xs text-muted-foreground px-2">dev only</span>
+                  <div className="flex-1 border-t border-dashed border-border" />
+                </div>
+                <button
+                  onClick={handleDevBypass}
+                  disabled={bypassing}
+                  className="w-full px-5 py-3 rounded-lg border border-dashed border-muted-foreground/40 hover:bg-secondary transition-colors text-sm text-muted-foreground disabled:opacity-50"
+                >
+                  {bypassing ? "Signing in…" : "Bypass login (development)"}
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>
