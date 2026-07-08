@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { LayoutDashboard, PenTool, BarChart3, Activity, RotateCcw, Sparkles, Scale, GraduationCap, ShieldCheck, Search } from "lucide-react";
+import { LayoutDashboard, PenTool, BarChart3, Activity, RotateCcw, Sparkles, Scale, GraduationCap, ShieldCheck, Search, LogIn, LogOut, User } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAdminMode } from "@/lib/adminMode";
+import { useAuthUser, useLogout } from "@/hooks/useAuthUser";
 
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
 
@@ -69,6 +70,8 @@ function TopBar() {
   const [resetting, setResetting] = useState(false);
   const [expanding, setExpanding] = useState(false);
   const [expandProgress, setExpandProgress] = useState<string | null>(null);
+  const { data: authState } = useAuthUser();
+  const logout = useLogout();
 
   async function handleExpandLectures() {
     setExpanding(true);
@@ -178,6 +181,40 @@ function TopBar() {
         <ShieldCheck className="w-4 h-4" />
         {adminMode ? "Admin: On" : "Admin: Off"}
       </button>
+
+      <div className="mx-1 h-6 w-px bg-border" />
+
+      {authState?.authenticated && authState.user ? (
+        <>
+          <span
+            className="hidden sm:inline-flex items-center gap-1.5 text-sm text-muted-foreground max-w-[12rem] truncate"
+            title={authState.user.email ?? undefined}
+          >
+            <User className="w-3.5 h-3.5 shrink-0" />
+            {authState.user.displayName ?? authState.user.email ?? authState.user.username}
+          </span>
+          <button
+            onClick={() => logout.mutate()}
+            disabled={logout.isPending}
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium border border-border hover:bg-secondary disabled:opacity-50"
+            data-testid="button-sign-out"
+            title="Sign out"
+          >
+            <LogOut className="w-4 h-4" />
+            {logout.isPending ? "Signing out…" : "Sign out"}
+          </button>
+        </>
+      ) : (
+        <a
+          href={`${basePath}/api/auth/google`}
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium border border-border hover:bg-secondary transition-colors"
+          data-testid="button-sign-in"
+          title="Sign in with Google (optional)"
+        >
+          <LogIn className="w-4 h-4" />
+          Sign in
+        </a>
+      )}
     </div>
   );
 }

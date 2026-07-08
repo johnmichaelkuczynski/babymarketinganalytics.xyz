@@ -236,3 +236,26 @@ export const diagnosticResponsesTable = pgTable("diagnostic_responses", {
   ranking: jsonb("ranking"), // legacy dilemma — consideration indices, most-important first
   isCorrect: boolean("is_correct"), // graded correctness (null if unanswered)
 });
+
+// ---------------------------------------------------------------------------
+// Auth: optional Google sign-in (the app is fully open without it).
+// Tracks who has logged in for owner analytics only.
+// ---------------------------------------------------------------------------
+
+export const usersTable = pgTable("users", {
+  id: serial("id").primaryKey(),
+  username: text("username").notNull().unique(),
+  googleId: text("google_id").unique(),
+  email: text("email").unique(),
+  displayName: text("display_name"),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const visitsTable = pgTable("visits", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id")
+    .notNull()
+    .references(() => usersTable.id, { onDelete: "cascade" }),
+  email: text("email"),
+  visitedAt: timestamp("visited_at", { withTimezone: true }).notNull().defaultNow(),
+});

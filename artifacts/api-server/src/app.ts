@@ -3,8 +3,9 @@ import cors from "cors";
 import pinoHttp from "pino-http";
 import path from "node:path";
 import fs from "node:fs";
-import router from "./routes";
-import { logger } from "./lib/logger";
+import { setupAuth } from "./auth.js";
+import router from "./routes/index.js";
+import { logger } from "./lib/logger.js";
 
 const app: Express = express();
 
@@ -31,6 +32,10 @@ app.use(
 app.use(cors({ credentials: true, origin: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Auth: session + passport + Google OAuth + /api/auth/* routes.
+// Must be called after body parsers but before the main API router.
+setupAuth(app);
 
 app.use("/api", router);
 
