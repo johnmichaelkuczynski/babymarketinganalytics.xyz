@@ -62,6 +62,13 @@ export const storage = {
       .limit(limit);
   },
 
+  async getUsers(): Promise<typeof usersTable.$inferSelect[]> {
+    return db
+      .select()
+      .from(usersTable)
+      .orderBy(desc(usersTable.updatedAt));
+  },
+
   async getVisitTimestampsSince(since: Date | null): Promise<string[]> {
     const rows = since
       ? await db
