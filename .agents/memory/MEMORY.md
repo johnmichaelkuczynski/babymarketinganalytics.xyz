@@ -1,6 +1,5 @@
 - [Course answer-key QC diagnostic](course-qc-diagnostic.md) — LLM key-legitimacy checks must judge against the course's own lecture text (not generic knowledge), or correct course-specific keys false-flag.
-- [Clerk + wouter auth](clerk-wouter-auth.md) — protected-route HOC for wouter must use ComponentType<any> (not Record-constrained); base path `/` stays a public landing, dashboard lives at `/dashboard`.
-- [API auth model](api-auth-model.md) — single-user app: API has NO per-route server authz; Clerk gating is frontend-only. "Admin mode" + skipDetection are intentionally client-side flags, not a trust boundary.
+- [Course access model](course-access-model.md) — the course must remain fully public with no login, auth gate, account UI, or login-based administration.
 - [Tutor starter-question style](tutor-starter-questions.md) — lecture starter questions must ALWAYS be concrete-case application; never definition/abstract/comparison questions (user mandate).
 - [Course content reseed](course-content-reseed.md) — seeded data migrations must self-heal via a content marker + replace-in-transaction; "seed if empty" strands old content in existing/prod DBs (prod writes are read-only).
 - [DATABASE_URL override](database-url-override.md) — app DB resolves to platform `helium/heliumdb`, which overrides a user-set DATABASE_URL secret; checkDatabase() can report "not provisioned" while the app still has a working DB.
@@ -11,4 +10,3 @@
 - [Subject conversion blind spots](subject-conversion-blindspots.md) — when rebranding the course subject, video artifacts also hide subject copy in index.html OG/Twitter meta + a per-artifact YOUTUBE_DESCRIPTION.md, not just scene .tsx files.
 - [Removing an artifact](artifact-deletion.md) — no deleteArtifact callback; `rm -rf artifacts/<slug>` auto-reconciles registry+workflow; removeWorkflow is blocked (PROHIBITED_ACTION) for artifact workflows.
 - [OpenAPI adjacent-op edits](openapi-adjacent-op-edits.md) — inserting an op before another can orphan its response `content` block & flip a generated client return type; include the full responses block in old_string and verify generated Promise<…> after codegen.
-- [Google OAuth + Replit proxy](google-oauth-replit-proxy.md) — OAuth callback must be under the artifact's routed path prefix (e.g. /api); connect-pg-simple createTableIfMissing breaks in esbuild bundles.

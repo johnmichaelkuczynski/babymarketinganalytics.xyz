@@ -11,9 +11,7 @@ import {
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
-import { useAuthUser } from "@/hooks/useAuthUser";
 
-import LoginPage from "@/pages/LoginPage";
 import Dashboard from "@/pages/Dashboard";
 import Assignments from "@/pages/Assignments";
 import Analytics from "@/pages/Analytics";
@@ -27,7 +25,6 @@ import Reasoning from "@/pages/Reasoning";
 import ReasoningRunner from "@/pages/ReasoningRunner";
 import Grades from "@/pages/Grades";
 import AdminMode from "@/pages/AdminMode";
-import Administrative from "@/pages/Administrative";
 
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
 
@@ -46,7 +43,6 @@ function Router() {
       <Route path="/reasoning/:id" component={ReasoningRunner} />
       <Route path="/grades" component={Grades} />
       <Route path="/admin" component={AdminMode} />
-      <Route path="/administrative" component={Administrative} />
       <Route path="/diagnostics" component={Diagnostics} />
       <Route path="/weeks/:weekNumber" component={WeekView} />
       <Route path="/lectures/:lectureId" component={LectureView} />
@@ -56,35 +52,12 @@ function Router() {
   );
 }
 
-function AuthGate({ children }: { children: React.ReactNode }) {
-  const { data: authState, isLoading } = useAuthUser();
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-          <p className="text-sm text-muted-foreground">Loading…</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (!authState?.authenticated) {
-    return <LoginPage />;
-  }
-
-  return <>{children}</>;
-}
-
 function App() {
   return (
     <WouterRouter base={basePath}>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
-          <AuthGate>
-            <Router />
-          </AuthGate>
+          <Router />
           <Toaster />
         </TooltipProvider>
       </QueryClientProvider>
