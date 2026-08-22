@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { LayoutDashboard, PenTool, BarChart3, RotateCcw, Sparkles, Scale, GraduationCap, ShieldCheck, Search } from "lucide-react";
+import { LayoutDashboard, PenTool, BarChart3, RotateCcw, Sparkles, Scale, GraduationCap, ShieldCheck, Search, KeyRound } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAdminMode } from "@/lib/adminMode";
 
@@ -17,7 +17,10 @@ export function Sidebar() {
     { href: "/grades", label: "Grades", icon: GraduationCap },
     { href: "/analytics", label: "Analytics", icon: BarChart3 },
     ...(adminMode
-      ? [{ href: "/admin", label: "Admin Mode", icon: ShieldCheck }]
+      ? [
+          { href: "/admin", label: "Admin Mode", icon: ShieldCheck },
+          { href: "/administrative", label: "Administrative", icon: KeyRound },
+        ]
       : []),
   ];
 
