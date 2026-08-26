@@ -3,6 +3,7 @@ import { Link, useLocation } from "wouter";
 import { LayoutDashboard, PenTool, BarChart3, RotateCcw, Sparkles, Scale, GraduationCap, ShieldCheck, Search, KeyRound } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAdminMode } from "@/lib/adminMode";
+import zhiLogo from "@assets/0_zhi_logoc_1787771301064.png";
 
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
 
@@ -57,8 +58,34 @@ export function Sidebar() {
         })}
       </div>
 
-      <div className="p-4 border-t border-border text-xs text-muted-foreground text-center">
-        Basic Predictive Analytics
+      <div className="p-4 border-t border-border">
+        <div className="flex items-center justify-center gap-3">
+          <a
+            href="https://zhisystems.ai/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="shrink-0 rounded-md ring-1 ring-border transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            aria-label="Visit ZHI Systems"
+            title="Visit ZHI Systems"
+          >
+            <img
+              src={zhiLogo}
+              alt="ZHI Systems"
+              className="h-8 w-8 rounded-md"
+            />
+          </a>
+          <div className="text-left">
+            <p className="text-xs text-muted-foreground">
+              Basic Predictive Analytics
+            </p>
+            <a
+              href="mailto:johnmichaelkuczynski@gmail.com"
+              className="text-xs font-medium text-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm"
+            >
+              Contact Us
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );
