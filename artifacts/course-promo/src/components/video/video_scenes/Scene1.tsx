@@ -1,51 +1,57 @@
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
 
 export function Scene1() {
-  const [phase, setPhase] = useState(0);
-
-  useEffect(() => {
-    const timers = [
-      setTimeout(() => setPhase(1), 500),
-      setTimeout(() => setPhase(2), 2000),
-      setTimeout(() => setPhase(3), 4000),
-    ];
-    return () => timers.forEach(t => clearTimeout(t));
-  }, []);
-
   return (
-    <motion.div 
-      className="absolute inset-0 flex items-center justify-center bg-slate-50"
+    <motion.div
+      className="absolute inset-0 flex flex-col items-center justify-center bg-slate-900 text-white overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0, x: '-10vw' }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.8 }}
     >
-      <div className="text-center max-w-5xl px-8 z-10">
-        <motion.h1 
-          className="text-[5vw] font-bold tracking-tight text-slate-900 mb-8 font-display leading-tight"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+      <motion.img
+        src={`${import.meta.env.BASE_URL}images/zhi_logo.png`}
+        alt="ZHI Logo"
+        className="w-[12vw] h-[12vw] mb-[6vh]"
+        initial={{ scale: 0, opacity: 0, rotate: -20 }}
+        animate={{ scale: 1, opacity: 1, rotate: 0 }}
+        transition={{ type: "spring", stiffness: 200, damping: 20, delay: 0.2 }}
+      />
+      <div className="text-center font-display space-y-[2vh]">
+        <motion.h1
+          className="text-[5vw] font-bold tracking-tight text-white"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
         >
-          Basic <br/><span className="text-blue-600">Predictive Analytics</span>
+          Data analytics is hard.
         </motion.h1>
-        
-        <motion.p 
-          className="text-[2vw] text-slate-600 font-serif italic"
-          initial={{ opacity: 0, y: 10 }}
-          animate={phase >= 1 ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        <motion.p
+          className="text-[3vw] text-slate-400 font-medium"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 2.2 }}
         >
-          An AI-powered course in predictive analytics — taught, tutored, drilled, and graded end to end.
+          But you have to know it.
+        </motion.p>
+        <motion.p
+          className="text-[4vw] text-blue-400 font-bold mt-[4vh]"
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 4.0 }}
+        >
+          We make it easy.
         </motion.p>
       </div>
 
-      <motion.div 
-        className="absolute bottom-0 right-0 w-[40vw] h-[40vh] bg-blue-50 rounded-tl-full opacity-50 pointer-events-none"
-        initial={{ scale: 0 }}
-        animate={phase >= 2 ? { scale: 1 } : { scale: 0 }}
-        transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle at center, rgba(59,130,246,0.15) 0%, transparent 70%)'
+        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 2, delay: 4 }}
       />
     </motion.div>
   );

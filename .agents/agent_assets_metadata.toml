@@ -23,27 +23,39 @@ id = "zpoa4kJaFwLQ67_UaLoks"
 uri = "file://BLUEPRINT.md"
 type = "text"
 title = "Financial & Managerial Analytics for Children — App Blueprint"
+logical_id = "c42eb5a4-82c2-4438-8a46-d3b802899f29"
 
 [[outputs]]
 id = "gBlmXbiu3K5FNCNv2fX9f"
 uri = "file://README.md"
 type = "text"
 title = "README — Financial & Managerial Analytics for Children"
+logical_id = "9980c224-2915-4cfc-8ba3-25d010690aef"
 
 [[outputs]]
 id = "7Gk126T-Bb4dRx8JdJ-dH"
 uri = "file://artifacts/course-promo/public/audio/bg_music.mp3"
 type = "audio"
 title = "background music"
+logical_id = "c8ced3e5-96d2-4fae-bfab-a1670e020b70"
 
 [[outputs]]
 id = "xwqMN58ueq6FTNmUIZXDo"
 uri = "file://artifacts/course-promo/YOUTUBE_DESCRIPTION.md"
 type = "text"
 title = "YouTube Description — Financial & Managerial Analytics for Children"
+logical_id = "4721c151-a0b2-4bc9-8153-02d1f8344cdd"
 
 [[outputs]]
 id = "3RXl-9vmMHle9TS64poys"
 uri = "file://youtube-description.md"
 type = "text"
 title = "YouTube Video Description"
+logical_id = "5c78e957-3bb6-45aa-b12c-495d9cf60fe0"
+
+[[outputs]]
+id = "FXD3raUg9fUSENewKihSb"
+uri = "file://artifacts/course-promo/public/audio/voiceover.mp3"
+type = "audio"
+title = "Basic Predictive Analytics promotional narration"
+description = "Text-to-speech audio: Data analytics is hard—but you have to know it. We make it easy, offering one-day, one-week, and one-month certification courses that let you customize the way you learn. Thanks…"

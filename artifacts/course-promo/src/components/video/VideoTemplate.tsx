@@ -11,25 +11,25 @@ import { Scene7 } from './video_scenes/Scene7';
 import { Scene8 } from './video_scenes/Scene8';
 
 export const SCENE_DURATIONS = {
-  s1_intro: 4500,
-  s2_curriculum: 6000,
-  s3_depths: 6000,
-  s4_tutor: 9000,
-  s5_practice: 7000,
-  s6_grading: 6500,
-  s7_detection: 8000,
-  s8_outro: 7000
+  s1_intro: 7500,
+  s2_formats: 8500,
+  s3_features: 10000,
+  s4_support: 10500,
+  s5_topics1: 5000,
+  s6_topics2: 3000,
+  s7_topics3: 4000,
+  s8_topics4: 7500
 };
 
 const SCENE_COMPONENTS: Record<string, React.ComponentType> = {
   s1_intro: Scene1,
-  s2_curriculum: Scene2,
-  s3_depths: Scene3,
-  s4_tutor: Scene4,
-  s5_practice: Scene5,
-  s6_grading: Scene6,
-  s7_detection: Scene7,
-  s8_outro: Scene8
+  s2_formats: Scene2,
+  s3_features: Scene3,
+  s4_support: Scene4,
+  s5_topics1: Scene5,
+  s6_topics2: Scene6,
+  s7_topics3: Scene7,
+  s8_topics4: Scene8
 };
 
 const SCENE_START_SEC: Record<string, number> = (() => {
@@ -65,14 +65,19 @@ export default function VideoTemplate({
   const SceneComponent = SCENE_COMPONENTS[baseSceneKey];
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const lastSceneKeyRef = useRef<string | null>(null);
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
-    audio.volume = 0.45;
-    const targetTime = SCENE_START_SEC[baseSceneKey] ?? 0;
-    if (Math.abs(audio.currentTime - targetTime) > AUDIO_SEEK_EPSILON_SEC) {
-      audio.currentTime = targetTime;
+    audio.volume = 1.0;
+    
+    if (lastSceneKeyRef.current !== currentSceneKey) {
+      lastSceneKeyRef.current = currentSceneKey;
+      const targetTime = SCENE_START_SEC[baseSceneKey] ?? 0;
+      if (Math.abs(audio.currentTime - targetTime) > AUDIO_SEEK_EPSILON_SEC) {
+        audio.currentTime = targetTime;
+      }
     }
     audio.play().catch(() => {});
   }, [currentSceneKey, baseSceneKey, muted]);
@@ -100,10 +105,10 @@ export default function VideoTemplate({
           {SceneComponent && <SceneComponent key={currentSceneKey} />}
         </AnimatePresence>
       </div>
-
+      
       <audio
         ref={audioRef}
-        src={`${import.meta.env.BASE_URL}audio/bg_music.mp3`}
+        src={`${import.meta.env.BASE_URL}audio/voiceover.mp3`}
         preload="auto"
         autoPlay
         muted={muted}

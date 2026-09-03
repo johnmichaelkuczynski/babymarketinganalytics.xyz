@@ -1,82 +1,62 @@
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
 
 export function Scene2() {
-  const [phase, setPhase] = useState(0);
-
-  useEffect(() => {
-    const timers = [
-      setTimeout(() => setPhase(1), 500),
-      setTimeout(() => setPhase(2), 2000), // Sidebar slide in
-      setTimeout(() => setPhase(3), 3500), // List items stagger
-    ];
-    return () => timers.forEach(t => clearTimeout(t));
-  }, []);
-
-  const topics = [
-    "1.1 What predictive analytics is",
-    "1.2 The shape of data over time — trend, seasonality & noise",
-    "1.3 Regression — the workhorse of prediction",
-    "1.4 Correlation vs. causation — the trap that fools everyone",
-    "1.5 Forecasting methods — from moving averages to machine learning",
-    "1.6 How good is the forecast? — measuring error and accuracy",
-    "1.7 Why forecasts fail — uncertainty, black swans & overfitting",
-    "1.8 From prediction to decision"
+  const cards = [
+    { title: '1 Day', subtitle: 'Crash Course', delay: 0.5 },
+    { title: '1 Week', subtitle: 'Deep Dive', delay: 1.0 },
+    { title: '1 Month', subtitle: 'Mastery', delay: 1.5 },
   ];
 
   return (
-    <motion.div 
-      className="absolute inset-0 flex bg-slate-100"
-      initial={{ opacity: 0, x: '10vw' }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: '-10vw' }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+    <motion.div
+      className="absolute inset-0 flex flex-col items-center justify-center bg-slate-50 overflow-hidden"
+      initial={{ opacity: 0, scale: 1.05 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.8 }}
     >
-      <div className="absolute inset-0 bg-slate-50 opacity-50 pointer-events-none" />
+      <motion.div
+        className="absolute top-0 w-full h-[50vh] bg-blue-600 rounded-b-[100%] scale-x-[2] -translate-y-[10vh] origin-top"
+        initial={{ scaleY: 0 }}
+        animate={{ scaleY: 1 }}
+        transition={{ duration: 1, ease: "circOut" }}
+      />
 
-      {/* Main product mockup container */}
-      <motion.div 
-        className="w-[85vw] h-[80vh] m-auto bg-white rounded-xl shadow-soft flex overflow-hidden border border-slate-200"
-        initial={{ y: '10vh', opacity: 0 }}
-        animate={phase >= 1 ? { y: 0, opacity: 1 } : { y: '10vh', opacity: 0 }}
-        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+      <motion.h2
+        className="text-[4vw] font-display font-bold text-white z-10 mb-[8vh] text-center"
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
       >
-        {/* Sidebar */}
-        <div className="w-[30vw] bg-slate-50 border-r border-slate-200 p-8 flex flex-col">
-          <div className="w-12 h-12 bg-blue-600 rounded-lg mb-8" />
-          <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Unit 1</h3>
-          
-          <div className="flex flex-col gap-4">
-            {topics.map((topic, i) => (
-              <motion.div 
-                key={i}
-                className={`text-sm font-medium ${i === 0 ? 'text-blue-600' : 'text-slate-600'}`}
-                initial={{ opacity: 0, x: -20 }}
-                animate={phase >= 3 ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                transition={{ duration: 0.5, delay: phase >= 3 ? i * 0.1 : 0 }}
-              >
-                {topic}
-              </motion.div>
-            ))}
-          </div>
-        </div>
+        Customize the way you learn
+      </motion.h2>
 
-        {/* Content Pane */}
-        <div className="flex-1 p-16 flex flex-col justify-center">
+      <div className="flex gap-[4vw] z-10 mt-[4vh]">
+        {cards.map((card, i) => (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={phase >= 2 ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 0.8 }}
+            key={i}
+            className="w-[18vw] h-[45vh] bg-white rounded-[2vw] shadow-soft flex flex-col items-center justify-center border border-slate-100"
+            initial={{ y: 50, opacity: 0, rotate: -5 }}
+            animate={{ y: 0, opacity: 1, rotate: 0 }}
+            transition={{
+              type: 'spring',
+              stiffness: 100,
+              damping: 15,
+              delay: card.delay,
+            }}
           >
-            <h2 className="text-[3vw] font-bold text-slate-900 leading-tight mb-4">
-              Real concepts.<br />No jargon.
-            </h2>
-            <p className="text-xl text-slate-500 max-w-lg">
-              The curriculum covers exactly what you need to know about how we use the past to predict the future, told in plain language.
-            </p>
+            <span className="text-[1vw] font-semibold text-blue-600 uppercase tracking-widest mb-[2vh]">
+              Certification
+            </span>
+            <span className="text-[3vw] font-display font-black text-slate-900 mb-[1vh]">
+              {card.title}
+            </span>
+            <span className="text-[1.3vw] text-slate-500 font-medium">
+              {card.subtitle}
+            </span>
           </motion.div>
-        </div>
-      </motion.div>
+        ))}
+      </div>
     </motion.div>
   );
 }

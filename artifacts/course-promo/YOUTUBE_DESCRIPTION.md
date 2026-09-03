@@ -1,60 +1,51 @@
-# YouTube — Basic Predictive Analytics
+# YouTube — Basic Predictive Analytics Promo
 
 ## 🎬 Video title
 
-Basic Predictive Analytics — AI-Powered Course
+Basic Predictive Analytics — AI-Powered Certification
 
 ---
 
 ## ✏️ Short description (~150 chars, for the box preview)
 
-A complete one-unit course in predictive analytics — taught, tutored, drilled, and graded end to end by AI, with built-in academic-integrity screening.
+Master predictive analytics with our customizable one-day, one-week, or one-month certification courses featuring AI tutors and unlimited practice.
 
 ---
 
 ## 📝 Full description (paste into YouTube)
 
-How do we use the past to estimate what's likely to happen next?
+Data analytics is hard—but you have to know it. We make it easy.
 
-**Basic Predictive Analytics** is a complete, AI-powered course that takes you through the full arc of predictive analytics — from reading the shape of data over time to turning a forecast into a decision. It's built for adults beginning the discipline: graduate students, researchers, instructors, and professionals who want a thorough, conceptual foundation before going deeper. Every idea is taught conceptually, with no mathematical prerequisites — and without thinning out the substance.
+**Basic Predictive Analytics** offers one-day, one-week, and one-month certification courses that let you customize the way you learn. Thanks to our built-in AI tutors, unlimited practice exams, and student-friendly functionality, our courses minimize busywork and maximize teaching. 
 
-The course is one unit of eight topics, and every topic is taught, tutored, drilled, and graded:
+You won’t hit any snags with our courses—but if you do, we’re just a phone call away, standing by 24/7.
 
-📖 Three-depth lessons — read any topic Short, Medium, or Long, the same ideas at the level of detail you want
-✨ Examples on demand — expand any lesson into a version packed with vivid, real-to-life illustrations for every point
-💬 A section-scoped AI tutor that answers questions about the exact paragraph you're reading, streaming in real time
-🎯 Adaptive practice that gets harder when you're on a streak and eases off when you're stuck, with an explanation on every problem
-✅ AI-graded homework, a timed unit test, and a cumulative final — each scored with written, per-problem feedback
-🛡️ Two-layer AI-authorship detection on every submission: a text classifier (GPTZero) PLUS a keystroke-pattern detector that catches AI use even when the words are reworded
-🧪 Diagnostic reasoning assessments at four points in the journey — ungraded practice with freshly generated questions every attempt
-📊 A live analytics dashboard — attempts, accuracy, streak, per-topic mastery, and a recent-activity feed
+Master the complete arc of predictive analytics:
+• What predictive analytics is
+• Trend, seasonality, and noise
+• Regression
+• Correlation versus causation
+• Forecasting methods
+• Forecast error and accuracy
+• Uncertainty, black swans, and overfitting
+• Turning prediction into decision
 
-It's a self-paced course students can actually trust to be fair — and instructors can trust to be honest.
-
-👉 Try it / learn more: [add your link here]
+👉 Start learning today: [add your link here]
 
 ⏱️ Chapters
-0:00 Using the past to see the future
-0:10 Lessons & the AI tutor
-0:25 Adaptive practice & AI grading
-0:39 AI-authorship detection & wrap-up
+0:00 Data analytics is hard
+0:06 Customize the way you learn
+0:11 Minimize busywork, maximize teaching
+0:16 24/7 Support
+0:22 Tour: Predictive Analytics & Trend
+0:27 Tour: Regression & Correlation
+0:30 Tour: Forecasting & Accuracy
+0:33 Tour: Overfitting & Decision
 
-🧠 Topics covered
-1.1 What predictive analytics is (using the past to see the future)
-1.2 The shape of data over time (trend, seasonality, and noise)
-1.3 Regression (the workhorse of prediction)
-1.4 Correlation vs. causation (the trap that fools everyone)
-1.5 Forecasting methods (from moving averages to machine learning)
-1.6 How good is the forecast? (measuring error and accuracy)
-1.7 Why forecasts fail (uncertainty, black swans, and overfitting)
-1.8 From prediction to decision
-
-Built for graduate students, researchers, instructors evaluating AI-taught coursework, and academic-integrity researchers.
-
-#PredictiveAnalytics #Forecasting #AIeducation #EdTech #OnlineLearning #DataLiteracy #GradSchool #MachineLearning
+#PredictiveAnalytics #DataAnalytics #AIeducation #OnlineLearning #EdTech #Certification #Forecasting #MachineLearning
 
 ---
 
 ## 🏷️ Tags (comma-separated, for the Tags field)
 
-predictive analytics, forecasting, data analytics, data literacy, AI tutor, AI education, edtech, online learning, adaptive learning, trend and seasonality, regression, correlation vs causation, overfitting, forecast accuracy, self-paced course, AI grading, academic integrity
+predictive analytics, data analytics, AI tutor, AI education, edtech, online learning, data literacy, trend and seasonality, regression, correlation vs causation, overfitting, forecast accuracy, certification course, self-paced course

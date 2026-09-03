@@ -1,4 +1,5 @@
 kind = "video"
+videoAspectRatio = "16:9"
 previewPath = "/course-promo/"
 title = "Basic Predictive Analytics — Promo"
 version = "1.0.0"

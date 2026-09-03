@@ -1,95 +1,50 @@
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
 
 export function Scene4() {
-  const [phase, setPhase] = useState(0);
-
-  useEffect(() => {
-    const timers = [
-      setTimeout(() => setPhase(1), 500),
-      setTimeout(() => setPhase(2), 1500), // Question appears
-      setTimeout(() => setPhase(3), 3000), // Answer starts streaming
-    ];
-    return () => timers.forEach(t => clearTimeout(t));
-  }, []);
-
-  const question = "Ice cream sales and pool drownings both climb every summer. Does that mean buying ice cream makes people drown?";
-  const answer = "No — hot weather is the hidden third factor that pushes both up at the same time, so the two only move together by coincidence, not because one actually causes the other.";
-
   return (
-    <motion.div 
-      className="absolute inset-0 flex bg-slate-100"
+    <motion.div
+      className="absolute inset-0 flex flex-col items-center justify-center bg-blue-600 text-white overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.8 }}
+      transition={{ duration: 0.6 }}
     >
-      <motion.div 
-        className="w-[85vw] h-[80vh] m-auto bg-white rounded-xl shadow-soft flex overflow-hidden border border-slate-200"
-      >
-        <div className="flex-1 p-12 bg-slate-50 border-r border-slate-200 relative overflow-hidden">
-          <div className="max-w-2xl blur-sm opacity-30 pointer-events-none">
-            <h1 className="text-4xl font-bold text-slate-900 mb-8">Correlation vs. causation</h1>
-            <p className="text-xl leading-relaxed text-slate-700 mb-6">
-              Correlation means two things tend to move together — but moving together does not prove that one of them actually causes the other.
-            </p>
-          </div>
-        </div>
+      <motion.div
+        className="absolute w-[150vw] h-[150vw] rounded-full bg-blue-500/30 blur-3xl"
+        animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.8, 0.5] }}
+        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+      />
 
-        {/* AI Tutor Panel */}
-        <motion.div 
-          className="w-[40vw] bg-white flex flex-col shadow-[-10px_0_30px_rgba(0,0,0,0.05)] z-10"
-          initial={{ x: '100%' }}
-          animate={phase >= 1 ? { x: 0 } : { x: '100%' }}
-          transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+      <div className="z-10 text-center flex flex-col items-center">
+        <motion.div
+          className="w-[12vw] h-[12vw] rounded-full bg-white text-blue-600 flex items-center justify-center mb-[6vh] shadow-2xl"
+          initial={{ scale: 0, rotate: -180 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ type: "spring", stiffness: 150, damping: 15, delay: 0.2 }}
         >
-          <div className="p-6 border-b border-slate-100 flex items-center gap-3">
-            <div className="w-8 h-8 rounded bg-emerald-100 flex items-center justify-center text-emerald-600">✨</div>
-            <span className="font-bold text-slate-900">AI Tutor</span>
-          </div>
-          
-          <div className="flex-1 p-6 flex flex-col gap-6">
-            {phase >= 2 && (
-              <motion.div 
-                className="self-end bg-blue-600 text-white rounded-2xl rounded-tr-sm p-4 max-w-[85%]"
-                initial={{ opacity: 0, y: 10, scale: 0.95, transformOrigin: 'top right' }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-              >
-                {question}
-              </motion.div>
-            )}
-
-            {phase >= 3 && (
-              <div className="self-start bg-slate-100 text-slate-800 rounded-2xl rounded-tl-sm p-4 max-w-[85%] flex items-start gap-3">
-                <div className="mt-1">✨</div>
-                <div>
-                  <TypewriterText text={answer} />
-                </div>
-              </div>
-            )}
-          </div>
+          <svg className="w-[6vw] h-[6vw]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+          </svg>
         </motion.div>
 
-      </motion.div>
+        <motion.h2
+          className="text-[5vw] font-display font-bold mb-[3vh]"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+        >
+          Standing by 24/7
+        </motion.h2>
+
+        <motion.p
+          className="text-[2.5vw] text-blue-100 font-medium w-[60vw]"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 2.2 }}
+        >
+          You won't hit any snags—but if you do, we're just a phone call away.
+        </motion.p>
+      </div>
     </motion.div>
   );
-}
-
-function TypewriterText({ text }: { text: string }) {
-  const [displayedText, setDisplayedText] = useState("");
-  
-  useEffect(() => {
-    let currentIndex = 0;
-    const interval = setInterval(() => {
-      if (currentIndex <= text.length) {
-        setDisplayedText(text.slice(0, currentIndex));
-        currentIndex += 2; // Stream a bit faster
-      } else {
-        clearInterval(interval);
-      }
-    }, 20);
-    return () => clearInterval(interval);
-  }, [text]);
-
-  return <span>{displayedText}</span>;
 }
