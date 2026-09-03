@@ -79,7 +79,7 @@ export function Sidebar() {
               Basic Predictive Analytics
             </p>
             <a
-              href="mailto:johnmichaelkuczynski@gmail.com"
+              href="mailto:contact@zhisystems.ai"
               className="text-xs font-medium text-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm"
             >
               Contact Us
