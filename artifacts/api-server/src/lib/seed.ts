@@ -14,7 +14,7 @@ import { logger } from "./logger";
 // the value stored in seed_meta; a mismatch forces a full re-seed, so content
 // edits self-heal in every environment (including a republished production)
 // without a manual database wipe.
-const SEED_CONTENT_VERSION = "2026-06-17-basic-predictive-analytics-v1";
+const SEED_CONTENT_VERSION = "2026-06-17-basic-predictive-analytics-v2-assessment-formats";
 
 type SeedTopic = {
   slug: string;
@@ -309,21 +309,21 @@ const ASSIGNMENTS: SeedAssignment[] = [
     isTimed: false,
     timeLimitMinutes: null,
     instructions:
-      "Untimed practice covering sections 1.1–1.4. Answer each question in a few sentences (about 3–5) in your own words. There's no need for any math — just explain your thinking clearly. One-word answers won't receive credit.",
+      "Untimed practice covering sections 1.1–1.4. Multiple-choice items have four options; for written items, answer in one concise sentence. No math is required.",
     problems: [
       {
         topicSlug: "what-predictive-analytics-is",
         prompt:
-          "A friend says, 'The forecast said 80% chance of rain and it stayed dry all day — so the forecast was just wrong and predictions are useless.' Use what predictive analytics actually is to explain why your friend is misunderstanding what a prediction means. (3–5 sentences.)",
+          "Multiple choice — A friend says, 'The forecast said 80% chance of rain and it stayed dry, so predictions are useless.' Which response best applies predictive analytics? A) The forecast promised rain, so one dry day proves it failed. B) An 80% forecast describes odds across similar days, so a dry day can occur without making it useless. C) Forecasts should only report certain events. D) Past data cannot inform a future estimate.",
         correctAnswer:
-          "A prediction is an estimate of what's likely — a set of odds — not a guarantee about a single day. An 80% chance of rain means that on days that look like this one, it rains about eight times out of ten, so a dry day is exactly one of the two-in-ten times the forecast already accounted for. That doesn't make the forecast useless; it was honestly reporting the odds based on patterns in past data, and being wrong on one day is built into what 'likely' means. My friend is treating an estimate as if it were a promise, which is the very myth predictive analytics is meant to replace with honest odds.",
+          "B — An 80% forecast describes odds across similar days, so a dry day can occur without making it useless.",
         explanation:
           "Full credit: explains a prediction is an estimate/odds not a guarantee, interprets the 80% correctly (a dry day is within the expected 20%), and notes that being wrong on a single day doesn't make a probabilistic forecast useless.",
       },
       {
         topicSlug: "shape-of-data-over-time",
         prompt:
-          "An online store sees a big jump in sales every December and the owner excitedly says, 'We've found a permanent new growth trend — let's order huge amounts for January!' Using the idea of trend, seasonality, and noise, explain what the owner is getting wrong. (3–5 sentences.)",
+          "An online store sees a sales jump every December and plans a huge January order; in one concise sentence, explain why comparing December with prior Decembers matters before calling it permanent growth.",
         correctAnswer:
           "Data over time usually has three layers: a long-run trend, repeating seasonal patterns, and random noise, and the owner is confusing seasonality with a trend. A jump that happens every December is almost certainly the holiday season — a pattern that repeats on a cycle — not a permanent change in the store's overall direction. Treating that predictable seasonal spike as a new trend would lead to massively over-ordering for January, when the seasonal bump has already passed. The careful move is to compare December to previous Decembers, separate the repeating seasonal pattern from the real underlying trend, and not mistake a known cycle for forever-growth.",
         explanation:
@@ -333,16 +333,16 @@ const ASSIGNMENTS: SeedAssignment[] = [
       {
         topicSlug: "regression",
         prompt:
-          "A lemonade stand finds that warmer days bring more sales, and on mild summer days a simple line predicts sales nicely. The owner says, 'So on the hottest day ever recorded, this line says we'll sell a gigantic amount — let's make ten times our usual batch.' Using regression, explain two things this reasoning gets wrong. (3–5 sentences.)",
+          "Multiple choice — A lemonade stand's line fits mild summer days, then the owner uses it to make ten times the usual stock for a record-hot day. What is the best decision? A) Trust the line most at the extreme because it rises. B) Treat the record heat as unreliable extrapolation and avoid a drastic bet without relevant data. C) Ignore temperature because lines never help. D) Assume every prediction guarantees sales.",
         correctAnswer:
-          "Regression finds the relationship (a line of best fit) between two things, like temperature and sales, so you can estimate one from the other — but that line is only trustworthy inside the range of data you've actually seen. First, a record-breaking temperature is far outside the mild days the line was built from, so stretching it that far (extrapolation) is unreliable; the relationship may not hold or could even flip, since brutal heat might keep customers inside instead. Second, the line captures a general relationship, not a guarantee, so it shouldn't be used to justify a drastic ten-times bet. The owner should treat the prediction cautiously, gather data closer to that extreme, and not assume the line keeps going straight forever.",
+          "B — Treat the record heat as unreliable extrapolation and avoid a drastic bet without relevant data.",
         explanation:
           "Full credit: explains regression/line of best fit, identifies extrapolation (using the line far beyond observed data) as the danger, and notes the relationship may not hold at extremes; may add that the line is a general estimate not a guarantee.",
       },
       {
         topicSlug: "correlation-vs-causation",
         prompt:
-          "A blogger notices that towns with more ice cream shops also have more drownings each year, and concludes, 'Ice cream is dangerous — it must be causing people to drown.' Explain the mistake using correlation versus causation. (3–5 sentences.)",
+          "A blogger claims ice-cream shops cause drownings because both are common in some towns; in one concise sentence, explain the alternative the blogger should investigate.",
         correctAnswer:
           "The blogger has confused correlation (two things moving together) with causation (one actually causing the other). Ice cream sales and drownings do rise together, but neither causes the other — there's a hidden third factor, hot weather, that drives both: heat makes people buy more ice cream and also makes more people swim, where drownings happen. So the real cause is the lurking variable, not the ice cream, and banning ice cream would do nothing to reduce drownings. Whenever two things move together, the careful step is to hunt for a third factor that could explain both before claiming one causes the other.",
         explanation:
@@ -357,14 +357,14 @@ const ASSIGNMENTS: SeedAssignment[] = [
     isTimed: false,
     timeLimitMinutes: null,
     instructions:
-      "Untimed practice covering sections 1.5–1.8. Answer each question in a few sentences (about 3–5) in your own words. No math is required — explain your reasoning. One-word answers won't receive credit.",
+      "Untimed practice covering sections 1.5–1.8. Multiple-choice items have four options; for written items, answer in one concise sentence. No math is required.",
     problems: [
       {
         topicSlug: "forecasting-methods",
         prompt:
-          "A company replaces its simple, easy-to-understand forecasting method with an expensive new computer model that nobody on the team can explain, just because it's more advanced. Explain why 'fancier' isn't automatically better here. (3–5 sentences.)",
+          "Multiple choice — A company replaces a checkable forecast with an expensive model nobody can explain solely because it is more advanced. Which is the strongest concern? A) Complex models always use no data. B) A black box may latch onto noise and cannot be readily sanity-checked. C) Simple methods cannot forecast. D) An advanced model guarantees the future matches the past.",
         correctAnswer:
-          "Forecasting methods range from simple ones you can check by hand to complex machine-learning models, and fancier is not automatically more reliable. A model nobody can explain is a 'black box,' so when it makes a strange prediction the team can't tell whether it found a real pattern or latched onto meaningless noise. A simple method you understand can be questioned, sanity-checked, and fixed, which often makes it more trustworthy than a powerful one you can't see inside. Every model is also only as good as its assumptions, so the right question isn't 'what's most advanced?' but 'what's the simplest method that does the job well and that we can still understand and trust?'",
+          "B — A black box may latch onto noise and cannot be readily sanity-checked.",
         explanation:
           "Full credit: explains fancier isn't automatically better, that an unexplainable black box can't be sanity-checked, that a simple understandable method can be questioned/trusted, and/or that a model is only as good as its assumptions.",
         hint: "Think about what happens when the fancy model makes a weird prediction and no one can look inside to see why.",
@@ -372,7 +372,7 @@ const ASSIGNMENTS: SeedAssignment[] = [
       {
         topicSlug: "measuring-forecast-error",
         prompt:
-          "A TV pundit reminds everyone of the three predictions he got right last year and insists he's a brilliant forecaster, but he never mentions the predictions he got wrong. Explain why this isn't good evidence he's accurate, using the idea of measuring forecast error. (3–5 sentences.)",
+          "A pundit publicizes only three successful forecasts; in one concise sentence, state what record you would need to judge whether the pundit is accurate.",
         correctAnswer:
           "A forecast only means something if it's scored against what actually happened, and the pundit is only counting his hits while quietly forgetting his misses. Without measuring his error across all his predictions, there's no way to tell genuine skill from luck or from confident bluffing — anyone looks brilliant if you only remember the times they were right. Real accuracy is a measured track record, not a feeling of confidence, so we'd need to see how often he was wrong, not just a hand-picked few he got right. Until his predictions are honestly scored as a whole, his confidence is no evidence at all that he's actually accurate.",
         explanation:
@@ -381,16 +381,16 @@ const ASSIGNMENTS: SeedAssignment[] = [
       {
         topicSlug: "why-forecasts-fail",
         prompt:
-          "A data team builds a model that predicted last year's sales almost perfectly — it matched nearly every single day. They're sure it will nail next year too. Using the idea of overfitting, explain why their confidence might be misplaced. (3–5 sentences.)",
+          "Multiple choice — A sales model matches nearly every day last year and its team assumes it will nail next year. Which check best addresses the key risk? A) Test it on data it did not see and measure its errors. B) Add details until the old fit is perfect. C) Trust it because hindsight is accurate. D) Delete unusual days from future sales.",
         correctAnswer:
-          "A model that matches nearly every past day almost perfectly is a warning sign of overfitting, not a triumph. Overfitting happens when a model memorizes the random noise and quirks of the old data instead of learning the real underlying pattern, so it looks amazing on the past it studied but falls apart on new data. It's like a student who memorized the exact answers to last year's test and then fails this year's because they never learned the subject. The team should be suspicious precisely because the fit was too perfect, and they should test the model on data it hasn't seen before trusting it with next year.",
+          "A — Test it on data it did not see and measure its errors.",
         explanation:
           "Full credit: explains overfitting (memorizing noise/quirks rather than the real pattern), why a near-perfect fit to the past is a warning sign, and that such a model often fails on new data; may suggest testing on unseen data.",
       },
       {
         topicSlug: "prediction-to-decision",
         prompt:
-          "A town's forecasters say there's a real but uncertain chance a major storm will hit this weekend. One official says, 'It's not the single most likely outcome, so we shouldn't bother preparing at all.' Explain why this reasoning is dangerous, using the idea of turning a prediction into a decision. (3–5 sentences.)",
+          "A town faces an uncertain major storm and an official rejects preparation because it is not the most likely outcome; in one concise sentence, explain what costs the decision should compare.",
         correctAnswer:
           "A prediction is only useful when it changes a decision, and a good decision weighs not just what's most likely but what each kind of mistake would cost. Even if the storm isn't the single most likely outcome, the cost of being unprepared when it does hit — danger to people and property — is far worse than the cost of preparing for a storm that doesn't come. Because the two errors are so unequal, it can be wise to act against the most likely outcome and prepare anyway, sizing the response to both the odds and the stakes. Doing nothing just because the storm isn't most likely ignores the whole point of acting humbly on uncertain predictions.",
         explanation:
@@ -405,21 +405,21 @@ const ASSIGNMENTS: SeedAssignment[] = [
     isTimed: true,
     timeLimitMinutes: 30,
     instructions:
-      "Timed. 30 minutes. Covers sections 1.1–1.8. Answer each question in a few sentences (about 4–6) in your own words. No math is required. Pasting is disabled; keystrokes are screened for AI use.",
+      "Timed. 30 minutes. Covers sections 1.1–1.8. Multiple-choice items have four options; written items require one concise sentence. No math is required. Pasting is disabled; keystrokes are screened for AI use.",
     problems: [
       {
         topicSlug: "what-predictive-analytics-is",
         prompt:
-          "Explain what predictive analytics is, why it's fair to say 'everyone already predicts,' and why a prediction should be understood as a set of odds rather than a guarantee. Why does keeping that distinction matter? (4–6 sentences.)",
+          "Multiple choice — A café owner uses prior rainy weekends to estimate tomorrow's sales but treats the estimate as certain. Which response best corrects the decision? A) Past patterns offer odds, not a promise, so plan with uncertainty. B) A forecast is useful only when certain. C) One estimate proves the café will match history. D) Ignore past records and use intuition.",
         correctAnswer:
-          "Predictive analytics is the careful practice of using patterns in past data to estimate what's likely to happen next, instead of relying on gut feeling. It's fair to say everyone already predicts because we all forecast informally every day — grabbing an umbrella when the sky looks grey, or expecting a shop to be busy on a hot weekend — and predictive analytics just makes that habit more honest by leaning on real records rather than a hunch. A prediction should be understood as a set of odds, not a guarantee, because it's an estimate about a future that hasn't happened yet; an 80% chance of rain isn't wrong when the day turns out dry, since it only ever claimed what was likely. Keeping that distinction matters because treating an estimate as a promise leads to overconfidence and nasty surprises, while remembering that the past is a guide and not a guarantee keeps you appropriately humble. That honesty about uncertainty is the foundation the whole course is built on.",
+          "A — Past patterns offer odds, not a promise, so plan with uncertainty.",
         explanation:
           "Full credit: defines predictive analytics as using past patterns to estimate the likely future, explains everyone predicts informally and data makes it more honest, frames a prediction as odds not a guarantee (with correct intuition), and why that distinction supports humility/good decisions.",
       },
       {
         topicSlug: "shape-of-data-over-time",
         prompt:
-          "Describe the three layers in data measured over time — trend, seasonality, and noise — and explain why telling them apart is the heart of good forecasting. (4–6 sentences.)",
+          "A garden shop sees a one-week sales spike after a local festival; in one concise sentence, explain how it should distinguish a real trend from seasonality or noise before increasing inventory.",
         correctAnswer:
           "Data measured over time is usually three things stacked together. The trend is the slow overall direction once you ignore the day-to-day bumps — whether something is generally rising, falling, or holding steady over the long run. Seasonality is any pattern that repeats on a regular cycle, like more ice cream sold every summer or stores busier every December. Noise is the leftover random wiggle that has no pattern and no meaning, like one slightly busier Tuesday. Telling them apart is the heart of forecasting because the real, predictable future lives in the trend and seasonality, while noise is meaningless — mistake noise for a trend and you'll celebrate a fluke and over-prepare, while mistaking a real change for noise leaves you caught off guard. So before predicting anything, a careful person asks whether what they're seeing is a trend, a season, or just noise.",
         explanation:
@@ -428,16 +428,16 @@ const ASSIGNMENTS: SeedAssignment[] = [
       {
         topicSlug: "regression",
         prompt:
-          "Explain what regression does, what the 'line of best fit' is, why regression is called the workhorse of prediction, and why extrapolating beyond your data is dangerous. (4–6 sentences.)",
+          "Multiple choice — A realtor's price line was built from homes between 800 and 2,500 square feet, then is used to price a 12,000-square-foot estate. What is the soundest interpretation? A) The estimate is especially reliable because the line extends. B) It is risky extrapolation because the relationship was not observed at that size. C) The line proves size causes every price change. D) Remove all smaller homes from the data.",
         correctAnswer:
-          "Regression finds the relationship between two things — like temperature and sales — by looking at many past examples so you can estimate one from the other. The 'line of best fit' is the single straight line drawn as close as possible to all the scattered data points at once; it doesn't touch every point, and isn't supposed to, because it captures the general relationship while ignoring the noise. Regression is called the workhorse because it's simple, cheap, easy to explain, and hiding behind an enormous share of everyday predictions, from house prices to crop sizes. The danger is extrapolation — stretching the line far beyond the range of data you've actually seen — because there's no guarantee the relationship keeps holding out there, and it can even flip, the way more water helps a plant grow but a flood doesn't. So the line is trustworthy inside the data you have and unreliable past it, which is one of the most common ways predictions go wrong.",
+          "B — It is risky extrapolation because the relationship was not observed at that size.",
         explanation:
           "Full credit: explains regression finds a relationship to estimate one thing from another, describes the line of best fit (closest to all points, ignores noise), notes why it's the workhorse (simple/explainable/everywhere), and explains extrapolation beyond observed data is unreliable.",
       },
       {
         topicSlug: "correlation-vs-causation",
         prompt:
-          "Explain the difference between correlation and causation, why a hidden third factor is so often the real explanation, and why this trap fools almost everyone. Use an example. (4–6 sentences.)",
+          "A school finds that students carrying umbrellas have more absences and proposes banning umbrellas; in one concise sentence, explain the causal mistake and a likely third factor.",
         correctAnswer:
           "Correlation means two things tend to move together, while causation means one actually makes the other happen — and correlation does not prove causation. A correlation can be real and useful for prediction yet say nothing about why, because the link might run the other way, be a coincidence, or be driven by something else entirely. Very often the real explanation is a hidden third factor that drives both: ice cream sales and drownings rise together not because ice cream is dangerous, but because hot weather makes people both buy ice cream and swim. This trap fools almost everyone because our brains are story-making machines that instantly invent a cause whenever they see two things connected, which is why headlines constantly claim one thing causes another. The discipline is to resist the satisfying story, hunt for a lurking third factor, and treat a correlation as a clue rather than a conclusion until it's actually tested.",
         explanation:
@@ -446,16 +446,16 @@ const ASSIGNMENTS: SeedAssignment[] = [
       {
         topicSlug: "forecasting-methods",
         prompt:
-          "Describe the range of forecasting methods from a simple moving average to machine learning, explain why fancier isn't automatically better, and what it means that 'a model is only as good as its assumptions.' (4–6 sentences.)",
+          "Multiple choice — A delivery firm must choose between a transparent moving average that performs steadily and a complex model whose assumptions no one can inspect. Which choice is most defensible? A) Automatically choose complex because it is newer. B) Compare checked performance and favor the simplest method that works reliably. C) Assume either model cannot fail. D) Choose by the longest source code.",
         correctAnswer:
-          "Forecasting methods sit on a spectrum from very simple to very complex. At the easy end is the moving average, which smooths out random noise by averaging the last several values to reveal the underlying pattern — humble, easy to explain, and hard to beat for steady situations. At the powerful end is machine learning, where computers hunt through huge piles of data for subtle patterns no person could spot, often very accurately but as a 'black box' you can't easily look inside. Fancier isn't automatically better because a method you can't explain can quietly latch onto meaningless noise and fail on new data without you noticing, while a simple method you understand can be questioned, checked, and fixed. And every method, simple or fancy, rests on the bet that the future will resemble the past in the ways it assumes, so 'a model is only as good as its assumptions' — feed it bad data or wrong assumptions and even a brilliant method gives confident nonsense. The right question is the simplest method that does the job while staying understandable and trustworthy.",
+          "B — Compare checked performance and favor the simplest method that works reliably.",
         explanation:
           "Full credit: describes the moving average (smoothing noise) and machine learning (powerful but black box), explains fancier isn't automatically better (unexplainable models can overfit/fail unnoticed vs simple checkable ones), and explains a model depends on its assumptions/data.",
       },
       {
         topicSlug: "measuring-forecast-error",
         prompt:
-          "Explain why a forecast nobody scores is worthless, what 'error' and 'backtesting' mean, and why being confident is not the same as being accurate. (4–6 sentences.)",
+          "A manager trusts a confident demand forecast that was never checked against actual sales; in one concise sentence, state how to evaluate it before using it for next month's order.",
         correctAnswer:
           "A forecast nobody checks against reality is worthless because, without scoring, you can never tell genuine skill from a lucky guess or a confident bluff — people who only remember their hits can seem brilliant while being no better than chance. Error is simply the gap between what you predicted and what actually happened, like forecasting 100 customers when 120 show up; measuring it turns a vague 'pretty close' into something concrete you can track and improve. Backtesting is testing a method on old data by pretending you didn't know the future, making the prediction, and comparing it to what really happened — a way to see if a method works before betting real stakes on it. Confidence is just a feeling, while accuracy is a measured track record, and the two often come apart: the loudest, surest voice is frequently no more accurate than a coin flip. So when judging any forecast, ignore how sure it sounds and ask what its track record was when someone actually measured.",
         explanation:
@@ -464,16 +464,16 @@ const ASSIGNMENTS: SeedAssignment[] = [
       {
         topicSlug: "why-forecasts-fail",
         prompt:
-          "Explain three reasons forecasts fail — irreducible uncertainty, black swans, and overfitting — and why a model that fit the past too perfectly should make you suspicious. (4–6 sentences.)",
+          "Multiple choice — A model is nearly perfect on its training history but fails after an unexpected supply disruption. Which explanation best fits? A) Perfect history proves future certainty. B) It may have overfit noise and could not learn a rare change absent from its history. C) More confidence would prevent disruption. D) The model should be judged only on its training score.",
         correctAnswer:
-          "Forecasts fail first because of irreducible uncertainty: parts of the future carry real randomness that no amount of data can remove, so a good forecast gives a range or probability rather than a single confident number. They fail second because of black swans — rare, enormous events the past gave no warning about, like a sudden crash or a once-in-a-century storm; since predictive analytics learns from history, it's essentially blind to events that history never contained, and those are often the events that matter most. They fail third because of overfitting, where a model tries so hard to match old data that it memorizes the random noise instead of the real pattern, looking perfect on the past it studied and then collapsing on new data — like a student who memorized last year's test answers and fails this year's. A model that fit the past almost perfectly should make you suspicious precisely because near-perfect hindsight usually means it learned the noise, and the harder you tune a model to fit history, the worse it often does on the future. That's why simpler models, which can't overfit as easily, frequently beat complex ones.",
+          "B — It may have overfit noise and could not learn a rare change absent from its history.",
         explanation:
           "Full credit: explains irreducible uncertainty (some randomness can't be removed), black swans (rare unforeseeable events the past never showed), and overfitting (memorizing noise, failing on new data), and why a too-perfect fit to the past is a warning sign.",
       },
       {
         topicSlug: "prediction-to-decision",
         prompt:
-          "Explain why a prediction is only useful if it changes a decision, why you must weigh the cost of being wrong in each direction, and what it means to act with humility by sizing the bet to your confidence. (4–6 sentences.)",
+          "A clinic's low-probability outbreak forecast would be costly to ignore but inexpensive to prepare for; in one concise sentence, explain how it should turn that forecast into an action.",
         correctAnswer:
           "A prediction is only useful if it changes a decision, because a forecast that leads to the same action no matter what it says is just trivia — the point of predicting rain is to decide whether to bring an umbrella. A good decision-maker doesn't only ask 'what's most likely?' but also 'what does each kind of mistake cost me?', since the two errors are rarely equal: failing to prepare for a storm that hits can be a disaster, while preparing for one that doesn't come is merely wasted effort. Because of that, it's sometimes wise to act against the most likely outcome on purpose, the way buying insurance guards against an unlikely but unaffordable loss. Acting with humility means sizing the bet to your confidence — a well-checked, confident forecast can justify a bold move, while a shaky one calls for a small, cautious, reversible step. Underneath it all runs the course's thread: the past is a guide, not a guarantee, so you leave yourself room to be wrong.",
         explanation:
@@ -488,21 +488,21 @@ const ASSIGNMENTS: SeedAssignment[] = [
     isTimed: true,
     timeLimitMinutes: 45,
     instructions:
-      "Timed cumulative final. 45 minutes. Covers the whole course (sections 1.1–1.8). Answer each question in a paragraph (about 5–7 sentences) in your own words. No math is required. Pasting is disabled; keystrokes are screened for AI use.",
+      "Timed cumulative final. 45 minutes. Covers the whole course (sections 1.1–1.8). Multiple-choice items have four options; written items require at most two concise sentences. No math is required. Pasting is disabled; keystrokes are screened for AI use.",
     problems: [
       {
         topicSlug: "prediction-to-decision",
         prompt:
-          "Using ideas from across the whole course, argue that one habit of mind — 'the past is a guide, not a guarantee' — runs through predictive analytics. Show how it applies to at least three different topics (for example: a prediction as odds, noise vs. a real trend, extrapolating a regression line, correlation vs. causation, trusting a fancy model, scoring forecasts, black swans, or overfitting). (5–7 sentences.)",
+          "Multiple choice — A retailer sees three strong weeks and a model that fit last year perfectly, then commits its full budget to next month. Which response best applies the course's shared caution? A) Short runs and perfect hindsight guarantee future success. B) Check for noise or overfitting and make a reversible decision sized to the evidence. C) Ignore all historical data. D) Treat confidence as measured accuracy.",
         correctAnswer:
-          "The thread running through the whole course is that the past is a guide to the future, not a guarantee, which is why every prediction should be treated as honest odds rather than a promise — an 80% chance of rain isn't wrong on a dry day. The same humility shows up in reading data over time, where a single good week might be meaningless noise rather than a real trend, so you shouldn't bet the future on it. It appears again in regression, where a line of best fit is trustworthy only inside the data you've seen and dangerous when extrapolated to extremes the past never contained. It explains why correlation isn't causation: two things moving together in past data doesn't promise that changing one will change the other, because a hidden third factor may drive both. The habit also warns against trusting a fancy model that fit history too perfectly, since that's usually overfitting — memorizing noise — and it reminds us that black swans are exactly the huge events the past never showed. Across all of it, predictive analytics replaces overconfident gut feeling with careful, humble estimation, which is harder than believing a tidy story but far more honest about a future that was never promised to copy the past.",
+          "B — Check for noise or overfitting and make a reversible decision sized to the evidence.",
         explanation:
           "Full credit: states the unifying habit (the past is a guide, not a guarantee / resist overconfident stories about the future) and applies it correctly to at least three distinct course topics with accurate detail.",
       },
       {
         topicSlug: "shape-of-data-over-time",
         prompt:
-          "Someone insists, 'Our numbers went up three weeks in a row — that's obviously a real upward trend, so we should bet big on it continuing.' Using ideas from the course, argue why a business's real pattern is better understood by separating trend, seasonality, and noise. Use at least one concrete example. (5–7 sentences.)",
+          "A business sees three rising weeks and wants to bet big on continued growth; in at most two concise sentences, explain how longer history can separate a trend from seasonality or noise before it acts.",
         correctAnswer:
           "The 'three weeks up means a real trend' view assumes every movement is meaningful, but data measured over time is really three layers stacked together: a long-run trend, repeating seasonal patterns, and random noise. Three good weeks could easily be noise — the meaningless wiggle that our story-making brains love to mistake for a signal — or it could be a seasonal bump that happens at this time every year, neither of which promises the rise will continue. For example, an online store that sells more every December is seeing seasonality, not a permanent new trend, and betting big in January on that 'growth' would mean badly over-ordering once the predictable holiday spike passes. To tell which layer you're looking at, you compare against a longer history and against the same period in past years, instead of reacting to a short run. The danger of confusing noise or seasonality with a trend is celebrating a fluke and preparing for growth that was never real. So the honest move is to separate the real, repeatable pattern from the random jiggle before placing any big bet, because a short streak is a guide at best, not a guarantee.",
         explanation:
@@ -511,16 +511,16 @@ const ASSIGNMENTS: SeedAssignment[] = [
       {
         topicSlug: "correlation-vs-causation",
         prompt:
-          "A company finds that customers who use a certain feature spend far more money, and an executive declares, 'The feature obviously causes people to spend more — let's force it on everyone.' Using the course, argue why this could be a costly mistake and what they should check first. Use a concrete example. (5–7 sentences.)",
+          "Multiple choice — Customers who choose a feature spend more, and an executive wants to force it on everyone. What should the company do first? A) Conclude the feature caused spending from the correlation. B) Run a fair comparison that accounts for customers who may already be high spenders. C) Force the feature because associations prove causes. D) Stop measuring spending.",
         correctAnswer:
-          "The executive has jumped from correlation to causation: the fact that feature-users spend more only means the two move together, not that the feature makes people spend. A hidden third factor could easily explain both — for instance, the company's most enthusiastic, loyal customers might be the kind of people who both try every feature and spend a lot anyway, so the feature is a marker of big spenders, not the cause of their spending. If that's true, forcing the feature on everyone would change the thing that was never the cause, and spending wouldn't rise — wasting effort and possibly annoying customers who didn't want it. The same trap fools people constantly because our brains invent a cause the moment they see two things linked, the way some once blamed ice cream for drownings when hot weather drove both. Before acting, they should run a fair test: give the feature to a randomly chosen group and withhold it from a similar group, then compare spending, so any difference can't be explained by what kind of person already chose it. Only if spending genuinely rises in the test group is there real evidence of cause. Until then, the correlation is a clue worth investigating, not a conclusion worth betting the business on.",
+          "B — Run a fair comparison that accounts for customers who may already be high spenders.",
         explanation:
           "Full credit: rejects the correlation-equals-causation leap, explains a hidden third factor (e.g. loyal big spenders self-select into the feature), warns acting on a false cause wastes effort, and says to test it fairly (a randomized comparison) before concluding; may give a classic example.",
       },
       {
         topicSlug: "measuring-forecast-error",
         prompt:
-          "A forecaster boasts, 'My model is incredible — it matched last year's sales almost perfectly, so trust it completely for next year.' Using the course, explain why a near-perfect fit to the past is not proof the model will work, and what they should actually do to judge it. Use a concrete example. (5–7 sentences.)",
+          "A forecaster trusts a model because it matched last year's sales almost perfectly; in at most two concise sentences, explain why the team should test it on unseen data and measure error before relying on it.",
         correctAnswer:
           "A model that matched last year almost perfectly is a warning sign, not proof, because of overfitting: when a model tries too hard to match old data, it memorizes the random noise and quirks instead of the real underlying pattern, so it looks flawless on the past it studied and then falls apart on new data. It's like a student who memorized the exact answers to last year's test and aces it but fails this year's, because they never actually learned the subject. A forecast also means nothing until it's scored against reality, so a boast about hindsight isn't the same as a measured track record on data the model hasn't seen. To judge it honestly they should backtest properly — hide some data, have the model predict it as if blind, and measure the error between its predictions and what really happened — and ideally test it on a fresh period entirely. They should also be more impressed by a humble model with consistent, checked accuracy than by one that fit history too beautifully. The deeper lesson is that the past is a guide, not a guarantee, so a perfect fit to yesterday earns suspicion, not blind trust, until the model proves itself on tomorrow.",
         explanation:
@@ -529,6 +529,31 @@ const ASSIGNMENTS: SeedAssignment[] = [
     ],
   },
 ];
+
+function validateSeedAssessmentFormats(assignments: SeedAssignment[]): void {
+  const problems = assignments.flatMap((assignment) => assignment.problems);
+  const multipleChoice = problems.filter((problem) =>
+    problem.prompt.startsWith("Multiple choice —"),
+  );
+  const written = problems.filter(
+    (problem) => !problem.prompt.startsWith("Multiple choice —"),
+  );
+  const conciseWritten = written.filter(
+    (problem) =>
+      problem.prompt.includes("one concise sentence") ||
+      problem.prompt.includes("at most two concise sentences"),
+  );
+  if (
+    Math.abs(multipleChoice.length / problems.length - 0.5) > 0.01 ||
+    conciseWritten.length !== written.length
+  ) {
+    throw new Error(
+      "Seed assessments must be 50% multiple choice and limit every written response to one or two sentences.",
+    );
+  }
+}
+
+validateSeedAssessmentFormats(ASSIGNMENTS);
 
 type SeedPrimer = SeedTopic;
 

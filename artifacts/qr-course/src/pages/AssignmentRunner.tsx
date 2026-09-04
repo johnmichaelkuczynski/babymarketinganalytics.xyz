@@ -8,6 +8,7 @@ import {
   useSaveAnswer, 
   useSubmitAttempt,
   AttemptResult,
+  AnswerSaved,
   KeystrokeTrace
 } from "@workspace/api-client-react";
 import { Button } from "@/components/ui/button";
@@ -33,6 +34,11 @@ export default function AssignmentRunner() {
 
   const [currentProblemIdx, setCurrentProblemIdx] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
+  const [traces, setTraces] = useState<Record<number, KeystrokeTrace>>({});
+  const [gradedAnswers, setGradedAnswers] = useState<
+    Record<number, AnswerSaved>
+  >({});
+  const [answerError, setAnswerError] = useState<string | null>(null);
   const [result, setResult] = useState<AttemptResult | null>(null);
 
   useEffect(() => {
@@ -52,12 +58,45 @@ export default function AssignmentRunner() {
 
   const handleAnswerChange = (problemId: number, val: string, trace: KeystrokeTrace) => {
     setAnswers(prev => ({ ...prev, [problemId]: val }));
-    if (attemptId) {
-      saveAnswer.mutate({
-        attemptId,
-        data: { problemId, answer: val, trace }
-      });
-    }
+    setTraces(prev => ({ ...prev, [problemId]: trace }));
+    setGradedAnswers(prev => {
+      if (!prev[problemId]) return prev;
+      const next = { ...prev };
+      delete next[problemId];
+      return next;
+    });
+    setAnswerError(null);
+  };
+
+  const handleAnswerSubmit = () => {
+    if (!attemptId) return;
+    const problem = assignment?.problems[currentProblemIdx];
+    if (!problem) return;
+    const answer = answers[problem.id] ?? "";
+    const trace = traces[problem.id] ?? {
+      keystrokeCount: answer.length,
+      eraseCount: 0,
+      bulkInsertCount: 0,
+      longestBulkInsertChars: 0,
+      rewriteSegments: 0,
+      durationMs: 0,
+    };
+    setAnswerError(null);
+    saveAnswer.mutate(
+      { attemptId, data: { problemId: problem.id, answer, trace } },
+      {
+        onSuccess: (data) => {
+          if (data.persistedAnswer !== answer || data.savedLength !== answer.length) {
+            setAnswerError("The saved answer did not match your full response. Please submit it again.");
+            return;
+          }
+          setGradedAnswers(prev => ({ ...prev, [problem.id]: data }));
+        },
+        onError: (error) => {
+          setAnswerError(error instanceof Error ? error.message : String(error));
+        },
+      },
+    );
   };
 
   const handleSubmit = () => {
@@ -129,6 +168,11 @@ export default function AssignmentRunner() {
   }
 
   const currentProblem = assignment.problems[currentProblemIdx];
+  const currentAnswer = currentProblem ? answers[currentProblem.id] ?? "" : "";
+  const currentGrade = currentProblem ? gradedAnswers[currentProblem.id] : undefined;
+  const allAnswersGraded = assignment.problems.every(
+    problem => gradedAnswers[problem.id],
+  );
 
   return (
     <Layout>
@@ -166,9 +210,48 @@ export default function AssignmentRunner() {
             
             <div className="flex flex-col gap-4">
               <AnswerInput 
-                value={answers[currentProblem.id] || ""}
+                value={currentAnswer}
                 onChange={(val, trace) => handleAnswerChange(currentProblem.id, val, trace)}
+                disabled={saveAnswer.isPending}
               />
+              <div className="flex flex-wrap items-center gap-3">
+                <Button
+                  onClick={handleAnswerSubmit}
+                  disabled={!currentAnswer.trim() || saveAnswer.isPending || !!currentGrade}
+                >
+                  {saveAnswer.isPending
+                    ? "Saving and grading…"
+                    : currentGrade
+                      ? "Answer saved and graded"
+                      : "Submit this answer"}
+                </Button>
+                {currentGrade && (
+                  <span className="text-sm text-green-700">
+                    Full response verified: {currentGrade.savedLength} characters saved.
+                  </span>
+                )}
+              </div>
+              {answerError && (
+                <div className="rounded-md border border-red-300 bg-red-50 p-3 text-sm text-red-800">
+                  {answerError}
+                </div>
+              )}
+              {currentGrade && (
+                <div
+                  className={`rounded-md border p-4 ${
+                    currentGrade.correct
+                      ? "border-emerald-300 bg-emerald-50"
+                      : "border-amber-300 bg-amber-50"
+                  }`}
+                >
+                  <div className="font-semibold">
+                    Grade: {currentGrade.gradePercent}%
+                  </div>
+                  <div className="mt-1 text-sm">
+                    <MarkdownRenderer content={currentGrade.explanation} />
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="flex justify-between mt-8 pt-4 border-t">
@@ -183,6 +266,7 @@ export default function AssignmentRunner() {
               {currentProblemIdx < assignment.problems.length - 1 ? (
                 <Button 
                   onClick={() => setCurrentProblemIdx(p => Math.min(assignment.problems.length - 1, p + 1))}
+                  disabled={!currentGrade}
                 >
                   Next
                 </Button>
@@ -190,9 +274,13 @@ export default function AssignmentRunner() {
                 <Button 
                   onClick={handleSubmit}
                   className="bg-chart-2 hover:bg-chart-2/90 text-white"
-                  disabled={submitAttempt.isPending}
+                  disabled={submitAttempt.isPending || !allAnswersGraded}
                 >
-                  {submitAttempt.isPending ? "Submitting..." : "Submit Assignment"}
+                  {submitAttempt.isPending
+                    ? "Submitting..."
+                    : allAnswersGraded
+                      ? "Submit Assignment"
+                      : "Submit and grade this answer first"}
                 </Button>
               )}
             </div>

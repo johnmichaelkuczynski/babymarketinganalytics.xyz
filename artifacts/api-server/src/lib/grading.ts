@@ -89,11 +89,12 @@ export async function gradeAnswer(opts: {
       correct: !!out.correct,
       explanation: out.explanation || `The correct answer is ${correct}.`,
     };
-  } catch {
-    return {
-      correct: false,
-      explanation: `The correct answer is ${correct}.`,
-    };
+  } catch (error) {
+    throw new Error(
+      `Semantic grader unavailable: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+    );
   }
 }
 
@@ -147,10 +148,11 @@ export async function gradePracticeEssay(opts: {
         out.feedback ||
         `Here's the model answer to compare against:\n\n${correct}`,
     };
-  } catch {
-    return {
-      correct: false,
-      feedback: `I couldn't reach the grader just now. Compare your answer against the model answer and try again:\n\n**Model answer:** ${correct}`,
-    };
+  } catch (error) {
+    throw new Error(
+      `Practice semantic grader unavailable: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+    );
   }
 }

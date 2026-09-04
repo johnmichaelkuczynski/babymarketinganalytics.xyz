@@ -20,6 +20,13 @@ import { gradeAnswer } from "../lib/grading";
 
 const router: IRouter = Router();
 
+function isMultipleChoicePrompt(prompt: string): boolean {
+  return (
+    prompt.startsWith("Multiple choice —") &&
+    ["A)", "B)", "C)", "D)"].every((option) => prompt.includes(option))
+  );
+}
+
 function parseIdParam(raw: unknown): number {
   const s = Array.isArray(raw) ? raw[0] : (raw as string);
   return parseInt(s ?? "", 10);
@@ -134,6 +141,11 @@ router.post("/practice/sessions/:sessionId/next", async (req, res): Promise<void
     )
     .orderBy(desc(practiceProblemsTable.id))
     .limit(3);
+  const problemNumber = await db
+    .select({ id: practiceProblemsTable.id })
+    .from(practiceProblemsTable)
+    .where(eq(practiceProblemsTable.sessionId, sessionId));
+  const shouldBeMultipleChoice = problemNumber.length % 2 === 0;
 
   const difficulty = Math.max(1, Math.min(5, session.difficulty));
   const difficultyLabel =
@@ -157,19 +169,34 @@ router.post("/practice/sessions/:sessionId/next", async (req, res): Promise<void
     }>(
       `You generate a single introductory predictive analytics practice problem for a curious beginner. The problem MUST be on the topic "${topic.title}" and at difficulty "${difficultyLabel}" (${difficulty.toFixed(
         1,
-      )}/5). Test general knowledge of the SUBJECT of predictive analytics, not recall of any particular book, lecture, or course. The question MUST be fully self-contained and answerable by anyone who knows the discipline: do NOT reference "the lecture", "the text", "the course", "the example", "the case", or any named character or example a student would only recognize from a specific reading.\n\nSTRICT QUESTION RULES (no exceptions):\n- Every question must present a SPECIFIC, concrete everyday scenario (e.g. a store that has one unusually good week and treats that random spike as a real upward trend, a town where ice-cream sales and pool drownings rise together and someone claims ice cream causes the drownings, a model that perfectly predicted last year's sales but flopped this year because it had memorized the noise (overfitting), a confident forecast nobody ever checked against what actually happened) and ask the student to APPLY the topic's idea to THAT scenario — to judge, compare, explain, interpret, or decide.\n- NEVER ask for a definition, a term, or what something is "called"; NEVER ask the student to recite an abstract formulation from any reading.\n- NEVER write a question whose answer is a single word, a single term, or a bare "yes"/"no". The answer must require reasoning that is HARD TO SHARE: the student must explain their thinking about the specific scenario in 2-4 sentences.\n- The "correctAnswer" is the model answer (2-4 sentences) showing the operational reasoning a strong student would give for THIS scenario. The "explanation" briefly says what earns full credit.\n\nRespond as strict JSON: {"prompt": string, "correctAnswer": string, "explanation": string}. Avoid these recent prompts: ${JSON.stringify(
+      )}/5). Test general knowledge of the SUBJECT of predictive analytics, not recall of any particular book, lecture, or course. The question MUST be fully self-contained and answerable by anyone who knows the discipline. Every question must present a specific concrete everyday scenario and ask the student to apply the topic to judge, compare, explain, interpret, or decide; never ask a definition, term, or recitation. This session alternates formats deterministically. ${shouldBeMultipleChoice ? 'Make this a multiple-choice question: start exactly "Multiple choice —", provide A), B), C), and D), and make correctAnswer start with the correct letter followed by " — " plus the correct option substance.' : 'Make this written response: explicitly require one concise sentence (never more than two), and provide a concise model answer.'} The explanation briefly says what earns full credit. Respond as strict JSON: {"prompt": string, "correctAnswer": string, "explanation": string}. Avoid these recent prompts: ${JSON.stringify(
         lastProblems.map((p) => p.prompt),
       )}.`,
       userRequest || `Generate a new ${difficultyLabel} problem on ${topic.title}.`,
     );
   } catch {
-    generated = {
-      prompt: `Practice (${topic.title}): A business owner glances at one number on their dashboard and jumps to a quick conclusion about how the business is doing. Using the idea behind "${topic.title}", walk through how you'd help them read the situation more carefully, and explain your reasoning in 2-4 sentences about that situation.`,
+    generated = shouldBeMultipleChoice
+      ? {
+          prompt: `Multiple choice — A business owner sees one surprising dashboard number and draws a conclusion about ${topic.title}. Which response best applies the evidence? A) Treat the number as certain proof. B) Check the relevant pattern and make a cautious decision. C) Ignore all records. D) Assume confidence makes the conclusion correct.`,
+          correctAnswer: "B — Check the relevant pattern and make a cautious decision.",
+          explanation:
+            "Full credit applies the topic to the specific evidence instead of treating one observation as proof.",
+        }
+      : {
+      prompt: `Practice (${topic.title}): A business owner sees one surprising dashboard number and must decide what to do; in one concise sentence, apply "${topic.title}" to explain the careful next step.`,
       correctAnswer:
-        "A strong answer applies the topic to the concrete situation step by step — saying what to look at, what it would mean, and what to do next — rather than just naming or defining the idea.",
+        "A strong answer applies the topic to the specific observation and recommends a careful next step rather than treating it as proof.",
       explanation:
         "Full credit reasons about the specific situation and shows operational understanding; restating a definition does not earn credit.",
-    };
+      };
+  }
+  if (
+    shouldBeMultipleChoice
+      ? !isMultipleChoicePrompt(generated.prompt) || !/^[A-D]\s*—\s*\S/.test(generated.correctAnswer)
+      : isMultipleChoicePrompt(generated.prompt) || !generated.prompt.includes("one concise sentence")
+  ) {
+    res.status(502).json({ error: "generated problem did not meet required assessment format" });
+    return;
   }
 
   const [stored] = await db

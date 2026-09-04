@@ -297,7 +297,7 @@ export const GetAttemptResponse = zod.object({
 
 
 /**
- * @summary Save (or update) a single answer with keystroke trace
+ * @summary Save, verify, and immediately grade one complete answer
  */
 export const SaveAnswerParams = zod.object({
   "attemptId": zod.coerce.number()
@@ -321,7 +321,12 @@ export const SaveAnswerBody = zod.object({
 })
 
 export const SaveAnswerResponse = zod.object({
-  "ok": zod.boolean()
+  "ok": zod.boolean(),
+  "persistedAnswer": zod.string().describe('The exact full answer read back from the database after saving.'),
+  "savedLength": zod.number().describe('Character length of the persisted answer.'),
+  "correct": zod.boolean(),
+  "gradePercent": zod.number().describe('Immediate numeric grade for this question (0 or 100).'),
+  "explanation": zod.string()
 })
 
 

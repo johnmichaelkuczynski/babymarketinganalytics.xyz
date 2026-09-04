@@ -27,6 +27,43 @@ type Step = {
   error?: string;
 };
 
+type LiveProofEvent =
+  | {
+      type: "started";
+      total: number;
+      generatedAt: string;
+    }
+  | {
+      type: "answer";
+      index: number;
+      problemId: number;
+      prompt: string;
+      answer: string;
+      requestedLength: string;
+    }
+  | {
+      type: "verified";
+      index: number;
+      problemId: number;
+      answer: string;
+      savedLength: number;
+      correct: boolean;
+      gradePercent: number;
+      explanation: string;
+      persistedExactly: boolean;
+    }
+  | {
+      type: "failed";
+      index?: number;
+      error: string;
+    }
+  | {
+      type: "complete";
+      ok: boolean;
+      verified: number;
+      total: number;
+    };
+
 async function run(name: string, fn: () => Promise<string | void>): Promise<Step> {
   const t0 = Date.now();
   try {
@@ -138,6 +175,188 @@ router.get("/diagnostics/system", async (_req, res) => {
 
   const ok = steps.every((s) => s.ok);
   res.json({ ok, generatedAt: new Date().toISOString(), steps });
+});
+
+// ---------- Live answer + database-backed grading proof ----------
+// Streams each complete generated response to the browser, saves it through the
+// same answer table used by real assignments, grades it with the production
+// semantic grader, then SELECTs it back and proves that neither the answer nor
+// its grade was truncated or lost.
+router.post("/diagnostics/live-grading-proof", async (req, res): Promise<void> => {
+  res.setTimeout(10 * 60 * 1000);
+  res.status(200);
+  res.setHeader("content-type", "application/x-ndjson; charset=utf-8");
+  res.setHeader("cache-control", "no-cache, no-transform");
+  res.setHeader("x-accel-buffering", "no");
+  res.flushHeaders();
+
+  const send = (event: LiveProofEvent) => {
+    res.write(`${JSON.stringify(event)}\n`);
+  };
+
+  const lengthPlans = [
+    {
+      label: "one concise sentence",
+      instruction: "Write one concise sentence.",
+    },
+    {
+      label: "one complete paragraph",
+      instruction: "Write one complete paragraph of 4 to 6 sentences.",
+    },
+    {
+      label: "five paragraphs",
+      instruction:
+        "Write five short paragraphs. Each paragraph must add relevant reasoning, and the complete response must remain substantively correct.",
+    },
+  ] as const;
+
+  let verifiedCount = 0;
+  try {
+    const candidates = await db
+      .select({
+        id: problemsTable.id,
+        assignmentId: problemsTable.assignmentId,
+        prompt: problemsTable.prompt,
+        correctAnswer: problemsTable.correctAnswer,
+      })
+      .from(problemsTable)
+      .orderBy(asc(problemsTable.id));
+    if (candidates.length < lengthPlans.length) {
+      throw new Error("At least three real course problems are required.");
+    }
+
+    const stride = Math.max(1, Math.floor(candidates.length / lengthPlans.length));
+    const selected = lengthPlans.map(
+      (_, index) => candidates[Math.min(index * stride, candidates.length - 1)]!,
+    );
+    send({
+      type: "started",
+      total: selected.length,
+      generatedAt: new Date().toISOString(),
+    });
+
+    for (let index = 0; index < selected.length; index += 1) {
+      const problem = selected[index]!;
+      const plan = lengthPlans[index]!;
+      const answer = (
+        await chatText(
+          [
+            "You are a real student demonstrating that a predictive-analytics course can preserve and grade complete written answers.",
+            "Answer the question correctly on substance, in natural language, without copying the reference answer word-for-word.",
+            "The reference is a fallible hint, not a phrase-matching target.",
+            plan.instruction,
+            "Return only the student answer, with no label or preamble.",
+          ].join("\n"),
+          JSON.stringify({
+            question: problem.prompt,
+            referenceHint: problem.correctAnswer,
+          }),
+        )
+      ).trim();
+      if (!answer) throw new Error(`Generated answer ${index + 1} was empty.`);
+
+      send({
+        type: "answer",
+        index,
+        problemId: problem.id,
+        prompt: problem.prompt,
+        answer,
+        requestedLength: plan.label,
+      });
+
+      const [attempt] = await db
+        .insert(attemptsTable)
+        .values({
+          assignmentId: problem.assignmentId,
+          status: "in_progress",
+        })
+        .returning();
+      if (!attempt) throw new Error(`Could not create proof attempt ${index + 1}.`);
+
+      const trace = syntheticTrace(answer, Math.max(12_000, answer.length * 45));
+      const [saved] = await db
+        .insert(answersTable)
+        .values({
+          attemptId: attempt.id,
+          problemId: problem.id,
+          answer,
+          keystrokeCount: trace.keystrokeCount,
+          eraseCount: trace.eraseCount,
+          bulkInsertCount: trace.bulkInsertCount,
+          longestBulkInsertChars: trace.longestBulkInsertChars,
+          rewriteSegments: trace.rewriteSegments,
+          durationMs: trace.durationMs,
+        })
+        .returning();
+      if (!saved) throw new Error(`Could not save proof answer ${index + 1}.`);
+
+      const graded = await gradeAnswer({
+        prompt: problem.prompt,
+        correctAnswer: problem.correctAnswer,
+        userAnswer: answer,
+      });
+      await db
+        .update(answersTable)
+        .set({ correct: graded.correct, updatedAt: new Date() })
+        .where(eq(answersTable.id, saved.id));
+      await db
+        .update(attemptsTable)
+        .set({
+          status: "submitted",
+          submittedAt: new Date(),
+          scorePercent: graded.correct ? 100 : 0,
+        })
+        .where(eq(attemptsTable.id, attempt.id));
+
+      const [readBack] = await db
+        .select()
+        .from(answersTable)
+        .where(eq(answersTable.id, saved.id));
+      const persistedExactly =
+        !!readBack &&
+        readBack.answer === answer &&
+        readBack.answer.length === answer.length &&
+        readBack.correct === graded.correct;
+      if (!persistedExactly) {
+        throw new Error(
+          `Answer ${index + 1} failed exact database read-back verification.`,
+        );
+      }
+      verifiedCount += 1;
+      send({
+        type: "verified",
+        index,
+        problemId: problem.id,
+        answer: readBack.answer,
+        savedLength: readBack.answer.length,
+        correct: readBack.correct === true,
+        gradePercent: readBack.correct === true ? 100 : 0,
+        explanation: graded.explanation,
+        persistedExactly,
+      });
+    }
+
+    send({
+      type: "complete",
+      ok: verifiedCount === lengthPlans.length,
+      verified: verifiedCount,
+      total: lengthPlans.length,
+    });
+  } catch (error) {
+    req.log.error({ err: error }, "Live grading proof failed");
+    send({
+      type: "failed",
+      error: error instanceof Error ? error.message : String(error),
+    });
+    send({
+      type: "complete",
+      ok: false,
+      verified: verifiedCount,
+      total: lengthPlans.length,
+    });
+  } finally {
+    res.end();
+  }
 });
 
 // ---------- Diagnostic 2: synthetic student ----------
@@ -331,7 +550,7 @@ router.post("/diagnostics/synthetic-run", async (_req, res) => {
           correctAnswer: string;
           explanation: string;
         }>(
-          `You generate a single introductory predictive analytics practice problem on "${topic.title}" at easy difficulty, with a short answer (a word, term, "yes"/"no", or short phrase). Respond as strict JSON: {"prompt": string, "correctAnswer": string, "explanation": string}.`,
+          `You generate a single introductory predictive analytics practice problem on "${topic.title}" at easy difficulty. Present a concrete scenario that requires application, never a definition or recitation; require one concise sentence, never a word, term, yes/no, or short phrase. Respond as strict JSON: {"prompt": string, "correctAnswer": string, "explanation": string}.`,
           `New problem on ${topic.title}.`,
         );
         const [stored] = await db

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
-import { CheckCircle2, XCircle, Loader2, PlayCircle, Activity, ShieldCheck } from "lucide-react";
+import { CheckCircle2, XCircle, Loader2, PlayCircle, Activity, ShieldCheck, FileCheck2 } from "lucide-react";
 
 type Step = {
   name: string;
@@ -14,6 +14,43 @@ type RunResult = {
   generatedAt: string;
   steps: Step[];
 };
+
+type LiveProofItem = {
+  index: number;
+  problemId: number;
+  prompt: string;
+  answer: string;
+  requestedLength: string;
+  savedLength?: number;
+  correct?: boolean;
+  gradePercent?: number;
+  explanation?: string;
+  persistedExactly?: boolean;
+};
+
+type LiveProofEvent =
+  | { type: "started"; total: number; generatedAt: string }
+  | {
+      type: "answer";
+      index: number;
+      problemId: number;
+      prompt: string;
+      answer: string;
+      requestedLength: string;
+    }
+  | {
+      type: "verified";
+      index: number;
+      problemId: number;
+      answer: string;
+      savedLength: number;
+      correct: boolean;
+      gradePercent: number;
+      explanation: string;
+      persistedExactly: boolean;
+    }
+  | { type: "failed"; index?: number; error: string }
+  | { type: "complete"; ok: boolean; verified: number; total: number };
 
 const API = `${import.meta.env.BASE_URL.replace(/\/$/, "")}/api`.replace(
   /^\/api/,
@@ -73,6 +110,14 @@ function ResultCard({ title, result }: { title: string; result: RunResult | null
 }
 
 export default function Diagnostics() {
+  const [proofBusy, setProofBusy] = useState(false);
+  const [proofItems, setProofItems] = useState<LiveProofItem[]>([]);
+  const [proofSummary, setProofSummary] = useState<{
+    ok: boolean;
+    verified: number;
+    total: number;
+  } | null>(null);
+  const [proofError, setProofError] = useState<string | null>(null);
   const [sysBusy, setSysBusy] = useState(false);
   const [synthBusy, setSynthBusy] = useState(false);
   const [qcBusy, setQcBusy] = useState(false);
@@ -82,6 +127,77 @@ export default function Diagnostics() {
   const [sysError, setSysError] = useState<string | null>(null);
   const [synthError, setSynthError] = useState<string | null>(null);
   const [qcError, setQcError] = useState<string | null>(null);
+
+  async function runLiveProof() {
+    setProofBusy(true);
+    setProofItems([]);
+    setProofSummary(null);
+    setProofError(null);
+    try {
+      const response = await fetch(apiUrl("/diagnostics/live-grading-proof"), {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: "{}",
+      });
+      if (!response.ok || !response.body) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffered = "";
+      const processLine = (line: string) => {
+        if (!line.trim()) return;
+        const event = JSON.parse(line) as LiveProofEvent;
+        if (event.type === "answer") {
+          setProofItems((items) => [
+            ...items.filter((item) => item.index !== event.index),
+            {
+              index: event.index,
+              problemId: event.problemId,
+              prompt: event.prompt,
+              answer: event.answer,
+              requestedLength: event.requestedLength,
+            },
+          ].sort((a, b) => a.index - b.index));
+        } else if (event.type === "verified") {
+          setProofItems((items) =>
+            items.map((item) =>
+              item.index === event.index
+                ? {
+                    ...item,
+                    answer: event.answer,
+                    savedLength: event.savedLength,
+                    correct: event.correct,
+                    gradePercent: event.gradePercent,
+                    explanation: event.explanation,
+                    persistedExactly: event.persistedExactly,
+                  }
+                : item,
+            ),
+          );
+        } else if (event.type === "failed") {
+          setProofError(event.error);
+        } else if (event.type === "complete") {
+          setProofSummary(event);
+        }
+      };
+
+      while (true) {
+        const { done, value } = await reader.read();
+        buffered += decoder.decode(value, { stream: !done });
+        const lines = buffered.split("\n");
+        buffered = lines.pop() ?? "";
+        lines.forEach(processLine);
+        if (done) break;
+      }
+      processLine(buffered);
+    } catch (error) {
+      setProofError(error instanceof Error ? error.message : String(error));
+    } finally {
+      setProofBusy(false);
+    }
+  }
 
   async function runSystem() {
     setSysBusy(true);
@@ -142,9 +258,84 @@ export default function Diagnostics() {
         <div>
           <h1 className="font-serif text-3xl mb-1">Diagnostics</h1>
           <p className="text-muted-foreground">
-            Three self-tests to verify the course app is healthy end-to-end.
+            Four self-tests to verify the course app is healthy end-to-end.
           </p>
         </div>
+
+        <section className="space-y-3">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <h2 className="font-serif text-xl flex items-center gap-2">
+                <FileCheck2 className="w-5 h-5" /> Live answer and grading proof
+              </h2>
+              <p className="text-sm text-muted-foreground mt-1">
+                Writes fresh answers of three different lengths to real course questions and
+                displays each complete response immediately. Every answer is saved, graded by
+                the production semantic grader, reread from the database, and verified
+                character-for-character.
+              </p>
+            </div>
+            <button
+              onClick={runLiveProof}
+              disabled={proofBusy}
+              className="shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground font-medium disabled:opacity-60"
+            >
+              {proofBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : <PlayCircle className="w-4 h-4" />}
+              {proofBusy ? "Writing and grading…" : "Run live grading proof"}
+            </button>
+          </div>
+          {proofError && (
+            <div className="text-sm text-red-700 font-mono">{proofError}</div>
+          )}
+          {proofItems.length > 0 && (
+            <div className="space-y-4">
+              {proofItems.map((item) => (
+                <div key={`${item.problemId}-${item.index}`} className="rounded-lg border bg-card p-5">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div className="font-semibold">
+                      Proof {item.index + 1} · {item.requestedLength}
+                    </div>
+                    {item.persistedExactly === undefined ? (
+                      <span className="text-sm text-amber-700 inline-flex items-center gap-1">
+                        <Loader2 className="w-4 h-4 animate-spin" /> Grading now
+                      </span>
+                    ) : (
+                      <span className="text-sm text-green-700 inline-flex items-center gap-1">
+                        <CheckCircle2 className="w-4 h-4" /> Saved and verified
+                      </span>
+                    )}
+                  </div>
+                  <div className="mt-3 text-sm text-muted-foreground">{item.prompt}</div>
+                  <div className="mt-3 whitespace-pre-wrap rounded-md border bg-background p-4 text-sm leading-relaxed">
+                    {item.answer}
+                  </div>
+                  {item.persistedExactly !== undefined && (
+                    <div className="mt-3 text-sm space-y-1">
+                      <div>
+                        <strong>{item.savedLength} characters</strong> reread exactly from the database.
+                      </div>
+                      <div>
+                        Grade: <strong>{item.gradePercent}%</strong>
+                      </div>
+                      {item.explanation && <div>{item.explanation}</div>}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+          {proofSummary && (
+            <div className={`rounded-md border p-4 text-sm font-medium ${
+              proofSummary.ok
+                ? "border-green-300 bg-green-50 text-green-800"
+                : "border-red-300 bg-red-50 text-red-800"
+            }`}>
+              {proofSummary.ok
+                ? `${proofSummary.verified}/${proofSummary.total} complete answers were graded, saved, and verified without truncation.`
+                : `${proofSummary.verified}/${proofSummary.total} answers passed full persistence and grading verification.`}
+            </div>
+          )}
+        </section>
 
         <section className="space-y-3">
           <div className="flex items-start justify-between gap-4">

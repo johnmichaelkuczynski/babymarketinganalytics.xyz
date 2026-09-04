@@ -37,8 +37,7 @@ export default function PracticeAssignment() {
   const [set, setSet] = useState<PracticeAssignmentSet | null>(null);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [traces, setTraces] = useState<Record<number, KeystrokeTrace>>({});
-  const [results, setResults] = useState<PracticeAssignmentResult[] | null>(null);
-  const [percent, setPercent] = useState<number | null>(null);
+  const [results, setResults] = useState<PracticeAssignmentResult[]>([]);
 
   // Lifted tutor state so per-problem "Discuss this feedback" buttons can seed
   // the conversation while the tutor stays on-screen the whole time.
@@ -46,8 +45,7 @@ export default function PracticeAssignment() {
   const ask = useAskTutor();
 
   function newSet() {
-    setResults(null);
-    setPercent(null);
+    setResults([]);
     setAnswers({});
     setTraces({});
     setSet(null);
@@ -63,19 +61,23 @@ export default function PracticeAssignment() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [assignmentId]);
 
-  function submitForFeedback() {
+  function submitForFeedback(problemId: number) {
     if (!set) return;
-    const payload = set.problems.map((p) => ({
-      problemId: p.id,
-      answer: answers[p.id] ?? "",
-      trace: traces[p.id],
-    }));
+    const payload = [{
+      problemId,
+      answer: answers[problemId] ?? "",
+      trace: traces[problemId],
+    }];
     grader.mutate(
       { sessionId: set.sessionId, data: { answers: payload } },
       {
         onSuccess: (data) => {
-          setResults(data.results);
-          setPercent(data.percent);
+          const result = data.results[0];
+          if (!result) return;
+          setResults((current) => [
+            ...current.filter((item) => item.problemId !== problemId),
+            result,
+          ]);
         },
       },
     );
@@ -112,7 +114,7 @@ export default function PracticeAssignment() {
     sendToTutor(backendMessage, "Can you walk me through what I missed on this one?");
   }
 
-  const resultById = new Map((results ?? []).map((r) => [r.problemId, r]));
+  const resultById = new Map(results.map((r) => [r.problemId, r]));
 
   return (
     <Layout>
@@ -197,7 +199,7 @@ export default function PracticeAssignment() {
                           ) : (
                             <XCircle className="w-4 h-4" />
                           )}
-                          {r.correct ? "On track" : "Needs work"}
+                          Grade: {r.correct ? 100 : 0}%
                         </span>
                       )}
                     </div>
@@ -212,8 +214,20 @@ export default function PracticeAssignment() {
                         setAnswers((prev) => ({ ...prev, [p.id]: val }));
                         setTraces((prev) => ({ ...prev, [p.id]: trace }));
                       }}
-                      disabled={!!results}
+                      disabled={grader.isPending || !!r}
                     />
+
+                    {!r && (
+                      <div className="flex justify-end">
+                        <Button
+                          onClick={() => submitForFeedback(p.id)}
+                          disabled={grader.isPending || !(answers[p.id] ?? "").trim()}
+                          className="bg-chart-2 hover:bg-chart-2/90 text-white"
+                        >
+                          {grader.isPending ? "Grading…" : "Submit this answer"}
+                        </Button>
+                      </div>
+                    )}
 
                     {r && (
                       <div
@@ -264,25 +278,12 @@ export default function PracticeAssignment() {
                   Generate another practice set
                 </Button>
 
-                {!results ? (
-                  <Button
-                    onClick={submitForFeedback}
-                    disabled={grader.isPending}
-                    className="bg-chart-2 hover:bg-chart-2/90 text-white"
-                  >
-                    {grader.isPending ? "Getting feedback…" : "Submit for feedback"}
-                  </Button>
-                ) : (
+                {results.length > 0 && (
                   <div className="flex items-center gap-3">
                     <span className="text-sm text-muted-foreground">
-                      Practice score:{" "}
-                      <strong className="text-foreground">{percent}%</strong>{" "}
-                      (not graded)
+                      <strong className="text-foreground">{results.length}</strong>{" "}
+                      of {set.problems.length} answers graded immediately (practice only)
                     </span>
-                    <Button onClick={newSet} disabled={generate.isPending}>
-                      <Sparkles className="w-4 h-4 mr-2" />
-                      Practice again
-                    </Button>
                   </div>
                 )}
               </div>

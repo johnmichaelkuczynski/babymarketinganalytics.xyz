@@ -19,6 +19,27 @@ import { gradePracticeEssay } from "../lib/grading";
 
 const router: IRouter = Router();
 
+function isMultipleChoicePrompt(prompt: string): boolean {
+  return (
+    prompt.startsWith("Multiple choice —") &&
+    ["A)", "B)", "C)", "D)"].every((option) => prompt.includes(option))
+  );
+}
+
+function isValidGeneratedProblem(
+  problem: { prompt: string; correctAnswer: string },
+  shouldBeMultipleChoice: boolean,
+): boolean {
+  const prompt = problem.prompt.trim();
+  if (shouldBeMultipleChoice) {
+    return isMultipleChoicePrompt(prompt) && /^[A-D]\s*—\s*\S/.test(problem.correctAnswer.trim());
+  }
+  return (
+    !isMultipleChoicePrompt(prompt) &&
+    (prompt.includes("one concise sentence") || prompt.includes("at most two sentences"))
+  );
+}
+
 function parseIdParam(raw: unknown): number {
   const s = Array.isArray(raw) ? raw[0] : (raw as string);
   return parseInt(s ?? "", 10);
@@ -82,7 +103,7 @@ router.post(
           explanation: string;
         }>;
       }>(
-        `You write a PRACTICE version of an introductory predictive analytics ${assignment.kind} titled "${assignment.title}". You are given the real assignment's problems as templates. Produce EXACTLY ${templates.length} NEW problems, one per template, in the same order. Each new problem must: (1) cover the SAME topic and test the SAME concept as its template, (2) be clearly DIFFERENT in wording, scenario, and specifics (never copy the template), (3) match the template's style and answer length (if the template expects a reasoned paragraph, write a problem that calls for a reasoned paragraph), (4) be fully self-contained — do NOT reference "the lecture", "the text", "the course", or any named example a student would only know from a specific reading; state any scenario in full inside the problem. For each problem also write the model "correctAnswer" (what a strong student answer contains) and a short "explanation" of the reasoning. Respond as strict JSON: {"problems": [{"prompt": string, "correctAnswer": string, "explanation": string}, ...]} with exactly ${templates.length} items.`,
+        `You write a PRACTICE version of an introductory predictive analytics ${assignment.kind} titled "${assignment.title}". Produce EXACTLY ${templates.length} new, self-contained scenario-reasoning problems. Use a deterministic format: items 1, 3, 5, etc. are multiple choice and items 2, 4, 6, etc. are written, yielding roughly 50% multiple choice. Every item covers the same topic and concept as its matching template but has a different scenario and wording; never ask a definition or recitation. For each multiple-choice item, start the prompt exactly "Multiple choice —", give four clearly labeled options A), B), C), D), and make correctAnswer start with the correct option letter followed by " — " and the correct option's substance. For each written item, present a concrete scenario, explicitly require "one concise sentence" (or "at most two sentences"), and give a concise model answer. Do not reference the lecture, text, course, or named reading examples. Include a short explanation. Respond as strict JSON: {"problems": [{"prompt": string, "correctAnswer": string, "explanation": string}, ...]} with exactly ${templates.length} items.`,
         JSON.stringify({
           assignmentKind: assignment.kind,
           assignmentTitle: assignment.title,
@@ -103,12 +124,14 @@ router.post(
     const finalProblems = templates.map((t, i) => {
       const g = generated[i];
       const topic = t.topicTitle ?? "this topic";
+      const shouldBeMultipleChoice = i % 2 === 0;
       if (
         g &&
         typeof g.prompt === "string" &&
         g.prompt.trim() &&
         typeof g.correctAnswer === "string" &&
-        g.correctAnswer.trim()
+        g.correctAnswer.trim() &&
+        isValidGeneratedProblem(g, shouldBeMultipleChoice)
       ) {
         return {
           topicId: t.topicId,
@@ -121,8 +144,12 @@ router.post(
       }
       return {
         topicId: t.topicId,
-        prompt: `Practice (${topic}): In a short paragraph, explain the central idea of "${topic}" and apply it to an original example you describe in full.`,
-        correctAnswer: t.correctAnswer,
+          prompt: shouldBeMultipleChoice
+            ? `Multiple choice — A neighborhood shop faces a decision after a surprising pattern in its data about ${topic}. Which response best applies the evidence? A) Treat one observation as certain proof. B) Check the pattern and make a cautious decision that fits the evidence. C) Ignore all data. D) Assume a confident claim guarantees the outcome.`
+            : `Practice (${topic}): A neighborhood shop must act after seeing a surprising pattern in its data; in one concise sentence, explain how the idea behind "${topic}" should guide its decision.`,
+          correctAnswer: shouldBeMultipleChoice
+            ? "B — Check the pattern and make a cautious decision that fits the evidence."
+            : t.correctAnswer,
         explanation:
           "Re-read the relevant section, state the main claim in your own words, and ground it with a concrete example.",
       };
@@ -223,8 +250,16 @@ router.post(
       parsed.data.answers.map((a) => [a.problemId, a]),
     );
 
+    const submittedProblems = problems.filter((problem) =>
+      answerByProblem.has(problem.id),
+    );
+    if (submittedProblems.length === 0) {
+      res.status(400).json({ error: "submit at least one answer for grading" });
+      return;
+    }
+
     const results = await Promise.all(
-      problems.map(async (problem) => {
+      submittedProblems.map(async (problem) => {
         const submitted = answerByProblem.get(problem.id);
         const answer = submitted?.answer ?? "";
         const graded = await gradePracticeEssay({

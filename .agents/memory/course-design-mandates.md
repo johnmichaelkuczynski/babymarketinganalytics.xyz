@@ -1,5 +1,5 @@
 ---
-name: Course design mandates (Data Detective)
+name: Course design mandates (Basic Predictive Analytics)
 description: Non-obvious user mandates about the AI course UX that look removable but are intentional and must be preserved.
 ---
 
@@ -21,13 +21,27 @@ trace, or legitimate symbol use false-flags the AI-authorship detector.
 
 ## Questions must require operational reasoning, never recitation
 ALL questions — homeworks, unit test, final, practice assignments, AND the adaptive
-topic drill — must pose a specific concrete scenario and require a multi-sentence
-reasoned answer. Never a one-word/single-term/"yes-no" answer, never "define X" or
-"recite the abstract formulation from the text."
+topic drill — must pose a specific concrete scenario. Never a one-word/single-term/
+"yes-no" answer, never "define X" or "recite the abstract formulation from the text."
+Around half must be multiple choice. Non-multiple-choice items must never require more
+than two sentences, and at least 60% must be answerable in one sentence.
 
 **Why:** Repeated, emphatic user mandate — answers must be "hard to share" and prove
 operational understanding, not memorization. The adaptive drill previously generated
 single-word concept-ID questions and was the one place that violated this.
 **How to apply:** Any new question-generation prompt must forbid definitions/one-word
-answers and demand a concrete case + reasoned answer. The semantic `gradeAnswer` grader
-already handles reasoned answers, so longer answers are safe to grade.
+answers, demand a concrete case, preserve the roughly 50% multiple-choice mix, and keep
+written responses concise. Grade substance and equivalent reasoning, not course jargon,
+wording, grammar, formatting, or compliance with a length instruction. Every on-the-spot
+question result must show an actual percentage grade, not only a qualitative label.
+
+## Full answers must be saved once and verified before grading
+Written assignment answers must not be autosaved through concurrent per-keystroke
+requests. Save the complete response on explicit per-question submission, read it back
+exactly, and grade that verified text immediately.
+
+**Why:** Concurrent per-keystroke saves allowed stale, shorter requests to overwrite
+completed paragraphs, causing the grader to see an empty or truncated answer.
+**How to apply:** Keep full text in client state while typing. On submission, persist one
+complete payload, verify the stored character-for-character value, then run semantic
+grading and expose the saved length and verdict to the student.

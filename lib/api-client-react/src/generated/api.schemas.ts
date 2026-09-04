@@ -192,6 +192,14 @@ export interface AnswerInput {
 
 export interface AnswerSaved {
   ok: boolean;
+  /** The exact full answer read back from the database after saving. */
+  persistedAnswer: string;
+  /** Character length of the persisted answer. */
+  savedLength: number;
+  correct: boolean;
+  /** Immediate numeric grade for this question (0 or 100). */
+  gradePercent: number;
+  explanation: string;
 }
 
 export interface SubmitAttemptInput {

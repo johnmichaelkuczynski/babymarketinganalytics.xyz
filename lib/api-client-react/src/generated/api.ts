@@ -985,7 +985,7 @@ export const getSaveAnswerUrl = (attemptId: number,) => {
 }
 
 /**
- * @summary Save (or update) a single answer with keystroke trace
+ * @summary Save, verify, and immediately grade one complete answer
  */
 export const saveAnswer = async (attemptId: number,
     answerInput: AnswerInput, options?: RequestInit): Promise<AnswerSaved> => {
@@ -1035,7 +1035,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type SaveAnswerMutationError = ErrorType<unknown>
 
     /**
- * @summary Save (or update) a single answer with keystroke trace
+ * @summary Save, verify, and immediately grade one complete answer
  */
 export const useSaveAnswer = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof saveAnswer>>, TError,{attemptId: number;data: BodyType<AnswerInput>}, TContext>, request?: SecondParameter<typeof customFetch>}

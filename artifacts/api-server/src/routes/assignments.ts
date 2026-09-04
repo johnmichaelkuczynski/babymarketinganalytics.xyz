@@ -12,6 +12,7 @@ import {
   GetAssignmentResponse,
   ListAssignmentsResponse,
   SaveAnswerBody,
+  SaveAnswerResponse,
   StartAssignmentAttemptResponse,
   GetAttemptResponse,
   SubmitAttemptResponse,
@@ -218,6 +219,20 @@ router.put("/assignments/attempts/:attemptId/answer", async (req, res): Promise<
     return;
   }
 
+  const [problem] = await db
+    .select()
+    .from(problemsTable)
+    .where(
+      and(
+        eq(problemsTable.id, problemId),
+        eq(problemsTable.assignmentId, attempt.assignmentId),
+      ),
+    );
+  if (!problem) {
+    res.status(404).json({ error: "problem not found for this attempt" });
+    return;
+  }
+
   const [existing] = await db
     .select()
     .from(answersTable)
@@ -233,6 +248,7 @@ router.put("/assignments/attempts/:attemptId/answer", async (req, res): Promise<
     longestBulkInsertChars: trace.longestBulkInsertChars ?? 0,
     rewriteSegments: trace.rewriteSegments ?? 0,
     durationMs: trace.durationMs,
+    correct: null,
     updatedAt: new Date(),
   };
   if (existing) {
@@ -240,7 +256,67 @@ router.put("/assignments/attempts/:attemptId/answer", async (req, res): Promise<
   } else {
     await db.insert(answersTable).values(values);
   }
-  res.json({ ok: true });
+
+  const [persisted] = await db
+    .select()
+    .from(answersTable)
+    .where(and(eq(answersTable.attemptId, id), eq(answersTable.problemId, problemId)));
+  if (!persisted || persisted.answer !== answer) {
+    res.status(500).json({
+      error: "The full answer could not be verified after saving. It was not graded.",
+    });
+    return;
+  }
+
+  let graded: Awaited<ReturnType<typeof gradeAnswer>>;
+  try {
+    graded = await gradeAnswer({
+      prompt: problem.prompt,
+      correctAnswer: problem.correctAnswer,
+      userAnswer: persisted.answer,
+    });
+  } catch (error) {
+    req.log.error(
+      { err: error, attemptId: id, problemId, savedLength: persisted.answer.length },
+      "Immediate answer grading failed after the answer was saved",
+    );
+    res.status(503).json({
+      error:
+        "Your complete answer was saved, but the grader is temporarily unavailable. Submit it again to grade it.",
+    });
+    return;
+  }
+
+  await db
+    .update(answersTable)
+    .set({ correct: graded.correct, updatedAt: new Date() })
+    .where(eq(answersTable.id, persisted.id));
+
+  const [verified] = await db
+    .select()
+    .from(answersTable)
+    .where(eq(answersTable.id, persisted.id));
+  if (
+    !verified ||
+    verified.answer !== answer ||
+    verified.correct !== graded.correct
+  ) {
+    res.status(500).json({
+      error: "The saved answer and grade could not be verified in the database.",
+    });
+    return;
+  }
+
+  res.json(
+    SaveAnswerResponse.parse({
+      ok: true,
+      persistedAnswer: verified.answer,
+      savedLength: verified.answer.length,
+      correct: graded.correct,
+      gradePercent: graded.correct ? 100 : 0,
+      explanation: graded.explanation,
+    }),
+  );
 });
 
 router.post("/assignments/attempts/:attemptId/submit", async (req, res): Promise<void> => {

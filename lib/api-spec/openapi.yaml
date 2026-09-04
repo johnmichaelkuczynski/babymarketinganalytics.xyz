@@ -248,7 +248,7 @@ paths:
     put:
       operationId: saveAnswer
       tags: [assignments]
-      summary: Save (or update) a single answer with keystroke trace
+      summary: Save, verify, and immediately grade one complete answer
       parameters:
         - name: attemptId
           in: path
@@ -779,9 +779,20 @@ components:
 
     AnswerSaved:
       type: object
-      required: [ok]
+      required: [ok, persistedAnswer, savedLength, correct, gradePercent, explanation]
       properties:
         ok: { type: boolean }
+        persistedAnswer:
+          type: string
+          description: The exact full answer read back from the database after saving.
+        savedLength:
+          type: integer
+          description: Character length of the persisted answer.
+        correct: { type: boolean }
+        gradePercent:
+          type: number
+          description: Immediate numeric grade for this question (0 or 100).
+        explanation: { type: string }
 
     SubmitAttemptInput:
       type: object
