@@ -632,6 +632,27 @@ export const GenerateReportResponse = zod.object({
 
 
 /**
+ * @summary Register a public course visitor and return the all-time unique visitor count
+ */
+export const registerVisitorBodyVisitorIdMin = 16;
+export const registerVisitorBodyVisitorIdMax = 100;
+
+
+
+export const RegisterVisitorBody = zod.object({
+  "visitorId": zod.string().min(registerVisitorBodyVisitorIdMin).max(registerVisitorBodyVisitorIdMax).describe('Anonymous browser identifier used only to avoid counting repeat visits as new visitors.')
+})
+
+export const registerVisitorResponseCountMin = 0;
+
+
+
+export const RegisterVisitorResponse = zod.object({
+  "count": zod.number().min(registerVisitorResponseCountMin)
+})
+
+
+/**
  * @summary List all diagnostic reasoning assessments with attempt status
  */
 export const ListReasoningAssessmentsResponseItem = zod.object({

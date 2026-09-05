@@ -1,11 +1,60 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "wouter";
-import { LayoutDashboard, PenTool, BarChart3, RotateCcw, Sparkles, Scale, GraduationCap, ShieldCheck, Search, KeyRound } from "lucide-react";
+import { LayoutDashboard, PenTool, BarChart3, RotateCcw, Sparkles, Scale, GraduationCap, ShieldCheck, Search, KeyRound, Users } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAdminMode } from "@/lib/adminMode";
 import zhiLogo from "@assets/0_zhi_logoc_1787771301064.png";
 
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
+const visitorStorageKey = "basic-predictive-analytics-visitor-id";
+let visitorCountRequest: Promise<number> | null = null;
+
+function loadVisitorCount() {
+  if (visitorCountRequest) return visitorCountRequest;
+
+  visitorCountRequest = (async () => {
+    let visitorId = window.localStorage.getItem(visitorStorageKey);
+    if (!visitorId) {
+      visitorId = window.crypto.randomUUID();
+      window.localStorage.setItem(visitorStorageKey, visitorId);
+    }
+
+    const response = await fetch(`${basePath}/api/visitors`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ visitorId }),
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = (await response.json()) as { count: number };
+    return data.count;
+  })().catch((error) => {
+    visitorCountRequest = null;
+    throw error;
+  });
+
+  return visitorCountRequest;
+}
+
+function VisitorCounter() {
+  const [count, setCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    void loadVisitorCount().then(setCount).catch(() => setCount(null));
+  }, []);
+
+  return (
+    <div
+      className="mb-3 flex items-center justify-center gap-1.5 text-xs text-muted-foreground"
+      aria-label={count === null ? "Visitor count loading" : `${count.toLocaleString()} visitors`}
+      data-testid="visitor-counter"
+    >
+      <Users className="h-3.5 w-3.5" aria-hidden="true" />
+      <span className="tabular-nums">
+        {count === null ? "Visitors: —" : `Visitors: ${count.toLocaleString()}`}
+      </span>
+    </div>
+  );
+}
 
 export function Sidebar() {
   const [location] = useLocation();
@@ -59,6 +108,7 @@ export function Sidebar() {
       </div>
 
       <div className="p-4 border-t border-border">
+        <VisitorCounter />
         <div className="flex items-center justify-center gap-3">
           <a
             href="https://zhisystems.ai/"

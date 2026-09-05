@@ -678,6 +678,20 @@ export interface ReasoningResponseInput {
   writtenAnswer?: string | null;
 }
 
+export interface VisitorRegistrationInput {
+  /**
+     * Anonymous browser identifier used only to avoid counting repeat visits as new visitors.
+     * @minLength 16
+     * @maxLength 100
+     */
+  visitorId: string;
+}
+
+export interface VisitorCount {
+  /** @minimum 0 */
+  count: number;
+}
+
 /**
  * Which version of the lecture to rewrite from. Defaults to "short". Use "custom" to refine an existing rewrite further.
  */

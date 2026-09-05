@@ -59,6 +59,8 @@ import type {
   TopicAnalytics,
   TutorAskInput,
   TutorReply,
+  VisitorCount,
+  VisitorRegistrationInput,
   Week
 } from './api.schemas';
 
@@ -1989,6 +1991,77 @@ export const useGenerateReport = <TError = ErrorType<unknown>,
         TContext
       > => {
       return useMutation(getGenerateReportMutationOptions(options));
+    }
+
+export const getRegisterVisitorUrl = () => {
+
+
+
+
+  return `/api/visitors`
+}
+
+/**
+ * @summary Register a public course visitor and return the all-time unique visitor count
+ */
+export const registerVisitor = async (visitorRegistrationInput: VisitorRegistrationInput, options?: RequestInit): Promise<VisitorCount> => {
+
+  return customFetch<VisitorCount>(getRegisterVisitorUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      visitorRegistrationInput,)
+  }
+);}
+
+
+
+
+export const getRegisterVisitorMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof registerVisitor>>, TError,{data: BodyType<VisitorRegistrationInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof registerVisitor>>, TError,{data: BodyType<VisitorRegistrationInput>}, TContext> => {
+
+const mutationKey = ['registerVisitor'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof registerVisitor>>, {data: BodyType<VisitorRegistrationInput>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  registerVisitor(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type RegisterVisitorMutationResult = NonNullable<Awaited<ReturnType<typeof registerVisitor>>>
+    export type RegisterVisitorMutationBody = BodyType<VisitorRegistrationInput>
+    export type RegisterVisitorMutationError = ErrorType<unknown>
+
+    /**
+ * @summary Register a public course visitor and return the all-time unique visitor count
+ */
+export const useRegisterVisitor = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof registerVisitor>>, TError,{data: BodyType<VisitorRegistrationInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof registerVisitor>>,
+        TError,
+        {data: BodyType<VisitorRegistrationInput>},
+        TContext
+      > => {
+      return useMutation(getRegisterVisitorMutationOptions(options));
     }
 
 export const getListReasoningAssessmentsUrl = () => {

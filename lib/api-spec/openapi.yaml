@@ -514,6 +514,25 @@ paths:
               schema:
                 $ref: "#/components/schemas/AnalyticsReport"
 
+  /visitors:
+    post:
+      operationId: registerVisitor
+      tags: [analytics]
+      summary: Register a public course visitor and return the all-time unique visitor count
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VisitorRegistrationInput"
+      responses:
+        "200":
+          description: Visitor registered and current count returned
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VisitorCount"
+
   /reasoning/assessments:
     get:
       operationId: listReasoningAssessments
@@ -1211,6 +1230,24 @@ components:
         writtenAnswer:
           type: ["string", "null"]
           description: written / hybrid — the student's short written answer.
+
+    VisitorRegistrationInput:
+      type: object
+      required: [visitorId]
+      properties:
+        visitorId:
+          type: string
+          minLength: 16
+          maxLength: 100
+          description: Anonymous browser identifier used only to avoid counting repeat visits as new visitors.
+
+    VisitorCount:
+      type: object
+      required: [count]
+      properties:
+        count:
+          type: integer
+          minimum: 0
 
     RewriteLectureInput:
       type: object

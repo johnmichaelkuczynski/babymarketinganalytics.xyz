@@ -11,6 +11,7 @@ import diagnosticsRouter from "./diagnostics";
 import reasoningRouter from "./reasoning";
 import adminRouter from "./admin";
 import administrativeRouter from "./administrative";
+import visitorsRouter from "./visitors";
 
 const router: IRouter = Router();
 
@@ -26,5 +27,6 @@ router.use(diagnosticsRouter);
 router.use(reasoningRouter);
 router.use(adminRouter);
 router.use(administrativeRouter);
+router.use(visitorsRouter);
 
 export default router;
