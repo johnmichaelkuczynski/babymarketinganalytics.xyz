@@ -1,76 +1,61 @@
 import { motion } from 'framer-motion';
+import { TikTokCaption } from './TikTokCaption';
 
 export function Scene3() {
+  const cards = ["Forecast Error", "Uncertainty", "Black Swans", "Overfitting", "Predictions → Decisions"];
+  
   return (
-    <motion.div
-      className="absolute inset-0 flex items-center justify-center bg-slate-900 overflow-hidden"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.8 }}
+    <motion.div 
+      className="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-[#F8F9FA] overflow-hidden"
+      initial={{ x: '100%' }}
+      animate={{ x: 0 }}
+      exit={{ x: '-100%' }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className="absolute inset-0 bg-blue-900/20" />
+      <motion.div
+        className="absolute top-[15%] w-[90%] bg-white rounded-2xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] overflow-hidden border border-slate-200 z-10"
+        initial={{ rotateY: -15, scale: 0.9, opacity: 0, x: -50 }}
+        animate={{ rotateY: 0, scale: 1, opacity: 1, x: 0 }}
+        transition={{ delay: 0.4, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        style={{ perspective: 1000 }}
+      >
+        <div className="bg-slate-50 border-b border-slate-100 p-3 flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full bg-red-400" />
+          <div className="w-3 h-3 rounded-full bg-amber-400" />
+          <div className="w-3 h-3 rounded-full bg-green-400" />
+          <div className="ml-2 font-mono text-[2.5vw] text-slate-400 font-medium">assignments.pdf</div>
+        </div>
+        <img 
+          src={`${import.meta.env.BASE_URL}screenshots/assignments.jpg`} 
+          alt="Assignments" 
+          className="w-full h-auto object-cover object-top"
+        />
+      </motion.div>
 
-      <div className="relative w-[90vw] mx-auto flex items-center justify-between z-10">
-        <div className="w-1/2 pr-[4vw]">
-          <motion.h2
-            className="text-[4.5vw] font-display font-bold text-white leading-tight"
-            initial={{ x: -40, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            Minimize <span className="text-blue-400">busywork.</span>
-            <br />
-            Maximize <span className="text-emerald-400">teaching.</span>
-          </motion.h2>
-
+      <div className="absolute top-[45%] w-full flex flex-col items-center gap-4 z-20 pointer-events-none">
+        {cards.map((text, i) => (
           <motion.div
-            className="mt-[4vh] space-y-[2vh]"
-            initial="hidden"
-            animate="visible"
-            variants={{
-              visible: {
-                transition: { staggerChildren: 0.8, delayChildren: 1.5 }
-              }
-            }}
+            key={text}
+            className={`px-6 py-4 rounded-xl shadow-xl backdrop-blur-md border whitespace-nowrap ${
+              i === 2 || i === 3 ? 'bg-red-500/90 border-red-400 text-white' : 
+              i === 4 ? 'bg-blue-600/90 border-blue-500 text-white' : 
+              'bg-white/90 border-slate-200 text-[#0F172A]'
+            }`}
+            initial={{ opacity: 0, x: i % 2 === 0 ? 50 : -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 1.0 + i * 0.5, duration: 0.8, type: 'spring', stiffness: 200, damping: 20 }}
           >
-            {['Built-in AI tutors', 'Unlimited practice exams', 'Student-friendly tools'].map((text, i) => (
-              <motion.div
-                key={i}
-                variants={{
-                  hidden: { opacity: 0, x: -20 },
-                  visible: { opacity: 1, x: 0, transition: { duration: 0.6 } }
-                }}
-                className="flex items-center gap-[1vw] text-[1.8vw] text-slate-300 font-medium"
-              >
-                <div className="w-[0.8vw] h-[0.8vw] rounded-full bg-blue-500" />
-                {text}
-              </motion.div>
-            ))}
+            <span className="font-bold text-[4.5vw] tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>
+              {text}
+            </span>
           </motion.div>
-        </div>
-
-        <div className="w-1/2 relative h-[80vh]">
-          <motion.img
-            src={`${import.meta.env.BASE_URL}images/screens/01_dashboard.jpg`}
-            alt="Dashboard"
-            className="absolute top-[5vh] left-[2vw] w-[120%] rounded-[1vw] shadow-2xl border border-slate-700/50"
-            initial={{ x: 100, y: 50, opacity: 0, rotateY: 20 }}
-            animate={{ x: 0, y: 0, opacity: 1, rotateY: -5 }}
-            transition={{ type: "spring", stiffness: 60, damping: 20, delay: 0.5 }}
-            style={{ transformPerspective: 1000 }}
-          />
-          <motion.img
-            src={`${import.meta.env.BASE_URL}images/screens/04_assignments.jpg`}
-            alt="Assignments"
-            className="absolute bottom-[5vh] -left-[2vw] w-[90%] rounded-[1vw] shadow-2xl border border-slate-700/50"
-            initial={{ x: 100, y: 100, opacity: 0, rotateY: 20 }}
-            animate={{ x: 0, y: 0, opacity: 1, rotateY: 5 }}
-            transition={{ type: "spring", stiffness: 60, damping: 20, delay: 2.0 }}
-            style={{ transformPerspective: 1000 }}
-          />
-        </div>
+        ))}
       </div>
+
+      <TikTokCaption delay={0.5}>
+        Why things go wrong—like <span className="text-red-400">black swans</span> and overfitting—<br/>
+        so you can turn predictions into actual decisions.
+      </TikTokCaption>
     </motion.div>
   );
 }

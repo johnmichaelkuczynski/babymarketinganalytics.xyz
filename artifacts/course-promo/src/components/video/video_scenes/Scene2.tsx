@@ -1,62 +1,70 @@
 import { motion } from 'framer-motion';
+import { TikTokCaption } from './TikTokCaption';
 
 export function Scene2() {
-  const cards = [
-    { title: '1 Day', subtitle: 'Crash Course', delay: 0.5 },
-    { title: '1 Week', subtitle: 'Deep Dive', delay: 1.0 },
-    { title: '1 Month', subtitle: 'Mastery', delay: 1.5 },
-  ];
-
+  const cards = ["Trend", "Seasonality", "Noise", "Regression", "Correlation vs Causation"];
+  
   return (
-    <motion.div
-      className="absolute inset-0 flex flex-col items-center justify-center bg-slate-50 overflow-hidden"
+    <motion.div 
+      className="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-[#F8F9FA] overflow-hidden"
       initial={{ opacity: 0, scale: 1.05 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.8 }}
     >
-      <motion.div
-        className="absolute top-0 w-full h-[50vh] bg-blue-600 rounded-b-[100%] scale-x-[2] -translate-y-[10vh] origin-top"
-        initial={{ scaleY: 0 }}
-        animate={{ scaleY: 1 }}
-        transition={{ duration: 1, ease: "circOut" }}
-      />
-
-      <motion.h2
-        className="text-[4vw] font-display font-bold text-white z-10 mb-[8vh] text-center"
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.3 }}
+      {/* Background Screenshot - Blurred & Parallax */}
+      <motion.div 
+        className="absolute inset-0 z-0 opacity-20"
+        initial={{ y: '10%' }}
+        animate={{ y: '-10%' }}
+        transition={{ duration: 10, ease: 'linear' }}
       >
-        Customize the way you learn
-      </motion.h2>
+        <img 
+          src={`${import.meta.env.BASE_URL}screenshots/lecture.jpg`} 
+          alt="Lecture Background" 
+          className="w-full h-full object-cover blur-md"
+        />
+      </motion.div>
 
-      <div className="flex gap-[4vw] z-10 mt-[4vh]">
-        {cards.map((card, i) => (
-          <motion.div
-            key={i}
-            className="w-[18vw] h-[45vh] bg-white rounded-[2vw] shadow-soft flex flex-col items-center justify-center border border-slate-100"
-            initial={{ y: 50, opacity: 0, rotate: -5 }}
-            animate={{ y: 0, opacity: 1, rotate: 0 }}
-            transition={{
-              type: 'spring',
-              stiffness: 100,
-              damping: 15,
-              delay: card.delay,
-            }}
-          >
-            <span className="text-[1vw] font-semibold text-blue-600 uppercase tracking-widest mb-[2vh]">
-              Certification
-            </span>
-            <span className="text-[3vw] font-display font-black text-slate-900 mb-[1vh]">
-              {card.title}
-            </span>
-            <span className="text-[1.3vw] text-slate-500 font-medium">
-              {card.subtitle}
-            </span>
-          </motion.div>
-        ))}
+      {/* Main Content Area */}
+      <div className="relative z-10 w-full h-full flex flex-col items-center pt-[15%]">
+        
+        <motion.div
+          className="w-[85%] bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200 mb-8"
+          initial={{ y: 40, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <img 
+            src={`${import.meta.env.BASE_URL}screenshots/lecture.jpg`} 
+            alt="Lecture" 
+            className="w-full h-auto object-cover object-top"
+          />
+        </motion.div>
+
+        {/* Floating Concept Tags */}
+        <div className="flex flex-wrap justify-center gap-3 w-[85%] mt-4 perspective-[1000px]">
+          {cards.map((text, i) => (
+            <motion.div
+              key={text}
+              className="bg-[#0F172A] text-white px-5 py-3 rounded-full shadow-lg border border-slate-700/50 whitespace-nowrap"
+              initial={{ opacity: 0, y: 30, rotateX: -30, scale: 0.8 }}
+              animate={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
+              transition={{ delay: 1.5 + i * 0.4, duration: 0.8, type: 'spring', stiffness: 200, damping: 20 }}
+            >
+              <span className="font-bold text-[3.5vw] tracking-wide" style={{ fontFamily: 'var(--font-display)' }}>
+                {text}
+              </span>
+            </motion.div>
+          ))}
+        </div>
       </div>
+
+      <TikTokCaption delay={0.5}>
+        We break down <span className="text-blue-400">what predictive analytics is</span>,<br/>
+        trend, seasonality, and noise.<br/>
+        You'll learn about regression, and <span className="text-blue-400">correlation vs causation</span>.
+      </TikTokCaption>
     </motion.div>
   );
 }

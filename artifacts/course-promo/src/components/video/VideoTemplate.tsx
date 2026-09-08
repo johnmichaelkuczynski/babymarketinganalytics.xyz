@@ -8,28 +8,25 @@ import { Scene4 } from './video_scenes/Scene4';
 import { Scene5 } from './video_scenes/Scene5';
 import { Scene6 } from './video_scenes/Scene6';
 import { Scene7 } from './video_scenes/Scene7';
-import { Scene8 } from './video_scenes/Scene8';
 
 export const SCENE_DURATIONS = {
-  s1_intro: 7500,
-  s2_formats: 8500,
-  s3_features: 10000,
-  s4_support: 10500,
-  s5_topics1: 5000,
-  s6_topics2: 3000,
-  s7_topics3: 4000,
-  s8_topics4: 7500
+  s1_intro: 6000,
+  s2_topics1: 10000,
+  s3_topics2: 12000,
+  s4_formats: 12000,
+  s5_cert: 7000,
+  s6_custom: 8000,
+  s7_outro: 5000,
 };
 
 const SCENE_COMPONENTS: Record<string, React.ComponentType> = {
   s1_intro: Scene1,
-  s2_formats: Scene2,
-  s3_features: Scene3,
-  s4_support: Scene4,
-  s5_topics1: Scene5,
-  s6_topics2: Scene6,
-  s7_topics3: Scene7,
-  s8_topics4: Scene8
+  s2_topics1: Scene2,
+  s3_topics2: Scene3,
+  s4_formats: Scene4,
+  s5_cert: Scene5,
+  s6_custom: Scene6,
+  s7_outro: Scene7,
 };
 
 const SCENE_START_SEC: Record<string, number> = (() => {
@@ -83,18 +80,18 @@ export default function VideoTemplate({
   }, [currentSceneKey, baseSceneKey, muted]);
 
   return (
-    <div className="w-full h-screen overflow-hidden relative bg-slate-50 text-slate-900" style={{ fontFamily: 'var(--font-body)' }}>
-      {/* Persistent Background Layer (Very subtle for clean UI shots) */}
+    <div className="w-full h-screen overflow-hidden relative bg-[#F8F9FA] text-[#0F172A]" style={{ fontFamily: 'var(--font-body)' }}>
+      {/* Persistent Background Layer */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <motion.div
-          className="absolute w-[80vw] h-[80vw] rounded-full opacity-[0.03] blur-3xl"
-          style={{ background: 'radial-gradient(circle, var(--color-primary), transparent)' }}
+          className="absolute w-[120vw] h-[120vw] rounded-full opacity-[0.04] blur-3xl"
+          style={{ background: 'radial-gradient(circle, #3B82F6, transparent)' }}
           animate={{ x: ['-20%', '30%', '-10%'], y: ['-10%', '40%', '-20%'], scale: [1, 1.2, 0.9] }}
           transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
-          className="absolute w-[60vw] h-[60vw] rounded-full opacity-[0.02] blur-3xl right-0 bottom-0"
-          style={{ background: 'radial-gradient(circle, var(--color-accent), transparent)' }}
+          className="absolute w-[100vw] h-[100vw] rounded-full opacity-[0.03] blur-3xl right-0 bottom-0"
+          style={{ background: 'radial-gradient(circle, #0F172A, transparent)' }}
           animate={{ x: ['20%', '-20%', '10%'], y: ['10%', '-30%', '20%'] }}
           transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
         />

@@ -59,3 +59,34 @@ uri = "file://artifacts/course-promo/public/audio/voiceover.mp3"
 type = "audio"
 title = "Basic Predictive Analytics promotional narration"
 description = "Text-to-speech audio: Data analytics is hard—but you have to know it. We make it easy, offering one-day, one-week, and one-month certification courses that let you customize the way you learn. Thanks…"
+logical_id = "b0dffa25-6961-46e2-b219-5c10118400df"
+
+[[outputs]]
+id = "iLX4rgtYevGBglianEZJc"
+uri = "file://artifacts/course-promo/public/audio/voiceover_2.mp3"
+type = "audio"
+title = "friendly male tiktok course promo"
+description = "Text-to-speech audio: babypredictiveanalytics.xyz. Welcome to our four-to-six-hour course on Basic Predictive Analytics. We break down what predictive analytics is, explaining trend, seasonality, and…"
+logical_id = "797722bb-b79d-415f-89ad-2b10afa457e8"
+
+[[outputs]]
+id = "KyZ5lVxziSsa4z6lXmFxF"
+uri = "file://artifacts/course-promo/public/audio/voiceover_3.mp3"
+type = "audio"
+title = "friendly male tiktok course promo synced"
+description = "Text-to-speech audio: babypredictiveanalytics.xyz. Welcome to our four-to-six-hour course on Basic Predictive Analytics. We break down what predictive analytics is, explaining trend, seasonality, and…"
+logical_id = "bb2b93aa-5fd0-4735-80ed-8d2214af3917"
+
+[[outputs]]
+id = "aVEuFz3PyyXYqN5FEgJPO"
+uri = "file://artifacts/course-promo/TIKTOK_DESCRIPTION.md"
+type = "text"
+title = "TikTok Description"
+description = "Ready-to-post caption for the Basic Predictive Analytics TikTok promo."
+logical_id = "bd0038d2-5776-45f7-aef6-96c42db2b244"
+content_hash = "sha256:7bb01c859659529cc29440a7919d3641d781017fa954a392c90e8d5d42991101"
+size = 751
+mtime_ms = 1788902152321
+storage_uri = "gcs://replit-rams-assets-spock/rams/assets/repl:ed01b486-bd27-479f-a414-3c0170fc95d3/bd0038d2-5776-45f7-aef6-96c42db2b244/0bbb1a15-a8f6-44a0-8bd5-e260c79c5151"
+storage_version_token = "1788902748300061"
+content_type = "text/markdown"

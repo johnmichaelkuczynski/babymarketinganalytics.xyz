@@ -1,50 +1,56 @@
 import { motion } from 'framer-motion';
+import { TikTokCaption } from './TikTokCaption';
 
 export function Scene7() {
   return (
-    <motion.div
-      className="absolute inset-0 flex items-center justify-center bg-slate-50 overflow-hidden"
-      initial={{ opacity: 1 }}
+    <motion.div 
+      className="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-[#F8F9FA] overflow-hidden"
+      initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
     >
-      <div className="absolute inset-0 grid grid-cols-2">
-        <div className="relative p-[5vw] flex flex-col justify-center">
-          <motion.div
-            className="w-[4vw] h-[0.5vh] bg-blue-600 mb-[4vh]"
-            initial={{ scaleX: 1, originX: 0 }}
-            animate={{ scaleX: 1 }}
-          />
-          <motion.h3
-            className="text-[3.5vw] font-display font-bold text-slate-900 mb-[2vh]"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            Forecasting Methods
-          </motion.h3>
-          <motion.p
-            className="text-[2.2vw] text-slate-500 font-medium"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            Error and Accuracy
-          </motion.p>
+      <motion.div
+        className="absolute inset-0 z-0 opacity-10"
+        initial={{ scale: 1.1 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 5, ease: 'easeOut' }}
+      >
+        <img 
+          src={`${import.meta.env.BASE_URL}screenshots/dashboard.jpg`} 
+          alt="Dashboard Background" 
+          className="w-full h-full object-cover blur-xl"
+        />
+      </motion.div>
+
+      <motion.div 
+        className="relative z-20 flex flex-col items-center justify-center w-full px-8"
+        initial={{ scale: 0.9, opacity: 0, y: 20 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <div className="w-[20vw] h-[20vw] bg-white rounded-3xl shadow-lg flex items-center justify-center p-4 mb-8">
+          <img src={`${import.meta.env.BASE_URL}images/zhi_logo.png`} alt="ZHI" className="w-full h-auto object-contain" />
         </div>
         
-        <div className="relative h-full bg-blue-900">
-          <motion.img
-            src={`${import.meta.env.BASE_URL}images/screens/07_diagnostics.jpg`}
-            className="absolute inset-0 w-full h-full object-cover object-left-top"
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          />
-          <div className="absolute inset-0 shadow-[inset_20px_0_40px_rgba(0,0,0,0.2)] pointer-events-none" />
-        </div>
-      </div>
+        <h2 className="text-[#0F172A] font-bold text-[8vw] mb-6 text-center leading-tight tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>
+          Start learning today
+        </h2>
+
+        <motion.div 
+          className="bg-blue-600 px-8 py-5 rounded-full shadow-[0_15px_30px_-10px_rgba(59,130,246,0.6)] w-auto max-w-[90%] flex justify-center"
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <span className="text-white font-bold text-[4.5vw] tracking-tight whitespace-nowrap" style={{ fontFamily: 'var(--font-display)' }}>
+            babypredictiveanalytics.xyz
+          </span>
+        </motion.div>
+      </motion.div>
+
+      <TikTokCaption delay={0.5}>
+        Start learning now at<br/>
+        <span className="text-blue-400">babypredictiveanalytics.xyz</span>
+      </TikTokCaption>
     </motion.div>
   );
 }
